@@ -134,6 +134,8 @@ MVP Scope (2–3 days)
 
 - Leverage agent-sdk auto-assign workflow (assign-reviews.yml) in repos lacking auto-assign; dashboard should flag repos without it and link to workflow.
 - Consider an optional "Run Agent" button for admins that triggers a workflow_dispatch event (no default writes from dashboard).
+- Between MVP and Phase 2: Add OpenHands Co-Author Analysis (see OH-coauthor.md) to detect PRs co-authored by OpenHands (supports openhands@all-hands.dev and openhands@openhands.dev).
+
 
 Phase 2 Scope (3–5 days)
 - My Review Queue with SLA sorting
