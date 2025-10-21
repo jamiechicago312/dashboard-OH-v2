@@ -59,6 +59,27 @@ Lightweight Architecture
 - Caching: 60–300s server cache + client SWR revalidation (borrow approach from github-dashboard-OH)
 - Deploy: Vercel or simple Node host; local dev uses .env.local with GITHUB_TOKEN
 
+
+Data Sources for Employee Exclusion
+- Prefer GraphQL: organization(login: "All-Hands-AI") { membersWithRole(first: 100) { nodes { login } } } with pagination to build an in-memory employee set.
+- Fallback REST: GET https://api.github.com/orgs/All-Hands-AI/members (paginated) to build employees list.
+- Augment with config/employees.json to include contractors or non-org maintainers. Final isEmployee = in(OrgMembers ∪ employees.json) with allowlist/denylist overrides.
+
+- Optional Agent SDK: use OpenHands Agent SDK in a GitHub Action to auto-assign/massage reviewer queues (e.g., missing reviewers, stale PR nudges). Dashboard should surface compliance and outcomes, not perform writes by default.
+
+Data Persistence (Neon optional)
+- MVP: no database; rely on GitHub APIs plus short-lived server cache.
+- If adopting Neon, add DATABASE_URL to env and use a lightweight ORM/query builder (Drizzle/Prisma) or direct pg; keep writes server-only.
+
+- Add Neon Postgres when you need persistent history (30/90-day trends, SLA audits, Slack digests, reviewer fairness over time).
+- Minimal schema:
+  - pull_requests(repo, number, author_login, is_employee, created_at, first_human_response_at, first_review_at, state, updated_at)
+  - reviews(pr_repo, pr_number, reviewer_login, state, submitted_at)
+  - events(pr_repo, pr_number, type, actor_login, created_at)
+  - snapshots(day, open_community_prs, median_tffr, median_ttfr, reviewer_load_json)
+- Ingest cadence: cron (GitHub Actions or server) hits an /api/ingest endpoint; upsert by (repo, number); use ETags/If-Modified-Since to limit API calls.
+- Cost/perf: Neon serverless is typically sufficient; use connection pooling and short transactions.
+
 Configuration
 - Orgs/Repos scope: configurable list (e.g., OpenHands, All-Hands-AI) and explicit repos to include/exclude
 - Employees list: config/employees.json to identify internal vs community authors across org transitions
@@ -74,6 +95,9 @@ Data Model (per PR)
 - Status: needsFirstResponse, overdueFirstResponse, overdueFirstReview, waitingOnAuthor
 
 Detection Rules
+  - GET /orgs/{org}/teams (to map team reviewers if needed)
+  - GET /orgs/{org}/members or use GraphQL org membership to exclude employees
+
 - Community PR: authorAssociation != MEMBER or author not in employees list
 - Human response: earliest of review submission, maintainer comment, label change by maintainer
 - Overdue: createdAt + SLA threshold < now and no corresponding first event
@@ -90,6 +114,8 @@ GitHub Data Sources
   - GET /orgs/{org}/members (for membership snapshot if needed)
   - GET /repos/{owner}/{repo}/pulls?state=open&per_page=100
   - GET /repos/{owner}/{repo}/pulls/{number}/reviews
+  - GET /rate_limit (monitor remaining and reset to inform caching and polling)
+
 - Rate limiting: monitor GET /rate_limit; store remaining/reset in API responses
 
 UI Outline
@@ -106,6 +132,9 @@ MVP Scope (2–3 days)
 - Basic fairness indicator: active assignments per reviewer (current open PRs)
 - Simple in-memory cache (per deploy) + SWR on client
 
+- Leverage agent-sdk auto-assign workflow (assign-reviews.yml) in repos lacking auto-assign; dashboard should flag repos without it and link to workflow.
+- Consider an optional "Run Agent" button for admins that triggers a workflow_dispatch event (no default writes from dashboard).
+
 Phase 2 Scope (3–5 days)
 - My Review Queue with SLA sorting
 - Load balance chart + outlier detection
@@ -114,9 +143,17 @@ Phase 2 Scope (3–5 days)
 
 Adoption Notes (from team conversation)
 - Encourage daily pass through Assigned Reviews page; dashboard should reflect compliance transparently
+- If using Neon, add DATABASE_URL
+
 - Balance review load so no single person carries a disproportional number of reviews
 - Emphasize visibility into community PRs; highlight those not originated by OpenHands employees
 - Automatic assignment alone isn’t enough—pair with monitoring + digest to cut through GitHub notification noise
+Excluding OpenHands Developers
+- Source of truth: All-Hands-AI org members page (GraphQL or REST). Cache this list server-side for 5–15 minutes.
+- Compute isEmployee(login): in OrgMembers or in employees.json overrides.
+- Treat bots separately: exclude bot accounts from both community and employee tallies.
+- Community PR = author not isEmployee and not bot.
+
 
 Success Criteria
 - 90%+ community PRs receive a human response within SLA over 4 weeks
@@ -128,12 +165,19 @@ Risks and Mitigations
 - Rate limits: use GraphQL batching + short caches, show remaining quota in debug
 - Employee detection accuracy: combine org membership + employees.json, allow manual overrides
 - Org transition: support multiple orgs concurrently via config
+Agent SDK Integration (optional)
+- Scope: Use agent-sdk jobs to auto-assign reviewers, nudge stale PRs, and suggest reassignment when overloaded.
+- Separation of concerns: dashboard remains read-only; actions happen via GitHub Actions using agent-sdk. Link to logs and runs from dashboard.
+- Safety: restrict agent actions to approved repos; require workflow_dispatch by admins for manual runs; scheduled run 1x/day for automation.
+
 - Notification fatigue: single daily digest by default; allow opt-out and thresholds
 
 Implementation Hints (reuse from github-dashboard-OH)
 - SWR on client, short server cache, dark/light theme, KPI cards and charts
 - Secure token in server routes only; never expose to client
 - Add /api/test for quick verification
+- Exclude employees using org membership set built at server start with periodic refresh; expose /api/config/employees for debugging.
+
 
 Example API Shape (internal)
 - GET /api/dashboard -> { kpis, prs: [...], reviewers: {...} }
