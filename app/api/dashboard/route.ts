@@ -22,6 +22,7 @@ export async function GET(request: NextRequest) {
     const reposParam = searchParams.get('repos');
     const labelsParam = searchParams.get('labels');
     const ageParam = searchParams.get('age');
+    const statusParam = searchParams.get('status');
     
     // Parse filters
     const targetRepos = reposParam 
@@ -39,7 +40,8 @@ export async function GET(request: NextRequest) {
       orgs: config.orgs, 
       repos: targetRepos, 
       labels: labelFilters, 
-      age: ageParam 
+      age: ageParam,
+      status: statusParam
     })}`;
     
     // Temporarily bypass cache for debugging
@@ -111,6 +113,22 @@ export async function GET(request: NextRequest) {
             pr.ageHours >= range[0] && pr.ageHours < range[1]
           );
         }
+      }
+      
+      // Apply status filter if provided
+      if (statusParam && statusParam !== 'all') {
+        filteredPrs = filteredPrs.filter(pr => {
+          switch (statusParam) {
+            case 'needs-review':
+              return pr.needsFirstResponse || (!pr.firstReviewAt && !pr.isDraft);
+            case 'changes-requested':
+              return pr.reviews.some(review => review.state === 'CHANGES_REQUESTED');
+            case 'approved':
+              return pr.reviews.some(review => review.state === 'APPROVED');
+            default:
+              return true;
+          }
+        });
       }
       
       // Compute dashboard data based on all PRs (not just filtered ones)

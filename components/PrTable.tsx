@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { PR } from '@/lib/types';
 import Badge from './Badge';
 
@@ -7,7 +8,62 @@ interface PrTableProps {
   darkMode?: boolean;
 }
 
+type SortField = 'title' | 'author' | 'age' | 'created';
+type SortDirection = 'asc' | 'desc';
+
 export default function PrTable({ prs, loading = false, darkMode = false }: PrTableProps) {
+  const [sortField, setSortField] = useState<SortField>('age');
+  const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
+
+  const handleSort = (field: SortField) => {
+    if (sortField === field) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortField(field);
+      setSortDirection('desc');
+    }
+  };
+
+  const sortedPrs = [...prs].sort((a, b) => {
+    let aValue: any;
+    let bValue: any;
+
+    switch (sortField) {
+      case 'title':
+        aValue = a.title.toLowerCase();
+        bValue = b.title.toLowerCase();
+        break;
+      case 'author':
+        aValue = a.authorLogin.toLowerCase();
+        bValue = b.authorLogin.toLowerCase();
+        break;
+      case 'age':
+        aValue = a.ageHours;
+        bValue = b.ageHours;
+        break;
+      case 'created':
+        aValue = new Date(a.createdAt).getTime();
+        bValue = new Date(b.createdAt).getTime();
+        break;
+      default:
+        return 0;
+    }
+
+    if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
+    if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  const SortIcon = ({ field }: { field: SortField }) => {
+    if (sortField !== field) {
+      return <span className={`ml-1 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>↕</span>;
+    }
+    return (
+      <span className={`ml-1 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+        {sortDirection === 'asc' ? '↑' : '↓'}
+      </span>
+    );
+  };
   if (loading) {
     return (
       <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg p-6`}>
@@ -52,14 +108,32 @@ export default function PrTable({ prs, loading = false, darkMode = false }: PrTa
       <table className={`min-w-full divide-y ${darkMode ? 'divide-gray-600' : 'divide-gray-200'}`}>
         <thead className={`${darkMode ? 'bg-gray-700' : 'bg-gray-50'}`}>
           <tr>
-            <th className={`px-4 py-3 text-left text-xs font-medium uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-500'}`}>
-              PR
+            <th 
+              className={`px-4 py-3 text-left text-xs font-medium uppercase tracking-wider cursor-pointer hover:bg-opacity-75 ${darkMode ? 'text-gray-300 hover:bg-gray-600' : 'text-gray-500 hover:bg-gray-100'}`}
+              onClick={() => handleSort('title')}
+            >
+              <div className="flex items-center">
+                PR
+                <SortIcon field="title" />
+              </div>
             </th>
-            <th className={`px-4 py-3 text-left text-xs font-medium uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-500'}`}>
-              Author
+            <th 
+              className={`px-4 py-3 text-left text-xs font-medium uppercase tracking-wider cursor-pointer hover:bg-opacity-75 ${darkMode ? 'text-gray-300 hover:bg-gray-600' : 'text-gray-500 hover:bg-gray-100'}`}
+              onClick={() => handleSort('author')}
+            >
+              <div className="flex items-center">
+                Author
+                <SortIcon field="author" />
+              </div>
             </th>
-            <th className={`px-4 py-3 text-left text-xs font-medium uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-500'}`}>
-              Age
+            <th 
+              className={`px-4 py-3 text-left text-xs font-medium uppercase tracking-wider cursor-pointer hover:bg-opacity-75 ${darkMode ? 'text-gray-300 hover:bg-gray-600' : 'text-gray-500 hover:bg-gray-100'}`}
+              onClick={() => handleSort('age')}
+            >
+              <div className="flex items-center">
+                Age
+                <SortIcon field="age" />
+              </div>
             </th>
             <th className={`px-4 py-3 text-left text-xs font-medium uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-500'}`}>
               Status
@@ -70,7 +144,7 @@ export default function PrTable({ prs, loading = false, darkMode = false }: PrTa
           </tr>
         </thead>
         <tbody className={`divide-y ${darkMode ? 'divide-gray-600' : 'divide-gray-200'}`}>
-            {prs.map((pr) => (
+            {sortedPrs.map((pr) => (
               <tr key={`${pr.repo}-${pr.number}`} className={`${darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-50'}`}>
                 <td className="px-4 py-3">
                   <div className="flex flex-col">

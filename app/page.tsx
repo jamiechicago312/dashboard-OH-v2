@@ -14,23 +14,33 @@ export default function Dashboard() {
   const [filters, setFilters] = useState<FilterState>({
     repositories: [],
     labels: [],
-    ageRange: 'all'
+    ageRange: 'all',
+    status: 'all'
+  })
+  const [appliedFilters, setAppliedFilters] = useState<FilterState>({
+    repositories: [],
+    labels: [],
+    ageRange: 'all',
+    status: 'all'
   })
 
-  const fetchData = async () => {
+  const fetchData = async (filtersToApply = appliedFilters) => {
     try {
       setLoading(true)
       setError(null)
       
       const params = new URLSearchParams()
-      if (filters.repositories.length > 0) {
-        params.append('repositories', filters.repositories.join(','))
+      if (filtersToApply.repositories.length > 0) {
+        params.append('repositories', filtersToApply.repositories.join(','))
       }
-      if (filters.labels.length > 0) {
-        params.append('labels', filters.labels.join(','))
+      if (filtersToApply.labels.length > 0) {
+        params.append('labels', filtersToApply.labels.join(','))
       }
-      if (filters.ageRange !== 'all') {
-        params.append('ageRange', filters.ageRange)
+      if (filtersToApply.ageRange !== 'all') {
+        params.append('age', filtersToApply.ageRange)
+      }
+      if (filtersToApply.status && filtersToApply.status !== 'all') {
+        params.append('status', filtersToApply.status)
       }
 
       const response = await fetch(`/api/dashboard?${params}`)
@@ -50,7 +60,24 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchData()
-  }, [filters])
+  }, [])
+
+  const handleApplyFilters = () => {
+    setAppliedFilters(filters)
+    fetchData(filters)
+  }
+
+  const handleClearFilters = () => {
+    const clearedFilters = {
+      repositories: [],
+      labels: [],
+      ageRange: 'all',
+      status: 'all'
+    }
+    setFilters(clearedFilters)
+    setAppliedFilters(clearedFilters)
+    fetchData(clearedFilters)
+  }
 
   const handleRefresh = () => {
     fetchData()
@@ -214,7 +241,7 @@ export default function Dashboard() {
         <section className="py-6">
           <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg p-5 shadow-sm`}>
             <h3 className={`text-sm font-semibold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Filters</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
               <div className="flex flex-col">
                 <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Repository</label>
                 <RepositorySelector
@@ -264,17 +291,45 @@ export default function Dashboard() {
               
               <div className="flex flex-col">
                 <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Status</label>
-                <select className={`px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
-                  darkMode 
-                    ? 'bg-gray-700 border-gray-600 text-white' 
-                    : 'bg-white border-gray-300 text-gray-900'
-                }`}>
-                  <option>All Status</option>
-                  <option>Needs Review</option>
-                  <option>Changes Requested</option>
-                  <option>Approved</option>
+                <select 
+                  className={`px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    darkMode 
+                      ? 'bg-gray-700 border-gray-600 text-white' 
+                      : 'bg-white border-gray-300 text-gray-900'
+                  }`}
+                  value={filters.status || 'all'}
+                  onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value }))}
+                >
+                  <option value="all">All Status</option>
+                  <option value="needs-review">Needs Review</option>
+                  <option value="changes-requested">Changes Requested</option>
+                  <option value="approved">Approved</option>
                 </select>
               </div>
+            </div>
+            
+            {/* Filter Action Buttons */}
+            <div className="flex gap-3 pt-2">
+              <button
+                onClick={handleApplyFilters}
+                className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
+                  darkMode
+                    ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                    : 'bg-blue-600 hover:bg-blue-700 text-white'
+                } focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+              >
+                Apply Filters
+              </button>
+              <button
+                onClick={handleClearFilters}
+                className={`px-4 py-2 text-sm font-medium rounded-md border transition-colors ${
+                  darkMode
+                    ? 'border-gray-600 text-gray-300 hover:bg-gray-700'
+                    : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                } focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+              >
+                Clear All
+              </button>
             </div>
           </div>
         </section>

@@ -71,6 +71,7 @@ export type FilterState = {
   repositories: string[];
   labels: string[];
   ageRange: string;
+  status?: string;
 };
 
 export type Reviewer = {
