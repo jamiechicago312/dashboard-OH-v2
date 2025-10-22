@@ -37,7 +37,7 @@ export default function Dashboard() {
       
       const params = new URLSearchParams()
       if (filtersToApply.repositories.length > 0) {
-        params.append('repositories', filtersToApply.repositories.join(','))
+        params.append('repos', filtersToApply.repositories.join(','))
       }
       if (filtersToApply.labels.length > 0) {
         params.append('labels', filtersToApply.labels.join(','))
@@ -121,8 +121,14 @@ export default function Dashboard() {
             <div className="flex items-center gap-4">
               <RepositorySelector
                 value={filters.repositories}
-                onChange={(repos) => setFilters(prev => ({ ...prev, repositories: repos }))}
+                onChange={(repos) => {
+                  const newFilters = { ...filters, repositories: repos }
+                  setFilters(newFilters)
+                  setAppliedFilters(newFilters)
+                  fetchData(newFilters)
+                }}
                 className="min-w-[200px]"
+                darkMode={darkMode}
               />
               <button 
                 onClick={() => setDarkMode(!darkMode)}
@@ -259,12 +265,17 @@ export default function Dashboard() {
         <section className="py-6">
           <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg p-5 shadow-sm`}>
             <h3 className={`text-sm font-semibold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Filters</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-4 mb-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-4">
               <div className="flex flex-col">
                 <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Repository</label>
                 <RepositorySelector
                   value={filters.repositories}
-                  onChange={(repos) => setFilters(prev => ({ ...prev, repositories: repos }))}
+                  onChange={(repos) => {
+                    const newFilters = { ...filters, repositories: repos }
+                    setFilters(newFilters)
+                    setAppliedFilters(newFilters)
+                    fetchData(newFilters)
+                  }}
                   className="w-full"
                   darkMode={darkMode}
                 />
@@ -326,6 +337,28 @@ export default function Dashboard() {
               </div>
               
               <div className="flex flex-col">
+                <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Draft Status</label>
+                <select 
+                  className={`px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    darkMode 
+                      ? 'bg-gray-700 border-gray-600 text-white' 
+                      : 'bg-white border-gray-300 text-gray-900'
+                  }`}
+                  value={filters.draftStatus || 'all'}
+                  onChange={(e) => {
+                    const newFilters = { ...filters, draftStatus: e.target.value }
+                    setFilters(newFilters)
+                    setAppliedFilters(newFilters)
+                    fetchData(newFilters)
+                  }}
+                >
+                  <option value="all">All PRs</option>
+                  <option value="drafts">Only Drafts</option>
+                  <option value="final">No Drafts (Final)</option>
+                </select>
+              </div>
+              
+              <div className="flex flex-col">
                 <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Reviewers</label>
                 <div className="flex items-center h-[38px]">
                   <input
@@ -342,41 +375,6 @@ export default function Dashboard() {
                     No reviewers assigned
                   </label>
                 </div>
-              </div>
-              
-              <div className="flex flex-col">
-                <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Limit</label>
-                <select 
-                  className={`px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
-                    darkMode 
-                      ? 'bg-gray-700 border-gray-600 text-white' 
-                      : 'bg-white border-gray-300 text-gray-900'
-                  }`}
-                  value={filters.limit || 'all'}
-                  onChange={(e) => setFilters(prev => ({ ...prev, limit: e.target.value }))}
-                >
-                  <option value="all">All PRs</option>
-                  <option value="12">12 PRs</option>
-                  <option value="36">36 PRs</option>
-                  <option value="96">96 PRs</option>
-                </select>
-              </div>
-              
-              <div className="flex flex-col">
-                <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Draft Status</label>
-                <select 
-                  className={`px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
-                    darkMode 
-                      ? 'bg-gray-700 border-gray-600 text-white' 
-                      : 'bg-white border-gray-300 text-gray-900'
-                  }`}
-                  value={filters.draftStatus || 'all'}
-                  onChange={(e) => setFilters(prev => ({ ...prev, draftStatus: e.target.value }))}
-                >
-                  <option value="all">All PRs</option>
-                  <option value="drafts">Only Drafts</option>
-                  <option value="final">No Drafts (Final)</option>
-                </select>
               </div>
             </div>
             
@@ -409,8 +407,30 @@ export default function Dashboard() {
         {/* PR Table Section */}
         <section className="py-6">
           <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg shadow-sm overflow-hidden`}>
-            <div className={`px-5 py-4 border-b ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'}`}>
+            <div className={`px-5 py-4 border-b ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'} flex justify-between items-center`}>
               <h3 className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>Community Pull Requests</h3>
+              <div className="flex items-center gap-2">
+                <label className={`text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Limit:</label>
+                <select 
+                  className={`px-3 py-1.5 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    darkMode 
+                      ? 'bg-gray-600 border-gray-500 text-white' 
+                      : 'bg-white border-gray-300 text-gray-900'
+                  }`}
+                  value={filters.limit || 'all'}
+                  onChange={(e) => {
+                    const newFilters = { ...filters, limit: e.target.value }
+                    setFilters(newFilters)
+                    setAppliedFilters(newFilters)
+                    fetchData(newFilters)
+                  }}
+                >
+                  <option value="all">All PRs</option>
+                  <option value="12">12 PRs</option>
+                  <option value="36">36 PRs</option>
+                  <option value="96">96 PRs</option>
+                </select>
+              </div>
             </div>
             <div className="overflow-x-auto">
               <PrTable prs={data?.prs || []} darkMode={darkMode} />
