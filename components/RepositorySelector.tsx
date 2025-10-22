@@ -15,9 +15,10 @@ interface RepositorySelectorProps {
   value: string[]
   onChange: (repos: string[]) => void
   className?: string
+  darkMode?: boolean
 }
 
-export default function RepositorySelector({ value, onChange, className = '' }: RepositorySelectorProps) {
+export default function RepositorySelector({ value, onChange, className = '', darkMode = false }: RepositorySelectorProps) {
   const [repositories, setRepositories] = useState<Repository[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -85,13 +86,19 @@ export default function RepositorySelector({ value, onChange, className = '' }: 
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 flex items-center justify-between"
+        className={`w-full border rounded-md px-3 py-2 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 flex items-center justify-between ${
+          darkMode 
+            ? 'bg-gray-700 border-gray-600 text-white' 
+            : 'bg-white border-gray-300 text-gray-900'
+        }`}
       >
-        <span className="block truncate text-gray-900">
+        <span className="block truncate">
           {getDisplayText()}
         </span>
         <svg
-          className={`h-5 w-5 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          className={`h-5 w-5 transition-transform ${isOpen ? 'rotate-180' : ''} ${
+            darkMode ? 'text-gray-400' : 'text-gray-400'
+          }`}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
@@ -105,22 +112,28 @@ export default function RepositorySelector({ value, onChange, className = '' }: 
       </button>
 
       {isOpen && (
-        <div className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none">
+        <div className={`absolute z-10 mt-1 w-full shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-opacity-5 overflow-auto focus:outline-none ${
+          darkMode 
+            ? 'bg-gray-800 ring-gray-600' 
+            : 'bg-white ring-black'
+        }`}>
           {loading ? (
-            <div className="px-3 py-2 text-gray-700">Loading repositories...</div>
+            <div className={`px-3 py-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Loading repositories...</div>
           ) : error ? (
             <div className="px-3 py-2 text-red-600">Error: {error}</div>
           ) : (
             <>
               <div
-                className="cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-gray-50"
+                className={`cursor-pointer select-none relative py-2 pl-3 pr-9 ${
+                  darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
+                }`}
                 onClick={() => {
                   onChange([])
                   setIsOpen(false)
                 }}
               >
                 <div className="flex items-center">
-                  <span className="font-normal block truncate text-gray-900">All Repositories</span>
+                  <span className={`font-normal block truncate ${darkMode ? 'text-white' : 'text-gray-900'}`}>All Repositories</span>
                   {value.length === 0 && (
                     <span className="text-blue-600 absolute inset-y-0 right-0 flex items-center pr-4">
                       <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -134,16 +147,18 @@ export default function RepositorySelector({ value, onChange, className = '' }: 
               {repositories.map((repo) => (
                 <div
                   key={repo.id}
-                  className="cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-gray-50"
+                  className={`cursor-pointer select-none relative py-2 pl-3 pr-9 ${
+                    darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
+                  }`}
                   onClick={() => handleRepositoryToggle(repo.full_name)}
                 >
                   <div className="flex items-center">
                     <div className="flex-1 min-w-0">
-                      <span className="font-medium block truncate text-gray-900">{repo.full_name}</span>
+                      <span className={`font-medium block truncate ${darkMode ? 'text-white' : 'text-gray-900'}`}>{repo.full_name}</span>
                       {repo.description && (
-                        <span className="text-gray-600 text-sm block truncate">{repo.description}</span>
+                        <span className={`text-sm block truncate ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{repo.description}</span>
                       )}
-                      <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
+                      <div className={`flex items-center gap-2 text-xs mt-1 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
                         {repo.language && (
                           <span className="flex items-center gap-1">
                             <span className="w-2 h-2 rounded-full bg-blue-500"></span>

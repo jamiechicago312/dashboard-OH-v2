@@ -93,129 +93,206 @@ export default function Dashboard() {
       <div className="max-w-7xl mx-auto px-5">
         {/* KPI Section - Matching wireframe layout */}
         <section className="py-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4 uppercase tracking-wide text-sm">
+          <h2 className={`text-xl font-semibold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
             Key Performance Indicators
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
-              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+            <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg p-5 shadow-sm`}>
+              <h3 className={`text-xs font-semibold uppercase tracking-wide mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                 Community PRs Open
               </h3>
-              <div className="text-3xl font-bold text-gray-900 mb-1">
+              <div className={`text-3xl font-bold mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                 {data?.kpis.openCommunityPrs || 0}
               </div>
-              <div className="text-xs text-gray-500">Non-employee authored</div>
+              <div className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>Non-employee authored</div>
             </div>
             
-            <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
-              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+            <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg p-5 shadow-sm`}>
+              <h3 className={`text-xs font-semibold uppercase tracking-wide mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                 % Community PRs
               </h3>
-              <div className="text-3xl font-bold text-gray-900 mb-1">
+              <div className={`text-3xl font-bold mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                 {data?.kpis.communityPrPercentage || '0%'}
               </div>
-              <div className="text-xs text-gray-500">Of all open PRs</div>
+              <div className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>Of all open PRs</div>
             </div>
             
-            <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
-              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+            <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg p-5 shadow-sm`}>
+              <h3 className={`text-xs font-semibold uppercase tracking-wide mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                 Median Time to First Response
               </h3>
-              <div className="text-3xl font-bold text-gray-900 mb-1">
+              <div className={`text-3xl font-bold mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                 {data?.kpis.medianResponseTime || 'N/A'}
               </div>
-              <div className="text-xs text-gray-500">Target: ≤24h</div>
+              <div className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>Target: ≤24h</div>
             </div>
             
-            <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
-              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+            <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg p-5 shadow-sm`}>
+              <h3 className={`text-xs font-semibold uppercase tracking-wide mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                 Assigned Reviewer Compliance
               </h3>
-              <div className="text-3xl font-bold text-gray-900 mb-1">
+              <div className={`text-3xl font-bold mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                 {data?.kpis.reviewerCompliance || '0%'}
               </div>
-              <div className="text-xs text-gray-500">PRs with assigned reviewers</div>
+              <div className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>PRs with assigned reviewers</div>
             </div>
           </div>
         </section>
 
         {/* Review Accountability Section - Matching wireframe */}
         <section className="py-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4 uppercase tracking-wide text-sm">
+          <h2 className={`text-xl font-semibold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
             Review Accountability
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
-              <h3 className="text-sm font-semibold text-gray-900 mb-2">Current Review Load</h3>
-              <div className="text-3xl font-bold text-gray-900 mb-1">
+            <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg p-5 shadow-sm`}>
+              <h3 className={`text-sm font-semibold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Current Review Load</h3>
+              <div className={`text-3xl font-bold mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                 {data?.kpis.pendingReviews || 0}
               </div>
-              <div className="text-xs text-gray-500">Total pending review requests</div>
+              <div className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>Total pending review requests</div>
             </div>
             
-            <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
-              <h3 className="text-sm font-semibold text-gray-900 mb-2">Top Pending Reviewers</h3>
+            <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg p-5 shadow-sm`}>
+              <h3 className={`text-sm font-semibold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Top Pending Reviewers</h3>
               <ul className="space-y-2 mt-3">
                 {data?.reviewers?.slice(0, 4).map((reviewer, index) => (
-                  <li key={index} className="flex justify-between items-center py-2 border-b border-gray-100 last:border-b-0">
-                    <span className="font-medium text-sm">{reviewer.name}</span>
+                  <li key={index} className={`flex justify-between items-center py-2 border-b last:border-b-0 ${darkMode ? 'border-gray-600' : 'border-gray-100'}`}>
+                    <span className={`font-medium text-sm ${darkMode ? 'text-white' : 'text-gray-900'}`}>{reviewer.name}</span>
                     <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
                       {reviewer.pendingCount}
                     </span>
                   </li>
                 )) || (
-                  <li className="text-gray-500 text-sm">No pending reviewers</li>
+                  <li className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>No pending reviewers</li>
                 )}
               </ul>
             </div>
             
-            <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
-              <h3 className="text-sm font-semibold text-gray-900 mb-2">PRs Without Reviewers</h3>
-              <div className="text-3xl font-bold text-gray-900 mb-1">
+            <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg p-5 shadow-sm`}>
+              <h3 className={`text-sm font-semibold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>PRs Without Reviewers</h3>
+              <div className={`text-3xl font-bold mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                 {data?.kpis.prsWithoutReviewers || 0}
               </div>
-              <div className="text-xs text-gray-500">Need reviewer assignment</div>
+              <div className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>Need reviewer assignment</div>
             </div>
           </div>
         </section>
 
-        {/* Fairness Indicator Section - From wireframe */}
+        {/* Review Load Distribution Section - Matching wireframe exactly */}
         <section className="py-6">
-          <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
-            <h3 className="text-sm font-semibold text-gray-900 mb-4">Review Load Fairness</h3>
+          <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg p-5 shadow-sm`}>
+            <h3 className={`text-sm font-semibold mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Review Load Distribution</h3>
+            <div className={`text-xs mb-4 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>Current assignment fairness across team members</div>
             <div className="space-y-3">
-              {data?.reviewers?.slice(0, 5).map((reviewer, index) => (
-                <div key={index} className="flex items-center">
-                  <div className="w-24 text-sm font-medium text-gray-700">{reviewer.name}</div>
-                  <div className="flex-1 mx-3 h-5 bg-gray-100 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-blue-500 rounded-full transition-all duration-300"
-                      style={{ width: `${Math.min((reviewer.pendingCount / Math.max(...(data?.reviewers?.map(r => r.pendingCount) || [1]))) * 100, 100)}%` }}
-                    ></div>
+              {data?.reviewers?.slice(0, 5).map((reviewer, index) => {
+                const maxCount = Math.max(...(data?.reviewers?.map(r => r.pendingCount) || [1]))
+                const percentage = Math.min((reviewer.pendingCount / maxCount) * 100, 100)
+                return (
+                  <div key={index} className="flex items-center">
+                    <div className={`w-24 text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{reviewer.name}</div>
+                    <div className={`flex-1 mx-3 h-5 rounded-full overflow-hidden relative ${darkMode ? 'bg-gray-700' : 'bg-gray-100'}`}>
+                      <div 
+                        className="h-full rounded-full transition-all duration-300"
+                        style={{ 
+                          width: `${percentage}%`,
+                          background: 'linear-gradient(90deg, #10b981, #f59e0b, #ef4444)'
+                        }}
+                      ></div>
+                    </div>
+                    <div className={`text-sm font-semibold min-w-[30px] ${darkMode ? 'text-white' : 'text-gray-900'}`}>{reviewer.pendingCount}</div>
                   </div>
-                  <div className="text-sm font-semibold text-gray-900">{reviewer.pendingCount}</div>
-                </div>
-              )) || (
-                <div className="text-gray-500 text-sm">No reviewer data available</div>
+                )
+              }) || (
+                <div className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>No reviewer data available</div>
               )}
+            </div>
+          </div>
+        </section>
+
+        {/* Filters Section - Matching wireframe exactly */}
+        <section className="py-6">
+          <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg p-5 shadow-sm`}>
+            <h3 className={`text-sm font-semibold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Filters</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="flex flex-col">
+                <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Repository</label>
+                <RepositorySelector
+                  value={filters.repositories}
+                  onChange={(repos) => setFilters(prev => ({ ...prev, repositories: repos }))}
+                  className="w-full"
+                  darkMode={darkMode}
+                />
+              </div>
+              
+              <div className="flex flex-col">
+                <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Age</label>
+                <select 
+                  className={`px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    darkMode 
+                      ? 'bg-gray-700 border-gray-600 text-white' 
+                      : 'bg-white border-gray-300 text-gray-900'
+                  }`}
+                  value={filters.ageRange}
+                  onChange={(e) => setFilters(prev => ({ ...prev, ageRange: e.target.value }))}
+                >
+                  <option value="all">All Ages</option>
+                  <option value="0-24">0-24 hours</option>
+                  <option value="24-48">24-48 hours</option>
+                  <option value="48-96">48-96 hours</option>
+                  <option value="96+">96+ hours</option>
+                </select>
+              </div>
+              
+              <div className="flex flex-col">
+                <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Labels</label>
+                <input 
+                  type="text" 
+                  className={`px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    darkMode 
+                      ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                      : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                  }`}
+                  placeholder="needs-review, bug, feature"
+                  value={filters.labels.join(', ')}
+                  onChange={(e) => {
+                    const labels = e.target.value.split(',').map(l => l.trim()).filter(l => l)
+                    setFilters(prev => ({ ...prev, labels }))
+                  }}
+                />
+              </div>
+              
+              <div className="flex flex-col">
+                <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Status</label>
+                <select className={`px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                  darkMode 
+                    ? 'bg-gray-700 border-gray-600 text-white' 
+                    : 'bg-white border-gray-300 text-gray-900'
+                }`}>
+                  <option>All Status</option>
+                  <option>Needs Review</option>
+                  <option>Changes Requested</option>
+                  <option>Approved</option>
+                </select>
+              </div>
             </div>
           </div>
         </section>
 
         {/* PR Table Section */}
         <section className="py-6">
-          <div className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
-            <div className="bg-gray-50 px-5 py-4 border-b border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-900">Community Pull Requests</h3>
+          <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg shadow-sm overflow-hidden`}>
+            <div className={`px-5 py-4 border-b ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'}`}>
+              <h3 className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>Community Pull Requests</h3>
             </div>
             <div className="overflow-x-auto">
-              <PrTable prs={data?.prs || []} />
+              <PrTable prs={data?.prs || []} darkMode={darkMode} />
             </div>
           </div>
         </section>
 
         {/* Footer */}
-        <footer className="py-6 text-center text-sm text-gray-500">
+        <footer className={`py-6 text-center text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
           Data refreshed every 2 minutes • 
           <span className="ml-1">
             Last updated: {data?.lastUpdated ? new Date(data.lastUpdated).toLocaleString() : 'Never'}

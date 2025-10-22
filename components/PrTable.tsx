@@ -4,17 +4,18 @@ import Badge from './Badge';
 interface PrTableProps {
   prs: PR[];
   loading?: boolean;
+  darkMode?: boolean;
 }
 
-export default function PrTable({ prs, loading = false }: PrTableProps) {
+export default function PrTable({ prs, loading = false, darkMode = false }: PrTableProps) {
   if (loading) {
     return (
-      <div className="bg-white border border-gray-200 rounded-lg p-6">
+      <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg p-6`}>
         <div className="animate-pulse">
-          <div className="h-4 bg-gray-200 rounded w-1/4 mb-4"></div>
+          <div className={`h-4 rounded w-1/4 mb-4 ${darkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
           <div className="space-y-3">
             {[...Array(5)].map((_, i) => (
-              <div key={i} className="h-4 bg-gray-200 rounded"></div>
+              <div key={i} className={`h-4 rounded ${darkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
             ))}
           </div>
         </div>
@@ -24,8 +25,8 @@ export default function PrTable({ prs, loading = false }: PrTableProps) {
 
   if (prs.length === 0) {
     return (
-      <div className="bg-white border border-gray-200 rounded-lg p-6 text-center">
-        <p className="text-gray-500">No PRs found matching the current filters.</p>
+      <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg p-6 text-center`}>
+        <p className={`${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>No PRs found matching the current filters.</p>
       </div>
     );
   }
@@ -47,38 +48,31 @@ export default function PrTable({ prs, loading = false }: PrTableProps) {
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-      <div className="px-6 py-4 border-b border-gray-200">
-        <h3 className="text-lg font-medium text-gray-900">
-          Community PRs ({prs.length})
-        </h3>
-      </div>
-      
-      <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                PR
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Author
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Age
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Status
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Reviewers
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+    <div className="overflow-x-auto">
+      <table className={`min-w-full divide-y ${darkMode ? 'divide-gray-600' : 'divide-gray-200'}`}>
+        <thead className={`${darkMode ? 'bg-gray-700' : 'bg-gray-50'}`}>
+          <tr>
+            <th className={`px-4 py-3 text-left text-xs font-medium uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-500'}`}>
+              PR
+            </th>
+            <th className={`px-4 py-3 text-left text-xs font-medium uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-500'}`}>
+              Author
+            </th>
+            <th className={`px-4 py-3 text-left text-xs font-medium uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-500'}`}>
+              Age
+            </th>
+            <th className={`px-4 py-3 text-left text-xs font-medium uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-500'}`}>
+              Status
+            </th>
+            <th className={`px-4 py-3 text-left text-xs font-medium uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-500'}`}>
+              Reviewers
+            </th>
+          </tr>
+        </thead>
+        <tbody className={`divide-y ${darkMode ? 'divide-gray-600' : 'divide-gray-200'}`}>
             {prs.map((pr) => (
-              <tr key={`${pr.repo}-${pr.number}`} className="hover:bg-gray-50">
-                <td className="px-6 py-4">
+              <tr key={`${pr.repo}-${pr.number}`} className={`${darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-50'}`}>
+                <td className="px-4 py-3">
                   <div className="flex flex-col">
                     <a
                       href={pr.url}
@@ -89,7 +83,7 @@ export default function PrTable({ prs, loading = false }: PrTableProps) {
                     >
                       {pr.title}
                     </a>
-                    <div className="text-xs text-gray-500 mt-1">
+                    <div className={`text-xs mt-1 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                       {pr.repo}#{pr.number}
                     </div>
                     {pr.labels.length > 0 && (
@@ -109,9 +103,9 @@ export default function PrTable({ prs, loading = false }: PrTableProps) {
                   </div>
                 </td>
                 
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="px-4 py-3 whitespace-nowrap">
                   <div className="flex items-center">
-                    <div className="text-sm text-gray-900">{pr.authorLogin}</div>
+                    <div className={`text-sm ${darkMode ? 'text-white' : 'text-gray-900'}`}>{pr.authorLogin}</div>
                     {!pr.isEmployeeAuthor && (
                       <Badge variant="community" className="ml-2">
                         Community
@@ -120,16 +114,16 @@ export default function PrTable({ prs, loading = false }: PrTableProps) {
                   </div>
                 </td>
                 
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">
+                <td className="px-4 py-3 whitespace-nowrap">
+                  <div className={`text-sm ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                     {formatAge(pr.ageHours)}
                   </div>
-                  <div className="text-xs text-gray-500">
+                  <div className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                     {formatDate(pr.createdAt)}
                   </div>
                 </td>
                 
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="px-4 py-3 whitespace-nowrap">
                   <div className="flex flex-col gap-1">
                     {pr.isDraft && (
                       <Badge variant="default">Draft</Badge>
@@ -147,8 +141,8 @@ export default function PrTable({ prs, loading = false }: PrTableProps) {
                   </div>
                 </td>
                 
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">
+                <td className="px-4 py-3 whitespace-nowrap">
+                  <div className={`text-sm ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                     {pr.requestedReviewers.users.length > 0 ? (
                       <div className="flex flex-wrap gap-1">
                         {pr.requestedReviewers.users.slice(0, 2).map((reviewer) => (
@@ -163,15 +157,14 @@ export default function PrTable({ prs, loading = false }: PrTableProps) {
                         )}
                       </div>
                     ) : (
-                      <span className="text-gray-400 text-sm">No reviewers</span>
+                      <span className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-400'}`}>No reviewers</span>
                     )}
                   </div>
                 </td>
               </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+        </tbody>
+      </table>
     </div>
   );
 }
