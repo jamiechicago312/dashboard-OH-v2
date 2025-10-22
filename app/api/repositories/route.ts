@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
         updated_at: repo.updated_at,
         html_url: repo.html_url,
       }))
-      .sort((a, b) => b.stargazers_count - a.stargazers_count) // Sort by stars
+      .sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0)) // Sort by stars
 
     return NextResponse.json({
       repositories: formattedRepos,

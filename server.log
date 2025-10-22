@@ -251,3 +251,5 @@ Found 56 PRs for All-Hands-AI/agent-sdk
  GET /api/repositories 200 in 13ms
  GET /api/repositories 200 in 8ms
  GET /api/repositories 200 in 8ms
+ ✓ Compiled in 537ms (469 modules)
+ ✓ Compiled in 133ms (242 modules)

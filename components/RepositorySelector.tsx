@@ -73,6 +73,7 @@ export default function RepositorySelector({ value, onChange, className = '', da
       ? value.filter(repo => repo !== repoFullName)
       : [...value, repoFullName]
     onChange(newValue)
+    setIsOpen(false) // Close dropdown after selection
   }
 
   const getDisplayText = () => {
