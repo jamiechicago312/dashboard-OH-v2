@@ -17,6 +17,8 @@ Key Questions to Answer
 - Are Assigned Reviewers being used consistently across repos?
 - Do we have unassigned PRs or PRs with no human response?
 - What % and count of PRs are from non-employees (community contribution rate)?
+- Which team members have the most pending reviews and need accountability reminders?
+- Are we effectively using the automatic review assignment workflow across repos?
 
 Core KPIs (with suggested SLAs)
 - Time to First Human Response (target: ≤ 24 business hours for community PRs)
@@ -26,16 +28,28 @@ Core KPIs (with suggested SLAs)
 - Assigned Review Compliance: % of open PRs with at least one assigned reviewer
 - Reviewer Load Balance: distribution of active review assignments per engineer (flag outliers)
 - Neglected Community PRs: count of PRs with no human comment/review after X hours
+- Individual Reviewer Accountability: pending review count per team member with thresholds
+
+**Current Baseline (as of team discussion):**
+- Total open PRs: 115
+- Total pending review requests: 43
+- Non-draft PRs without reviewers: 52
+- Top pending reviewers: amanape (11), xingyaoww (8), mamoodi (8), tofarr (3), malhotra5 (2)
 
 Feature Set (MVP → Phase 2)
 - Overview (MVP)
   - KPI cards: Community PRs open, % community PRs, median time to first response, median time to first review
   - Trend: time-to-first-review over last 30/90 days
   - Fairness snapshot: reviewer load distribution indicator
+  - Individual accountability: top pending reviewers with counts (matching pr_review_analysis.py output)
 - Community PRs Monitor (MVP)
   - Table of open PRs by non-employees with: repo, title/link, author, age, assigned reviewers, last human activity, needs-first-response badge
   - Filters: repo, age, author, labels (e.g., needs-review)
   - Quick actions: copy link, open in GitHub
+- Auto-Assignment Workflow Status (MVP)
+  - Repos with/without automatic review assignment workflow
+  - Link to Graham's assign-reviews.yml workflow template
+  - Flag repos that need workflow setup
 - My Review Queue (Phase 2)
   - Personalized queue of PRs where the user is an assigned/requested reviewer
   - Sort by urgency (SLA breach first), age, community-priority
@@ -48,9 +62,14 @@ Feature Set (MVP → Phase 2)
   - Missing Assigned Reviewers: PRs with none
   - Assignment Quality: PRs where only bots are requested/active
   - Repos without auto-assign workflow flagged for follow-up
-- Notifications (Phase 2 optional, minimal)
-  - Daily digest to a Slack channel with: new community PRs, overdue PRs, top overloaded reviewers
-  - Optional personal DM digest (1x/day) summarizing your queue
+- Slack Accountability & Monitoring (Phase 2 - HIGH PRIORITY)
+  - Automated Slack digest (every 2-3 days) with pr_review_analysis.py output format:
+    - Total open PRs, pending review requests, non-draft PRs without reviewers
+    - Top pending reviewers by count (e.g., "amanape - 11 pending reviews")
+    - Unique reviewers with pending requests
+  - Daily digest to designated Slack channel with: new community PRs, overdue PRs, top overloaded reviewers
+  - Optional personal DM digest (1x/day) summarizing individual review queue
+  - Integration with existing GitHub review-requested bookmark workflow
 
 Lightweight Architecture
 - UI: Next.js + React + TypeScript; Tailwind for styling (matching github-dashboard-OH patterns)
@@ -130,26 +149,36 @@ MVP Scope (2–3 days)
 - Community PRs table with sorting and filters
 - KPI cards: community PR count, % community, median time to first response (rolling), compliance rate
 - Basic fairness indicator: active assignments per reviewer (current open PRs)
+- **Graham's Script Integration**: /api/review-stats endpoint that replicates his script output:
+  - Total open PRs, pending review requests, non-draft PRs without reviewers
+  - Top pending reviewers ranked by count with names and numbers
+  - Unique reviewers with pending requests count
 - Simple in-memory cache (per deploy) + SWR on client
 
-- Leverage agent-sdk auto-assign workflow (assign-reviews.yml) in repos lacking auto-assign; dashboard should flag repos without it and link to workflow.
+- Leverage Graham's agent-sdk auto-assign workflow (assign-reviews.yml) in repos lacking auto-assign; dashboard should flag repos without it and link to workflow.
 - Consider an optional "Run Agent" button for admins that triggers a workflow_dispatch event (no default writes from dashboard).
 - Between MVP and Phase 2: Add OpenHands Co-Author Analysis (see OH-coauthor.md) to detect PRs co-authored by OpenHands (supports openhands@all-hands.dev and openhands@openhands.dev).
 
 
-Phase 2 Scope (3–5 days)
-- My Review Queue with SLA sorting
-- Load balance chart + outlier detection
-- Assignment Health (missing reviewers, repos without auto-assign)
-- Slack daily digest (webhook)
+Phase 2 Scope (3–5 days) - PRIORITIZED FOR ACCOUNTABILITY
+- **Slack Integration (TOP PRIORITY)**: Automated digest matching pr_review_analysis.py output
+- My Review Queue with SLA sorting and individual accountability metrics
+- Load balance chart + outlier detection with threshold alerts
+- Assignment Health (missing reviewers, repos without auto-assign workflow)
+- Integration with GitHub's review-requested page workflow
 
 Adoption Notes (from team conversation)
-- Encourage daily pass through Assigned Reviews page; dashboard should reflect compliance transparently
+- **Team Process Agreement Required**: Need team-wide agreement on daily review of assigned PRs
+- Encourage daily pass through GitHub's Assigned Reviews page (https://github.com/pulls/review-requested)
+- Dashboard should reflect compliance transparently and provide accountability metrics
+- **Automatic Assignment + Monitoring**: Graham's agent-sdk workflow (assign-reviews.yml) + dashboard monitoring
 - If using Neon, add DATABASE_URL
 
 - Balance review load so no single person carries a disproportional number of reviews
 - Emphasize visibility into community PRs; highlight those not originated by OpenHands employees
-- Automatic assignment alone isn’t enough—pair with monitoring + digest to cut through GitHub notification noise
+- **Critical**: Automatic assignment alone isn't enough—pair with monitoring + digest to cut through GitHub notification noise
+- **Accountability Measures**: Regular Slack digests with individual pending review counts to create visibility and gentle pressure
+
 Excluding OpenHands Developers
 - Source of truth: All-Hands-AI org members page (GraphQL or REST). Cache this list server-side for 5–15 minutes.
 - Compute isEmployee(login): in OrgMembers or in employees.json overrides.
@@ -185,14 +214,22 @@ Example API Shape (internal)
 - GET /api/dashboard -> { kpis, prs: [...], reviewers: {...} }
 - GET /api/review-queue?login=jane -> reviewer-specific queue
 - GET /api/config -> orgs, repos, slas, employees
+- **GET /api/review-stats -> pr_review_analysis.py output format:**
+  - { totalOpenPRs, pendingReviewRequests, nonDraftPRsWithoutReviewers, topPendingReviewers: [{name, count}], uniqueReviewersWithPending }
+- POST /api/slack/digest -> trigger manual Slack digest (admin only)
 
 Environment
 - GITHUB_TOKEN
 - NEXT_PUBLIC_APP_URL (if deploying to Vercel)
-- Optional: SLACK_WEBHOOK_URL, ORGS, REPOS_EXCLUDE, SLA_HOURS_FIRST_RESPONSE, SLA_HOURS_FIRST_REVIEW
+- **SLACK_WEBHOOK_URL** (required for Phase 2 accountability features)
+- Optional: ORGS, REPOS_EXCLUDE, SLA_HOURS_FIRST_RESPONSE, SLA_HOURS_FIRST_REVIEW
+- SLACK_DIGEST_FREQUENCY_DAYS (default: 2-3 days, matching Graham's suggestion)
 
 Next Steps
+- **Immediate**: Implement pr_review_analysis.py parity in MVP (/api/review-stats endpoint)
 - Confirm org/repo scope and SLA thresholds
 - Provide initial employees.json
-- Approve MVP features; schedule Phase 2 if needed
+- **Priority**: Set up Slack webhook for accountability digests (Phase 2)
+- Approve MVP features; schedule Phase 2 with emphasis on Slack integration
 - Stand up skeleton Next.js app or adapt a minimal subset of github-dashboard-OH
+- **Team Agreement**: Secure team commitment to daily review queue monitoring

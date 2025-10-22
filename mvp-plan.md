@@ -12,8 +12,8 @@ Definition of Done (MVP)
 
 Non-goals (for MVP)
 - Persistent historical analytics (use Neon later)
-- Notifications/digests
-- Automated actions (agent-sdk is optional, external to dashboard)
+- Notifications/digests (Phase 2)
+- Automated actions (agent-sdk optional via workflow; dashboard remains read-only)
 
 1) Architecture & Tech Choices
 - Next.js 14 (App Router) + React 18 + TypeScript
@@ -42,6 +42,8 @@ Non-goals (for MVP)
     - dashboard/route.ts
     - test/route.ts
     - config/employees/route.ts (optional debug)
+    - review-stats/route.ts
+    - workflow-status/route.ts
   - globals.css
   - layout.tsx
   - page.tsx
@@ -51,6 +53,7 @@ Non-goals (for MVP)
   - Filters.tsx
   - Badge.tsx
   - FairnessSpark.tsx (simple bar/sparkline)
+  - PendingReviewersCard.tsx (shows top pending reviewers summary)
 - lib/
   - config.ts (env parsing, defaults)
   - cache.ts (in-memory TTL cache)
@@ -179,6 +182,14 @@ Non-goals (for MVP)
     - Aggregate KPIs and reviewerLoad
     - Include rateLimit when debug=true
 
+- GET /api/review-stats
+  - Purpose: Parity with pr_review_analysis.py; feed Overview accountability cards
+  - Response: { totalOpenPRs, pendingReviewRequests, nonDraftPRsWithoutReviewers, topPendingReviewers: [{name, count}], uniqueReviewersWithPending }
+
+- GET /api/workflow-status
+  - Purpose: Show which repos have auto-assign workflow configured
+  - Response: { repo: string, hasWorkflow: boolean, url?: string }[]
+
 9) Implementation Steps (Code Skeletons)
 - lib/config.ts
   - Parse env, provide defaults
@@ -218,6 +229,10 @@ Non-goals (for MVP)
 - app/page.tsx (client component or RSC + client parts)
   - useSWR('/api/dashboard?...')
   - Render KPI cards, FairnessSpark, Filters, PrTable
+  - Overview Accountability Cards:
+    - Show totalOpenPRs, pendingReviewRequests, nonDraftPRsWithoutReviewers
+    - Highlight top 3 pending reviewers with counts
+
 
 - components/KpiCard.tsx
 - components/FairnessSpark.tsx (e.g., small horizontal bar list of top 5 reviewers)
