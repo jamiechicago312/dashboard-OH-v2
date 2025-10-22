@@ -65,3 +65,33 @@ export type GitHubRateLimit = {
   remaining: number;
   resetAt: string;
 };
+
+// New types for the updated dashboard
+export type FilterState = {
+  repositories: string[];
+  labels: string[];
+  ageRange: string;
+};
+
+export type Reviewer = {
+  name: string;
+  pendingCount: number;
+};
+
+export type DashboardKPIs = {
+  openCommunityPrs: number;
+  communityPrPercentage: string;
+  medianResponseTime: string;
+  medianReviewTime: string;
+  reviewerCompliance: string;
+  pendingReviews: number;
+  activeReviewers: number;
+  prsWithoutReviewers: number;
+};
+
+export type DashboardData = {
+  kpis: DashboardKPIs;
+  prs: PR[];
+  reviewers?: Reviewer[];
+  lastUpdated?: string;
+};

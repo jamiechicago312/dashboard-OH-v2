@@ -142,6 +142,77 @@ export function computeKpis(allPrs: PR[]): KPIs {
   };
 }
 
+export function computeDashboardData(allPrs: PR[]): import('./types').DashboardData {
+  const communityPrs = allPrs.filter(pr => !pr.isEmployeeAuthor);
+  const nonDraftPrs = allPrs.filter(pr => !pr.isDraft);
+  
+  // Calculate medians
+  const communityPrsWithResponse = communityPrs.filter(pr => pr.firstHumanResponseAt);
+  const communityPrsWithReview = communityPrs.filter(pr => pr.firstReviewAt);
+  
+  const tffrTimes = communityPrsWithResponse.map(pr => {
+    const created = new Date(pr.createdAt).getTime();
+    const responded = new Date(pr.firstHumanResponseAt!).getTime();
+    return (responded - created) / (1000 * 60 * 60); // hours
+  }).sort((a, b) => a - b);
+  
+  const ttfrTimes = communityPrsWithReview.map(pr => {
+    const created = new Date(pr.createdAt).getTime();
+    const reviewed = new Date(pr.firstReviewAt!).getTime();
+    return (reviewed - created) / (1000 * 60 * 60); // hours
+  }).sort((a, b) => a - b);
+  
+  const median = (arr: number[]) => {
+    if (arr.length === 0) return undefined;
+    const mid = Math.floor(arr.length / 2);
+    return arr.length % 2 === 0 ? (arr[mid - 1] + arr[mid]) / 2 : arr[mid];
+  };
+  
+  const formatTime = (hours?: number) => {
+    if (!hours) return 'N/A';
+    if (hours < 24) return `${Math.round(hours)}h`;
+    return `${Math.round(hours / 24)}d`;
+  };
+  
+  // Calculate reviewer load
+  const reviewerCounts: Record<string, number> = {};
+  allPrs.forEach(pr => {
+    pr.requestedReviewers.users.forEach(reviewer => {
+      reviewerCounts[reviewer] = (reviewerCounts[reviewer] || 0) + 1;
+    });
+  });
+  
+  const reviewers = Object.entries(reviewerCounts)
+    .map(([name, pendingCount]) => ({ name, pendingCount }))
+    .sort((a, b) => b.pendingCount - a.pendingCount);
+  
+  // Calculate compliance
+  const prsWithAssignedReviewers = nonDraftPrs.filter(pr => pr.requestedReviewers.users.length > 0);
+  const assignedReviewerCompliancePct = nonDraftPrs.length > 0 
+    ? (prsWithAssignedReviewers.length / nonDraftPrs.length) * 100
+    : 0;
+  
+  const prsWithoutReviewers = nonDraftPrs.filter(pr => pr.requestedReviewers.users.length === 0);
+  const totalPendingReviews = Object.values(reviewerCounts).reduce((sum, count) => sum + count, 0);
+  const activeReviewers = Object.keys(reviewerCounts).length;
+  
+  return {
+    kpis: {
+      openCommunityPrs: communityPrs.length,
+      communityPrPercentage: allPrs.length > 0 ? `${Math.round((communityPrs.length / allPrs.length) * 100)}%` : '0%',
+      medianResponseTime: formatTime(median(tffrTimes)),
+      medianReviewTime: formatTime(median(ttfrTimes)),
+      reviewerCompliance: `${Math.round(assignedReviewerCompliancePct)}%`,
+      pendingReviews: totalPendingReviews,
+      activeReviewers: activeReviewers,
+      prsWithoutReviewers: prsWithoutReviewers.length,
+    },
+    prs: allPrs,
+    reviewers: reviewers,
+    lastUpdated: new Date().toISOString(),
+  };
+}
+
 export function computeReviewStats(allPrs: PR[]): ReviewStatsResponse {
   const nonDraftPrs = allPrs.filter(pr => !pr.isDraft);
   const prsWithoutReviewers = nonDraftPrs.filter(pr => pr.requestedReviewers.users.length === 0);

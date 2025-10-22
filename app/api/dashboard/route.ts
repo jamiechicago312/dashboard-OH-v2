@@ -5,7 +5,7 @@ import { config, validateConfig } from '@/lib/config';
 import { cache } from '@/lib/cache';
 import { buildEmployeesSet, isCommunityPR } from '@/lib/employees';
 import { getOpenPRsGraphQL } from '@/lib/github';
-import { transformPR, computeKpis } from '@/lib/compute';
+import { transformPR, computeKpis, computeDashboardData } from '@/lib/compute';
 import { DashboardResponse, PR } from '@/lib/types';
 
 export async function GET(request: NextRequest) {
@@ -100,21 +100,19 @@ export async function GET(request: NextRequest) {
         }
       }
       
-      // Compute KPIs based on all PRs (not just filtered ones)
-      const kpis = computeKpis(allPrs);
+      // Compute dashboard data based on all PRs (not just filtered ones)
+      const dashboardData = computeDashboardData(allPrs);
       
+      // But return filtered PRs for the table
       return {
-        kpis,
+        ...dashboardData,
         prs: filteredPrs,
         totalPrs: allPrs.length,
         employeeCount: employeesSet.size,
       };
     });
     
-    const response: DashboardResponse = {
-      kpis: result.kpis,
-      prs: result.prs,
-    };
+    const response = result;
     
     // Add debug info if requested
     if (debug) {

@@ -1,208 +1,223 @@
-'use client';
+'use client'
 
-import { useState, useEffect } from 'react';
-import KpiCard from '@/components/KpiCard';
-import PrTable from '@/components/PrTable';
-import Filters from '@/components/Filters';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import { DashboardResponse, ReviewStatsResponse } from '@/lib/types';
+import { useState, useEffect } from 'react'
+import PrTable from '@/components/PrTable'
+import RepositorySelector from '@/components/RepositorySelector'
+import LoadingSpinner from '@/components/LoadingSpinner'
+import { DashboardData, FilterState } from '@/lib/types'
 
 export default function Dashboard() {
-  const [dashboardData, setDashboardData] = useState<DashboardResponse | null>(null);
-  const [reviewStats, setReviewStats] = useState<ReviewStatsResponse | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  
-  // Filter states
-  const [repos, setRepos] = useState('');
-  const [labels, setLabels] = useState('');
-  const [age, setAge] = useState('');
+  const [data, setData] = useState<DashboardData | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [filters, setFilters] = useState<FilterState>({
+    repositories: [],
+    labels: [],
+    ageRange: 'all'
+  })
 
   const fetchData = async () => {
-    setLoading(true);
-    setError(null);
-    
     try {
-      // Build query parameters
-      const params = new URLSearchParams();
-      if (repos) params.set('repos', repos);
-      if (labels) params.set('labels', labels);
-      if (age) params.set('age', age);
+      setLoading(true)
+      setError(null)
       
-      // Fetch dashboard data
-      const dashboardResponse = await fetch(`/api/dashboard?${params}`);
-      if (!dashboardResponse.ok) {
-        throw new Error(`Dashboard API error: ${dashboardResponse.status}`);
+      const params = new URLSearchParams()
+      if (filters.repositories.length > 0) {
+        params.append('repositories', filters.repositories.join(','))
       }
-      const dashboardResult = await dashboardResponse.json();
-      
-      // Fetch review stats
-      const reviewResponse = await fetch('/api/review-stats');
-      if (!reviewResponse.ok) {
-        throw new Error(`Review stats API error: ${reviewResponse.status}`);
+      if (filters.labels.length > 0) {
+        params.append('labels', filters.labels.join(','))
       }
-      const reviewResult = await reviewResponse.json();
+      if (filters.ageRange !== 'all') {
+        params.append('ageRange', filters.ageRange)
+      }
+
+      const response = await fetch(`/api/dashboard?${params}`)
+      if (!response.ok) {
+        throw new Error('Failed to fetch dashboard data')
+      }
       
-      setDashboardData(dashboardResult);
-      setReviewStats(reviewResult);
+      const result = await response.json()
+      setData(result)
     } catch (err) {
-      console.error('Failed to fetch data:', err);
-      setError(err instanceof Error ? err.message : 'Failed to fetch data');
+      console.error('Error fetching dashboard data:', err)
+      setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchData();
-  }, [repos, labels, age]);
+    fetchData()
+  }, [filters])
 
-  const formatHours = (hours?: number) => {
-    if (hours === undefined) return 'N/A';
-    if (hours < 24) return `${Math.round(hours)}h`;
-    return `${Math.round(hours / 24)}d`;
-  };
+  const handleRefresh = () => {
+    fetchData()
+  }
 
-  const formatPercentage = (value: number) => {
-    return `${Math.round(value * 100)}%`;
-  };
-
-  if (error) {
+  if (loading && !data) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="bg-white border border-red-200 rounded-lg p-6 max-w-md">
-          <div className="text-red-600 text-center">
-            <h2 className="text-lg font-semibold mb-2">Error Loading Dashboard</h2>
-            <p className="text-sm mb-4">{error}</p>
-            <button
-              onClick={fetchData}
-              className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
-            >
-              Retry
-            </button>
-          </div>
-        </div>
+        <LoadingSpinner />
       </div>
-    );
+    )
   }
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
+      {/* Header - Matching wireframe exactly */}
       <header className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">
-                OpenHands PR Review Dashboard
-              </h1>
-              <p className="text-gray-600 mt-1">
-                Monitor community PRs and review accountability
-              </p>
+        <div className="max-w-7xl mx-auto px-5">
+          <div className="flex justify-between items-center py-4">
+            <div className="text-2xl font-bold text-gray-900">
+              OpenHands PR Review Dashboard
             </div>
-            <div className="flex items-center space-x-4">
-              {loading && <LoadingSpinner size="sm" />}
-              <button
-                onClick={fetchData}
-                disabled={loading}
-                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 transition-colors"
-              >
-                Refresh
+            <div className="flex items-center gap-4">
+              <RepositorySelector
+                value={filters.repositories}
+                onChange={(repos) => setFilters(prev => ({ ...prev, repositories: repos }))}
+                className="min-w-[200px]"
+              />
+              <button className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 rounded border text-gray-700">
+                🌙 Dark
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Filters */}
-        <Filters
-          repos={repos}
-          labels={labels}
-          age={age}
-          onRepoChange={setRepos}
-          onLabelChange={setLabels}
-          onAgeChange={setAge}
-        />
-
-        {/* KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <KpiCard
-            title="Open Community PRs"
-            value={dashboardData?.kpis.openCommunityPrs ?? 0}
-            subtitle="PRs from external contributors"
-          />
-          <KpiCard
-            title="Community PR %"
-            value={formatPercentage(dashboardData?.kpis.pctCommunityPrs ?? 0)}
-            subtitle="Percentage of all open PRs"
-          />
-          <KpiCard
-            title="Median Response Time"
-            value={formatHours(dashboardData?.kpis.medianTffrHours)}
-            subtitle="Time to first human response"
-          />
-          <KpiCard
-            title="Median Review Time"
-            value={formatHours(dashboardData?.kpis.medianTtfrHours)}
-            subtitle="Time to first review"
-          />
-        </div>
-
-        {/* Review Accountability Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <KpiCard
-            title="Reviewer Compliance"
-            value={formatPercentage(dashboardData?.kpis.assignedReviewerCompliancePct ?? 0)}
-            subtitle="Non-draft PRs with assigned reviewers"
-          />
-          <KpiCard
-            title="Pending Reviews"
-            value={reviewStats?.pendingReviewRequests ?? 0}
-            subtitle="Total review requests awaiting action"
-          />
-          <KpiCard
-            title="Active Reviewers"
-            value={reviewStats?.uniqueReviewersWithPending ?? 0}
-            subtitle="Reviewers with pending requests"
-          />
-        </div>
-
-        {/* Top Reviewers by Load */}
-        {reviewStats?.topPendingReviewers && reviewStats.topPendingReviewers.length > 0 && (
-          <div className="bg-white border border-gray-200 rounded-lg p-6 mb-8">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">
-              Top Reviewers by Pending Load
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {reviewStats.topPendingReviewers.slice(0, 6).map((reviewer) => (
-                <div key={reviewer.name} className="flex justify-between items-center p-3 bg-gray-50 rounded-md">
-                  <span className="font-medium text-gray-900">{reviewer.name}</span>
-                  <span className="text-sm text-gray-600">{reviewer.count} PRs</span>
-                </div>
-              ))}
+      <div className="max-w-7xl mx-auto px-5">
+        {/* KPI Section - Matching wireframe layout */}
+        <section className="py-6">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4 uppercase tracking-wide text-sm">
+            Key Performance Indicators
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                Community PRs Open
+              </h3>
+              <div className="text-3xl font-bold text-gray-900 mb-1">
+                {data?.kpis.openCommunityPrs || 0}
+              </div>
+              <div className="text-xs text-gray-500">Non-employee authored</div>
+            </div>
+            
+            <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                % Community PRs
+              </h3>
+              <div className="text-3xl font-bold text-gray-900 mb-1">
+                {data?.kpis.communityPrPercentage || '0%'}
+              </div>
+              <div className="text-xs text-gray-500">Of all open PRs</div>
+            </div>
+            
+            <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                Median Time to First Response
+              </h3>
+              <div className="text-3xl font-bold text-gray-900 mb-1">
+                {data?.kpis.medianResponseTime || 'N/A'}
+              </div>
+              <div className="text-xs text-gray-500">Target: ≤24h</div>
+            </div>
+            
+            <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                Assigned Reviewer Compliance
+              </h3>
+              <div className="text-3xl font-bold text-gray-900 mb-1">
+                {data?.kpis.reviewerCompliance || '0%'}
+              </div>
+              <div className="text-xs text-gray-500">PRs with assigned reviewers</div>
             </div>
           </div>
-        )}
+        </section>
 
-        {/* PR Table */}
-        <PrTable 
-          prs={dashboardData?.prs ?? []} 
-          loading={loading}
-        />
+        {/* Review Accountability Section - Matching wireframe */}
+        <section className="py-6">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4 uppercase tracking-wide text-sm">
+            Review Accountability
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+              <h3 className="text-sm font-semibold text-gray-900 mb-2">Current Review Load</h3>
+              <div className="text-3xl font-bold text-gray-900 mb-1">
+                {data?.kpis.pendingReviews || 0}
+              </div>
+              <div className="text-xs text-gray-500">Total pending review requests</div>
+            </div>
+            
+            <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+              <h3 className="text-sm font-semibold text-gray-900 mb-2">Top Pending Reviewers</h3>
+              <ul className="space-y-2 mt-3">
+                {data?.reviewers?.slice(0, 4).map((reviewer, index) => (
+                  <li key={index} className="flex justify-between items-center py-2 border-b border-gray-100 last:border-b-0">
+                    <span className="font-medium text-sm">{reviewer.name}</span>
+                    <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                      {reviewer.pendingCount}
+                    </span>
+                  </li>
+                )) || (
+                  <li className="text-gray-500 text-sm">No pending reviewers</li>
+                )}
+              </ul>
+            </div>
+            
+            <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+              <h3 className="text-sm font-semibold text-gray-900 mb-2">PRs Without Reviewers</h3>
+              <div className="text-3xl font-bold text-gray-900 mb-1">
+                {data?.kpis.prsWithoutReviewers || 0}
+              </div>
+              <div className="text-xs text-gray-500">Need reviewer assignment</div>
+            </div>
+          </div>
+        </section>
+
+        {/* Fairness Indicator Section - From wireframe */}
+        <section className="py-6">
+          <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+            <h3 className="text-sm font-semibold text-gray-900 mb-4">Review Load Fairness</h3>
+            <div className="space-y-3">
+              {data?.reviewers?.slice(0, 5).map((reviewer, index) => (
+                <div key={index} className="flex items-center">
+                  <div className="w-24 text-sm font-medium text-gray-700">{reviewer.name}</div>
+                  <div className="flex-1 mx-3 h-5 bg-gray-100 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-blue-500 rounded-full transition-all duration-300"
+                      style={{ width: `${Math.min((reviewer.pendingCount / Math.max(...(data?.reviewers?.map(r => r.pendingCount) || [1]))) * 100, 100)}%` }}
+                    ></div>
+                  </div>
+                  <div className="text-sm font-semibold text-gray-900">{reviewer.pendingCount}</div>
+                </div>
+              )) || (
+                <div className="text-gray-500 text-sm">No reviewer data available</div>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* PR Table Section */}
+        <section className="py-6">
+          <div className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+            <div className="bg-gray-50 px-5 py-4 border-b border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900">Community Pull Requests</h3>
+            </div>
+            <div className="overflow-x-auto">
+              <PrTable prs={data?.prs || []} />
+            </div>
+          </div>
+        </section>
 
         {/* Footer */}
-        <footer className="mt-12 text-center text-sm text-gray-500">
-          <p>
-            Data refreshed every 2 minutes • 
-            {dashboardData?.rateLimit && (
-              <span className="ml-1">
-                GitHub API: {dashboardData.rateLimit.remaining} requests remaining
-              </span>
-            )}
-          </p>
+        <footer className="py-6 text-center text-sm text-gray-500">
+          Data refreshed every 2 minutes • 
+          <span className="ml-1">
+            Last updated: {data?.lastUpdated ? new Date(data.lastUpdated).toLocaleString() : 'Never'}
+          </span>
         </footer>
-      </main>
+      </div>
     </div>
-  );
+  )
 }
