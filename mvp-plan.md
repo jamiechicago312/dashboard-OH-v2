@@ -183,7 +183,7 @@ Non-goals (for MVP)
     - Include rateLimit when debug=true
 
 - GET /api/review-stats
-  - Purpose: Parity with Graham's script; feed Overview accountability cards
+  - Purpose: Parity with pr_review_analysis.py; feed Overview accountability cards
   - Response: { totalOpenPRs, pendingReviewRequests, nonDraftPRsWithoutReviewers, topPendingReviewers: [{name, count}], uniqueReviewersWithPending }
 
 - GET /api/workflow-status

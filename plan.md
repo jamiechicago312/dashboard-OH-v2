@@ -41,7 +41,7 @@ Feature Set (MVP → Phase 2)
   - KPI cards: Community PRs open, % community PRs, median time to first response, median time to first review
   - Trend: time-to-first-review over last 30/90 days
   - Fairness snapshot: reviewer load distribution indicator
-  - Individual accountability: top pending reviewers with counts (matching Graham's script output)
+  - Individual accountability: top pending reviewers with counts (matching pr_review_analysis.py output)
 - Community PRs Monitor (MVP)
   - Table of open PRs by non-employees with: repo, title/link, author, age, assigned reviewers, last human activity, needs-first-response badge
   - Filters: repo, age, author, labels (e.g., needs-review)
@@ -63,7 +63,7 @@ Feature Set (MVP → Phase 2)
   - Assignment Quality: PRs where only bots are requested/active
   - Repos without auto-assign workflow flagged for follow-up
 - Slack Accountability & Monitoring (Phase 2 - HIGH PRIORITY)
-  - Automated Slack digest (every 2-3 days) with Graham's script output format:
+  - Automated Slack digest (every 2-3 days) with pr_review_analysis.py output format:
     - Total open PRs, pending review requests, non-draft PRs without reviewers
     - Top pending reviewers by count (e.g., "amanape - 11 pending reviews")
     - Unique reviewers with pending requests
@@ -161,7 +161,7 @@ MVP Scope (2–3 days)
 
 
 Phase 2 Scope (3–5 days) - PRIORITIZED FOR ACCOUNTABILITY
-- **Slack Integration (TOP PRIORITY)**: Automated digest matching Graham's script format
+- **Slack Integration (TOP PRIORITY)**: Automated digest matching pr_review_analysis.py output
 - My Review Queue with SLA sorting and individual accountability metrics
 - Load balance chart + outlier detection with threshold alerts
 - Assignment Health (missing reviewers, repos without auto-assign workflow)
@@ -214,7 +214,7 @@ Example API Shape (internal)
 - GET /api/dashboard -> { kpis, prs: [...], reviewers: {...} }
 - GET /api/review-queue?login=jane -> reviewer-specific queue
 - GET /api/config -> orgs, repos, slas, employees
-- **GET /api/review-stats -> Graham's script output format:**
+- **GET /api/review-stats -> pr_review_analysis.py output format:**
   - { totalOpenPRs, pendingReviewRequests, nonDraftPRsWithoutReviewers, topPendingReviewers: [{name, count}], uniqueReviewersWithPending }
 - POST /api/slack/digest -> trigger manual Slack digest (admin only)
 
@@ -226,7 +226,7 @@ Environment
 - SLACK_DIGEST_FREQUENCY_DAYS (default: 2-3 days, matching Graham's suggestion)
 
 Next Steps
-- **Immediate**: Implement Graham's script functionality in MVP (/api/review-stats endpoint)
+- **Immediate**: Implement pr_review_analysis.py parity in MVP (/api/review-stats endpoint)
 - Confirm org/repo scope and SLA thresholds
 - Provide initial employees.json
 - **Priority**: Set up Slack webhook for accountability digests (Phase 2)
