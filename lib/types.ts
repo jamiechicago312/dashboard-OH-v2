@@ -72,6 +72,8 @@ export type FilterState = {
   labels: string[];
   ageRange: string;
   status?: string;
+  noReviewers?: boolean;
+  limit?: string;
 };
 
 export type Reviewer = {

@@ -23,6 +23,8 @@ export async function GET(request: NextRequest) {
     const labelsParam = searchParams.get('labels');
     const ageParam = searchParams.get('age');
     const statusParam = searchParams.get('status');
+    const noReviewersParam = searchParams.get('noReviewers');
+    const limitParam = searchParams.get('limit');
     
     // Parse filters
     const targetRepos = reposParam 
@@ -41,7 +43,9 @@ export async function GET(request: NextRequest) {
       repos: targetRepos, 
       labels: labelFilters, 
       age: ageParam,
-      status: statusParam
+      status: statusParam,
+      noReviewers: noReviewersParam,
+      limit: limitParam
     })}`;
     
     // Temporarily bypass cache for debugging
@@ -129,6 +133,23 @@ export async function GET(request: NextRequest) {
               return true;
           }
         });
+      }
+      
+      // Apply no reviewers filter if provided
+      if (noReviewersParam === 'true') {
+        filteredPrs = filteredPrs.filter(pr => {
+          // Check if PR has no requested reviewers (both users and teams)
+          const hasRequestedReviewers = pr.requestedReviewers.users.length > 0 || pr.requestedReviewers.teams.length > 0;
+          return !hasRequestedReviewers;
+        });
+      }
+      
+      // Apply limit filter if provided
+      if (limitParam && limitParam !== 'all') {
+        const limit = parseInt(limitParam, 10);
+        if (!isNaN(limit) && limit > 0) {
+          filteredPrs = filteredPrs.slice(0, limit);
+        }
       }
       
       // Compute dashboard data based on all PRs (not just filtered ones)

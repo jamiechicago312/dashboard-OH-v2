@@ -15,13 +15,17 @@ export default function Dashboard() {
     repositories: [],
     labels: [],
     ageRange: 'all',
-    status: 'all'
+    status: 'all',
+    noReviewers: false,
+    limit: 'all'
   })
   const [appliedFilters, setAppliedFilters] = useState<FilterState>({
     repositories: [],
     labels: [],
     ageRange: 'all',
-    status: 'all'
+    status: 'all',
+    noReviewers: false,
+    limit: 'all'
   })
 
   const fetchData = async (filtersToApply = appliedFilters) => {
@@ -41,6 +45,12 @@ export default function Dashboard() {
       }
       if (filtersToApply.status && filtersToApply.status !== 'all') {
         params.append('status', filtersToApply.status)
+      }
+      if (filtersToApply.noReviewers) {
+        params.append('noReviewers', 'true')
+      }
+      if (filtersToApply.limit && filtersToApply.limit !== 'all') {
+        params.append('limit', filtersToApply.limit)
       }
 
       const response = await fetch(`/api/dashboard?${params}`)
@@ -72,7 +82,9 @@ export default function Dashboard() {
       repositories: [],
       labels: [],
       ageRange: 'all',
-      status: 'all'
+      status: 'all',
+      noReviewers: false,
+      limit: 'all'
     }
     setFilters(clearedFilters)
     setAppliedFilters(clearedFilters)
@@ -241,7 +253,7 @@ export default function Dashboard() {
         <section className="py-6">
           <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg p-5 shadow-sm`}>
             <h3 className={`text-sm font-semibold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Filters</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-4">
               <div className="flex flex-col">
                 <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Repository</label>
                 <RepositorySelector
@@ -304,6 +316,43 @@ export default function Dashboard() {
                   <option value="needs-review">Needs Review</option>
                   <option value="changes-requested">Changes Requested</option>
                   <option value="approved">Approved</option>
+                </select>
+              </div>
+              
+              <div className="flex flex-col">
+                <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Reviewers</label>
+                <div className="flex items-center h-[38px]">
+                  <input
+                    type="checkbox"
+                    id="noReviewers"
+                    checked={filters.noReviewers || false}
+                    onChange={(e) => setFilters(prev => ({ ...prev, noReviewers: e.target.checked }))}
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                  <label 
+                    htmlFor="noReviewers" 
+                    className={`ml-2 text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}
+                  >
+                    No reviewers assigned
+                  </label>
+                </div>
+              </div>
+              
+              <div className="flex flex-col">
+                <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Limit</label>
+                <select 
+                  className={`px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    darkMode 
+                      ? 'bg-gray-700 border-gray-600 text-white' 
+                      : 'bg-white border-gray-300 text-gray-900'
+                  }`}
+                  value={filters.limit || 'all'}
+                  onChange={(e) => setFilters(prev => ({ ...prev, limit: e.target.value }))}
+                >
+                  <option value="all">All PRs</option>
+                  <option value="12">12 PRs</option>
+                  <option value="36">36 PRs</option>
+                  <option value="96">96 PRs</option>
                 </select>
               </div>
             </div>
