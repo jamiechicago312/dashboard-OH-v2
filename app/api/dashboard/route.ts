@@ -25,6 +25,7 @@ export async function GET(request: NextRequest) {
     const statusParam = searchParams.get('status');
     const noReviewersParam = searchParams.get('noReviewers');
     const limitParam = searchParams.get('limit');
+    const draftStatusParam = searchParams.get('draftStatus');
     
     // Parse filters
     const targetRepos = reposParam 
@@ -45,7 +46,8 @@ export async function GET(request: NextRequest) {
       age: ageParam,
       status: statusParam,
       noReviewers: noReviewersParam,
-      limit: limitParam
+      limit: limitParam,
+      draftStatus: draftStatusParam
     })}`;
     
     // Temporarily bypass cache for debugging
@@ -144,7 +146,21 @@ export async function GET(request: NextRequest) {
         });
       }
       
-      // Apply limit filter if provided
+      // Apply draft status filter if provided
+      if (draftStatusParam && draftStatusParam !== 'all') {
+        filteredPrs = filteredPrs.filter(pr => {
+          switch (draftStatusParam) {
+            case 'drafts':
+              return pr.isDraft;
+            case 'final':
+              return !pr.isDraft;
+            default:
+              return true;
+          }
+        });
+      }
+      
+      // Apply limit filter if provided (should be last to limit final results)
       if (limitParam && limitParam !== 'all') {
         const limit = parseInt(limitParam, 10);
         if (!isNaN(limit) && limit > 0) {

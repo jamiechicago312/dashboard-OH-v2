@@ -17,7 +17,8 @@ export default function Dashboard() {
     ageRange: 'all',
     status: 'all',
     noReviewers: false,
-    limit: 'all'
+    limit: 'all',
+    draftStatus: 'all'
   })
   const [appliedFilters, setAppliedFilters] = useState<FilterState>({
     repositories: [],
@@ -25,7 +26,8 @@ export default function Dashboard() {
     ageRange: 'all',
     status: 'all',
     noReviewers: false,
-    limit: 'all'
+    limit: 'all',
+    draftStatus: 'all'
   })
 
   const fetchData = async (filtersToApply = appliedFilters) => {
@@ -51,6 +53,9 @@ export default function Dashboard() {
       }
       if (filtersToApply.limit && filtersToApply.limit !== 'all') {
         params.append('limit', filtersToApply.limit)
+      }
+      if (filtersToApply.draftStatus && filtersToApply.draftStatus !== 'all') {
+        params.append('draftStatus', filtersToApply.draftStatus)
       }
 
       const response = await fetch(`/api/dashboard?${params}`)
@@ -84,7 +89,8 @@ export default function Dashboard() {
       ageRange: 'all',
       status: 'all',
       noReviewers: false,
-      limit: 'all'
+      limit: 'all',
+      draftStatus: 'all'
     }
     setFilters(clearedFilters)
     setAppliedFilters(clearedFilters)
@@ -253,7 +259,7 @@ export default function Dashboard() {
         <section className="py-6">
           <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg p-5 shadow-sm`}>
             <h3 className={`text-sm font-semibold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Filters</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-4 mb-4">
               <div className="flex flex-col">
                 <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Repository</label>
                 <RepositorySelector
@@ -353,6 +359,23 @@ export default function Dashboard() {
                   <option value="12">12 PRs</option>
                   <option value="36">36 PRs</option>
                   <option value="96">96 PRs</option>
+                </select>
+              </div>
+              
+              <div className="flex flex-col">
+                <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Draft Status</label>
+                <select 
+                  className={`px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    darkMode 
+                      ? 'bg-gray-700 border-gray-600 text-white' 
+                      : 'bg-white border-gray-300 text-gray-900'
+                  }`}
+                  value={filters.draftStatus || 'all'}
+                  onChange={(e) => setFilters(prev => ({ ...prev, draftStatus: e.target.value }))}
+                >
+                  <option value="all">All PRs</option>
+                  <option value="drafts">Only Drafts</option>
+                  <option value="final">No Drafts (Final)</option>
                 </select>
               </div>
             </div>

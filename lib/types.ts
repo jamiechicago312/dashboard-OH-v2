@@ -74,6 +74,7 @@ export type FilterState = {
   status?: string;
   noReviewers?: boolean;
   limit?: string;
+  draftStatus?: string;
 };
 
 export type Reviewer = {
