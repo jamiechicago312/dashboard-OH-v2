@@ -4,27 +4,23 @@
 
   ▲ Next.js 14.2.33
   - Local:        http://localhost:12000
+  - Environments: .env.local
 
  ✓ Starting...
- ✓ Ready in 1277ms
- ○ Compiling / ...
- ✓ Compiled / in 2.2s (471 modules)
- GET / 200 in 2428ms
- ✓ Compiled in 240ms (243 modules)
- GET / 200 in 21ms
- GET / 200 in 16ms
- GET / 200 in 16ms
- ⚠ Cross origin request detected from work-1-eehhficbawhnikka.prod-runtime.all-hands.dev to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
-Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
- ✓ Compiled /api/dashboard in 229ms (265 modules)
+ ✓ Ready in 1222ms
+ ✓ Compiled /api/dashboard in 413ms (63 modules)
+=== Dashboard API called ===
+GitHub token available: true
+Config orgs: [ 'All-Hands-AI' ]
+Search params: {}
+Building employees set...
 GraphQL failed for org All-Hands-AI, falling back to REST: Error: GraphQL error: Resource not accessible by integration
     at graphql (webpack-internal:///(rsc)/./lib/github.ts:52:15)
     at async getOrgMembersGraphQL (webpack-internal:///(rsc)/./lib/github.ts:80:24)
     at async eval (webpack-internal:///(rsc)/./lib/employees.ts:43:31)
     at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
-    at async eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:39:34)
-    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
-    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:37:24)
+    at async eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:44:34)
+    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:41:24)
     at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
     at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
     at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
@@ -43,396 +39,16 @@ GraphQL failed for org All-Hands-AI, falling back to REST: Error: GraphQL error:
     at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
     at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
     at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
-Failed to fetch PRs for All-Hands-AI/OpenHands: TypeError: reviews.filter is not a function
-    at computeFirsts (webpack-internal:///(rsc)/./lib/compute.ts:16:35)
-    at transformPR (webpack-internal:///(rsc)/./lib/compute.ts:42:53)
-    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:61:89)
-    at Array.map (<anonymous>)
-    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:53:51)
-    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
-    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:37:24)
-    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
-    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
-    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
-    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
-    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
-    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
-    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
-    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
-    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
-    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
-    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
-    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
-    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
-    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
-    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
-    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
-    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
-    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
-Failed to fetch PRs for All-Hands-AI/agent-sdk: TypeError: reviews.filter is not a function
-    at computeFirsts (webpack-internal:///(rsc)/./lib/compute.ts:16:35)
-    at transformPR (webpack-internal:///(rsc)/./lib/compute.ts:42:53)
-    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:61:89)
-    at Array.map (<anonymous>)
-    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:53:51)
-    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
-    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:37:24)
-    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
-    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
-    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
-    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
-    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
-    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
-    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
-    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
-    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
-    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
-    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
-    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
-    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
-    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
-    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
-    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
-    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
-    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
- GET /api/dashboard? 200 in 312ms
- GET /api/dashboard? 200 in 6ms
- ✓ Compiled /api/review-stats in 104ms (267 modules)
-GraphQL failed for org All-Hands-AI, falling back to REST: Error: GraphQL error: Resource not accessible by integration
-    at graphql (webpack-internal:///(rsc)/./lib/github.ts:52:15)
-    at async getOrgMembersGraphQL (webpack-internal:///(rsc)/./lib/github.ts:80:24)
-    at async eval (webpack-internal:///(rsc)/./lib/employees.ts:43:31)
-    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
-    at async eval (webpack-internal:///(rsc)/./app/api/review-stats/route.ts:25:34)
-    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
-    at async GET (webpack-internal:///(rsc)/./app/api/review-stats/route.ts:23:24)
-    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
-    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
-    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
-    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
-    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
-    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
-    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
-    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
-    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
-    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
-    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
-    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
-    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
-    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
-    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
-    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
-    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
-    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
-Failed to fetch PRs for All-Hands-AI/OpenHands: TypeError: reviews.filter is not a function
-    at computeFirsts (webpack-internal:///(rsc)/./lib/compute.ts:16:35)
-    at transformPR (webpack-internal:///(rsc)/./lib/compute.ts:42:53)
-    at eval (webpack-internal:///(rsc)/./app/api/review-stats/route.ts:46:89)
-    at Array.map (<anonymous>)
-    at eval (webpack-internal:///(rsc)/./app/api/review-stats/route.ts:38:51)
-    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
-    at async GET (webpack-internal:///(rsc)/./app/api/review-stats/route.ts:23:24)
-    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
-    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
-    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
-    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
-    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
-    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
-    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
-    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
-    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
-    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
-    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
-    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
-    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
-    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
-    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
-    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
-    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
-    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
-Failed to fetch PRs for All-Hands-AI/agent-sdk: TypeError: reviews.filter is not a function
-    at computeFirsts (webpack-internal:///(rsc)/./lib/compute.ts:16:35)
-    at transformPR (webpack-internal:///(rsc)/./lib/compute.ts:42:53)
-    at eval (webpack-internal:///(rsc)/./app/api/review-stats/route.ts:46:89)
-    at Array.map (<anonymous>)
-    at eval (webpack-internal:///(rsc)/./app/api/review-stats/route.ts:38:51)
-    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
-    at async GET (webpack-internal:///(rsc)/./app/api/review-stats/route.ts:23:24)
-    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
-    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
-    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
-    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
-    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
-    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
-    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
-    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
-    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
-    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
-    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
-    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
-    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
-    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
-    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
-    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
-    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
-    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
- GET /api/review-stats 200 in 157ms
- GET /api/review-stats 200 in 4ms
- GET / 200 in 64ms
- GET / 200 in 17ms
- GET / 200 in 16ms
- GET / 200 in 15ms
- GET / 200 in 20ms
- GET / 200 in 18ms
- GET / 200 in 18ms
- GET / 200 in 16ms
- GET / 200 in 16ms
- GET / 200 in 17ms
- GET / 200 in 16ms
- GET / 200 in 18ms
- GET / 200 in 16ms
- GET / 200 in 16ms
- GET / 200 in 14ms
- GET / 200 in 18ms
- GET / 200 in 13ms
- GET / 200 in 17ms
- GET / 200 in 14ms
- GET / 200 in 15ms
- GET / 200 in 16ms
- GET / 200 in 15ms
- GET / 200 in 12ms
- GET / 200 in 15ms
- ✓ Compiled in 267ms (243 modules)
- GET / 200 in 29ms
- GET / 200 in 13ms
- GET / 200 in 14ms
- GET / 200 in 13ms
- GET / 200 in 13ms
- GET / 200 in 14ms
- ✓ Compiled in 98ms (243 modules)
- GET / 200 in 15ms
- GET / 200 in 18ms
- GET / 200 in 16ms
- ✓ Compiled in 98ms (243 modules)
- ✓ Compiled in 141ms (457 modules)
- GET / 200 in 56ms
- GET / 200 in 14ms
- GET / 200 in 15ms
- GET / 200 in 20ms
- GET / 200 in 17ms
- GET / 200 in 17ms
- GET / 200 in 18ms
- GET / 200 in 18ms
- GET / 200 in 17ms
- GET / 200 in 18ms
- GET / 200 in 16ms
- GET / 200 in 15ms
- GET / 200 in 18ms
- GET / 200 in 15ms
- GET / 200 in 18ms
- GET / 200 in 17ms
- GET / 200 in 15ms
- GET / 200 in 16ms
- GET / 200 in 15ms
- GET / 200 in 16ms
- GET / 200 in 14ms
- GET / 200 in 13ms
- GET / 200 in 15ms
- GET / 200 in 14ms
- GET / 200 in 16ms
- GET / 200 in 15ms
- GET / 200 in 15ms
- GET / 200 in 15ms
- GET / 200 in 13ms
- ✓ Compiled in 263ms (243 modules)
- GET / 200 in 15ms
- GET / 200 in 14ms
- ✓ Compiled in 465ms (469 modules)
- ✓ Compiled /api/dashboard in 51ms (264 modules)
-GraphQL failed for org All-Hands-AI, falling back to REST: Error: GraphQL error: Resource not accessible by integration
-    at graphql (webpack-internal:///(rsc)/./lib/github.ts:52:15)
-    at async getOrgMembersGraphQL (webpack-internal:///(rsc)/./lib/github.ts:80:24)
-    at async eval (webpack-internal:///(rsc)/./lib/employees.ts:43:31)
-    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
-    at async eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:39:34)
-    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
-    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:37:24)
-    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
-    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
-    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
-    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
-    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
-    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
-    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
-    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
-    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
-    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
-    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
-    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
-    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
-    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
-    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
-    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
-    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
-    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
-Failed to fetch PRs for All-Hands-AI/OpenHands: TypeError: reviews.filter is not a function
-    at computeFirsts (webpack-internal:///(rsc)/./lib/compute.ts:16:35)
-    at transformPR (webpack-internal:///(rsc)/./lib/compute.ts:42:53)
-    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:61:89)
-    at Array.map (<anonymous>)
-    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:53:51)
-    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
-    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:37:24)
-    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
-    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
-    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
-    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
-    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
-    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
-    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
-    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
-    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
-    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
-    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
-    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
-    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
-    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
-    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
-    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
-    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
-    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
-Failed to fetch PRs for All-Hands-AI/agent-sdk: TypeError: reviews.filter is not a function
-    at computeFirsts (webpack-internal:///(rsc)/./lib/compute.ts:16:35)
-    at transformPR (webpack-internal:///(rsc)/./lib/compute.ts:42:53)
-    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:61:89)
-    at Array.map (<anonymous>)
-    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:53:51)
-    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
-    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:37:24)
-    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
-    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
-    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
-    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
-    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
-    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
-    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
-    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
-    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
-    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
-    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
-    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
-    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
-    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
-    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
-    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
-    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
-    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
- GET /api/dashboard? 200 in 128ms
- GET /api/dashboard? 200 in 13ms
- ⨯ ./app/api/repositories/route.ts:2:1
-Module not found: Can't resolve '@octokit/rest'
-[0m [90m 1 |[39m [36mimport[39m { [33mNextRequest[39m[33m,[39m [33mNextResponse[39m } [36mfrom[39m [32m'next/server'[39m[0m
-[0m[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m { [33mOctokit[39m } [36mfrom[39m [32m'@octokit/rest'[39m[0m
-[0m [90m   |[39m [31m[1m^[22m[39m[0m
-[0m [90m 3 |[39m[0m
-[0m [90m 4 |[39m [36mconst[39m octokit [33m=[39m [36mnew[39m [33mOctokit[39m({[0m
-[0m [90m 5 |[39m   auth[33m:[39m process[33m.[39menv[33m.[39m[33mGITHUB_TOKEN[39m[33m,[39m[0m
-
-https://nextjs.org/docs/messages/module-not-found
- ⨯ ./app/api/repositories/route.ts:2:1
-Module not found: Can't resolve '@octokit/rest'
-[0m [90m 1 |[39m [36mimport[39m { [33mNextRequest[39m[33m,[39m [33mNextResponse[39m } [36mfrom[39m [32m'next/server'[39m[0m
-[0m[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m { [33mOctokit[39m } [36mfrom[39m [32m'@octokit/rest'[39m[0m
-[0m [90m   |[39m [31m[1m^[22m[39m[0m
-[0m [90m 3 |[39m[0m
-[0m [90m 4 |[39m [36mconst[39m octokit [33m=[39m [36mnew[39m [33mOctokit[39m({[0m
-[0m [90m 5 |[39m   auth[33m:[39m process[33m.[39menv[33m.[39m[33mGITHUB_TOKEN[39m[33m,[39m[0m
-
-https://nextjs.org/docs/messages/module-not-found
- ○ Compiling /_not-found ...
- ⨯ ./app/api/repositories/route.ts:2:1
-Module not found: Can't resolve '@octokit/rest'
-[0m [90m 1 |[39m [36mimport[39m { [33mNextRequest[39m[33m,[39m [33mNextResponse[39m } [36mfrom[39m [32m'next/server'[39m[0m
-[0m[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m { [33mOctokit[39m } [36mfrom[39m [32m'@octokit/rest'[39m[0m
-[0m [90m   |[39m [31m[1m^[22m[39m[0m
-[0m [90m 3 |[39m[0m
-[0m [90m 4 |[39m [36mconst[39m octokit [33m=[39m [36mnew[39m [33mOctokit[39m({[0m
-[0m [90m 5 |[39m   auth[33m:[39m process[33m.[39menv[33m.[39m[33mGITHUB_TOKEN[39m[33m,[39m[0m
-
-https://nextjs.org/docs/messages/module-not-found
- ⨯ ./app/api/repositories/route.ts:2:1
-Module not found: Can't resolve '@octokit/rest'
-[0m [90m 1 |[39m [36mimport[39m { [33mNextRequest[39m[33m,[39m [33mNextResponse[39m } [36mfrom[39m [32m'next/server'[39m[0m
-[0m[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m { [33mOctokit[39m } [36mfrom[39m [32m'@octokit/rest'[39m[0m
-[0m [90m   |[39m [31m[1m^[22m[39m[0m
-[0m [90m 3 |[39m[0m
-[0m [90m 4 |[39m [36mconst[39m octokit [33m=[39m [36mnew[39m [33mOctokit[39m({[0m
-[0m [90m 5 |[39m   auth[33m:[39m process[33m.[39menv[33m.[39m[33mGITHUB_TOKEN[39m[33m,[39m[0m
-
-https://nextjs.org/docs/messages/module-not-found
- GET /api/repositories 500 in 2477ms
- GET / 500 in 325ms
- GET /api/repositories 500 in 25ms
- GET / 500 in 19ms
- GET / 500 in 9ms
- GET / 500 in 7ms
- GET / 500 in 7ms
- GET / 500 in 7ms
- GET / 500 in 6ms
- GET / 500 in 6ms
- GET / 500 in 6ms
- GET / 500 in 7ms
- GET / 500 in 8ms
- GET / 500 in 14ms
- GET / 500 in 14ms
- GET / 500 in 8ms
- GET / 500 in 8ms
- GET / 500 in 8ms
- GET / 500 in 8ms
- GET / 500 in 8ms
- GET / 500 in 8ms
- GET / 500 in 8ms
- GET / 500 in 8ms
- GET / 500 in 7ms
- ✓ Compiled /_not-found in 445ms (685 modules)
- ⚠ Fast Refresh had to perform a full reload due to a runtime error.
- GET /_next/static/webpack/5b76305906bc0463.webpack.hot-update.json 404 in 541ms
- GET / 200 in 22ms
- ✓ Compiled /api/dashboard in 199ms (305 modules)
-GraphQL failed for org All-Hands-AI, falling back to REST: Error: GraphQL error: Resource not accessible by integration
-    at graphql (webpack-internal:///(rsc)/./lib/github.ts:52:15)
-    at async getOrgMembersGraphQL (webpack-internal:///(rsc)/./lib/github.ts:80:24)
-    at async eval (webpack-internal:///(rsc)/./lib/employees.ts:43:31)
-    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
-    at async eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:39:34)
-    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
-    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:37:24)
-    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
-    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
-    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
-    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
-    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
-    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
-    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
-    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
-    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
-    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
-    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
-    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
-    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
-    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
-    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
-    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
-    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
-    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
+Found 2 employees
+Fetching PRs for All-Hands-AI/OpenHands...
+Found 106 PRs for All-Hands-AI/OpenHands
 Failed to fetch PRs for All-Hands-AI/OpenHands: TypeError: reviews.filter is not a function
     at computeFirsts (webpack-internal:///(rsc)/./lib/compute.ts:17:35)
     at transformPR (webpack-internal:///(rsc)/./lib/compute.ts:43:53)
-    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:61:89)
+    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:69:89)
     at Array.map (<anonymous>)
-    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:53:51)
-    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
-    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:37:24)
+    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:61:51)
+    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:41:24)
     at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
     at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
     at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
@@ -451,14 +67,15 @@ Failed to fetch PRs for All-Hands-AI/OpenHands: TypeError: reviews.filter is not
     at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
     at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
     at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
+Fetching PRs for All-Hands-AI/agent-sdk...
+Found 56 PRs for All-Hands-AI/agent-sdk
 Failed to fetch PRs for All-Hands-AI/agent-sdk: TypeError: reviews.filter is not a function
     at computeFirsts (webpack-internal:///(rsc)/./lib/compute.ts:17:35)
     at transformPR (webpack-internal:///(rsc)/./lib/compute.ts:43:53)
-    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:61:89)
+    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:69:89)
     at Array.map (<anonymous>)
-    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:53:51)
-    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
-    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:37:24)
+    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:61:51)
+    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:41:24)
     at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
     at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
     at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
@@ -477,74 +94,20 @@ Failed to fetch PRs for All-Hands-AI/agent-sdk: TypeError: reviews.filter is not
     at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
     at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
     at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
- GET /api/dashboard? 200 in 272ms
- GET /api/dashboard? 200 in 32ms
- ⨯ ./app/api/repositories/route.ts:2:1
-Module not found: Can't resolve '@octokit/rest'
-[0m [90m 1 |[39m [36mimport[39m { [33mNextRequest[39m[33m,[39m [33mNextResponse[39m } [36mfrom[39m [32m'next/server'[39m[0m
-[0m[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m { [33mOctokit[39m } [36mfrom[39m [32m'@octokit/rest'[39m[0m
-[0m [90m   |[39m [31m[1m^[22m[39m[0m
-[0m [90m 3 |[39m[0m
-[0m [90m 4 |[39m [36mconst[39m octokit [33m=[39m [36mnew[39m [33mOctokit[39m({[0m
-[0m [90m 5 |[39m   auth[33m:[39m process[33m.[39menv[33m.[39m[33mGITHUB_TOKEN[39m[33m,[39m[0m
-
-https://nextjs.org/docs/messages/module-not-found
- GET /api/repositories 500 in 192ms
- GET / 500 in 18ms
- GET /api/repositories 500 in 13ms
- ○ Compiling /api/repositories ...
- GET / 500 in 6ms
- ⨯ ./app/api/repositories/route.ts:2:1
-Module not found: Can't resolve '@octokit/rest'
-[0m [90m 1 |[39m [36mimport[39m { [33mNextRequest[39m[33m,[39m [33mNextResponse[39m } [36mfrom[39m [32m'next/server'[39m[0m
-[0m[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m { [33mOctokit[39m } [36mfrom[39m [32m'@octokit/rest'[39m[0m
-[0m [90m   |[39m [31m[1m^[22m[39m[0m
-[0m [90m 3 |[39m[0m
-[0m [90m 4 |[39m [36mconst[39m octokit [33m=[39m [36mnew[39m [33mOctokit[39m({[0m
-[0m [90m 5 |[39m   auth[33m:[39m process[33m.[39menv[33m.[39m[33mGITHUB_TOKEN[39m[33m,[39m[0m
-
-https://nextjs.org/docs/messages/module-not-found
- GET / 500 in 6ms
- GET / 500 in 6ms
- GET / 500 in 6ms
- GET / 500 in 6ms
- ⨯ ./app/api/repositories/route.ts:2:1
-Module not found: Can't resolve '@octokit/rest'
-[0m [90m 1 |[39m [36mimport[39m { [33mNextRequest[39m[33m,[39m [33mNextResponse[39m } [36mfrom[39m [32m'next/server'[39m[0m
-[0m[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m { [33mOctokit[39m } [36mfrom[39m [32m'@octokit/rest'[39m[0m
-[0m [90m   |[39m [31m[1m^[22m[39m[0m
-[0m [90m 3 |[39m[0m
-[0m [90m 4 |[39m [36mconst[39m octokit [33m=[39m [36mnew[39m [33mOctokit[39m({[0m
-[0m [90m 5 |[39m   auth[33m:[39m process[33m.[39menv[33m.[39m[33mGITHUB_TOKEN[39m[33m,[39m[0m
-
-https://nextjs.org/docs/messages/module-not-found
- GET /_next/static/webpack/5b76305906bc0463.webpack.hot-update.json 500 in 256ms
- GET / 200 in 4ms
- ⚠ Fast Refresh had to perform a full reload due to a runtime error.
- GET / 500 in 10ms
- GET / 500 in 6ms
- GET / 500 in 6ms
- GET / 500 in 8ms
- GET / 500 in 6ms
- GET / 500 in 6ms
- GET / 500 in 6ms
- GET / 500 in 8ms
- GET / 500 in 6ms
- GET / 500 in 6ms
- GET / 500 in 8ms
- ✓ Compiled /api/repositories in 434ms (745 modules)
- GET /_next/static/webpack/5b76305906bc0463.webpack.hot-update.json 404 in 502ms
- ⚠ Fast Refresh had to perform a full reload due to a runtime error.
- GET / 200 in 20ms
- GET / 200 in 36ms
+ GET /api/dashboard 200 in 7196ms
+ ✓ Compiled in 95ms (63 modules)
+=== Dashboard API called ===
+GitHub token available: true
+Config orgs: [ 'All-Hands-AI' ]
+Search params: {}
+Building employees set...
 GraphQL failed for org All-Hands-AI, falling back to REST: Error: GraphQL error: Resource not accessible by integration
     at graphql (webpack-internal:///(rsc)/./lib/github.ts:52:15)
     at async getOrgMembersGraphQL (webpack-internal:///(rsc)/./lib/github.ts:80:24)
     at async eval (webpack-internal:///(rsc)/./lib/employees.ts:43:31)
     at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
-    at async eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:39:34)
-    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
-    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:37:24)
+    at async eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:44:34)
+    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:41:24)
     at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
     at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
     at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
@@ -563,14 +126,16 @@ GraphQL failed for org All-Hands-AI, falling back to REST: Error: GraphQL error:
     at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
     at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
     at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
+Found 2 employees
+Fetching PRs for All-Hands-AI/OpenHands...
+Found 106 PRs for All-Hands-AI/OpenHands
 Failed to fetch PRs for All-Hands-AI/OpenHands: TypeError: reviews.filter is not a function
     at computeFirsts (webpack-internal:///(rsc)/./lib/compute.ts:17:35)
     at transformPR (webpack-internal:///(rsc)/./lib/compute.ts:43:53)
-    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:61:89)
+    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:69:89)
     at Array.map (<anonymous>)
-    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:53:51)
-    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
-    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:37:24)
+    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:61:51)
+    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:41:24)
     at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
     at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
     at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
@@ -589,14 +154,15 @@ Failed to fetch PRs for All-Hands-AI/OpenHands: TypeError: reviews.filter is not
     at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
     at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
     at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
+Fetching PRs for All-Hands-AI/agent-sdk...
+Found 56 PRs for All-Hands-AI/agent-sdk
 Failed to fetch PRs for All-Hands-AI/agent-sdk: TypeError: reviews.filter is not a function
     at computeFirsts (webpack-internal:///(rsc)/./lib/compute.ts:17:35)
     at transformPR (webpack-internal:///(rsc)/./lib/compute.ts:43:53)
-    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:61:89)
+    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:69:89)
     at Array.map (<anonymous>)
-    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:53:51)
-    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
-    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:37:24)
+    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:61:51)
+    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:41:24)
     at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
     at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
     at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
@@ -615,41 +181,244 @@ Failed to fetch PRs for All-Hands-AI/agent-sdk: TypeError: reviews.filter is not
     at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
     at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
     at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
- GET /api/dashboard? 200 in 19ms
- GET /api/dashboard? 200 in 5ms
- GET /api/repositories 200 in 948ms
- GET /api/repositories 200 in 7ms
- GET / 200 in 18ms
- GET / 200 in 17ms
- GET / 200 in 18ms
- GET /api/dashboard? 200 in 7ms
- GET /api/dashboard? 200 in 6ms
- GET /api/repositories 200 in 10ms
- GET /api/repositories 200 in 7ms
- GET / 200 in 15ms
- GET / 200 in 19ms
- GET / 200 in 15ms
- GET / 200 in 64ms
- GET / 200 in 17ms
- GET /api/dashboard?repositories=All-Hands-AI%2FOpenHands 200 in 7ms
- GET / 200 in 15ms
- GET / 200 in 14ms
- GET / 200 in 16ms
- GET / 200 in 18ms
- GET / 200 in 16ms
- GET / 200 in 15ms
- GET / 200 in 18ms
- GET / 200 in 16ms
- GET / 200 in 18ms
- GET / 200 in 15ms
- GET / 200 in 16ms
- GET / 200 in 18ms
- GET / 200 in 91ms
- GET / 200 in 14ms
- GET / 200 in 13ms
- GET / 200 in 14ms
- GET / 200 in 17ms
- GET / 200 in 14ms
- GET / 200 in 15ms
- GET / 200 in 17ms
- GET / 200 in 17ms
+ GET /api/dashboard 200 in 50ms
+=== Dashboard API called ===
+GitHub token available: true
+Config orgs: [ 'All-Hands-AI' ]
+Search params: {}
+Building employees set...
+Found 2 employees
+Fetching PRs for All-Hands-AI/OpenHands...
+Found 106 PRs for All-Hands-AI/OpenHands
+Failed to fetch PRs for All-Hands-AI/OpenHands: TypeError: reviews.filter is not a function
+    at computeFirsts (webpack-internal:///(rsc)/./lib/compute.ts:17:35)
+    at transformPR (webpack-internal:///(rsc)/./lib/compute.ts:43:53)
+    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:69:89)
+    at Array.map (<anonymous>)
+    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:61:51)
+    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:41:24)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
+    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
+    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
+    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
+    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
+    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
+    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
+    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
+    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
+Fetching PRs for All-Hands-AI/agent-sdk...
+Found 56 PRs for All-Hands-AI/agent-sdk
+Failed to fetch PRs for All-Hands-AI/agent-sdk: TypeError: reviews.filter is not a function
+    at computeFirsts (webpack-internal:///(rsc)/./lib/compute.ts:17:35)
+    at transformPR (webpack-internal:///(rsc)/./lib/compute.ts:43:53)
+    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:69:89)
+    at Array.map (<anonymous>)
+    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:61:51)
+    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:41:24)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
+    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
+    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
+    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
+    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
+    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
+    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
+    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
+    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
+ GET /api/dashboard 200 in 10ms
+ ✓ Compiled in 60ms (63 modules)
+ GET /api/dashboard 200 in 35ms
+ ✓ Compiled in 55ms (63 modules)
+=== Dashboard API called ===
+GitHub token available: true
+Config orgs: [ 'All-Hands-AI' ]
+Search params: { debug: 'true' }
+Building employees set...
+GraphQL failed for org All-Hands-AI, falling back to REST: Error: GraphQL error: Resource not accessible by integration
+    at graphql (webpack-internal:///(rsc)/./lib/github.ts:52:15)
+    at async getOrgMembersGraphQL (webpack-internal:///(rsc)/./lib/github.ts:80:24)
+    at async eval (webpack-internal:///(rsc)/./lib/employees.ts:43:31)
+    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
+    at async eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:44:34)
+    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:41:24)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
+    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
+    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
+    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
+    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
+    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
+    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
+    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
+    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
+Found 2 employees
+Fetching PRs for All-Hands-AI/OpenHands...
+Found 106 PRs for All-Hands-AI/OpenHands
+Failed to fetch PRs for All-Hands-AI/OpenHands: TypeError: reviews.filter is not a function
+    at computeFirsts (webpack-internal:///(rsc)/./lib/compute.ts:17:35)
+    at transformPR (webpack-internal:///(rsc)/./lib/compute.ts:43:53)
+    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:69:89)
+    at Array.map (<anonymous>)
+    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:61:51)
+    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:41:24)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
+    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
+    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
+    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
+    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
+    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
+    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
+    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
+    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
+Fetching PRs for All-Hands-AI/agent-sdk...
+Found 56 PRs for All-Hands-AI/agent-sdk
+Failed to fetch PRs for All-Hands-AI/agent-sdk: TypeError: reviews.filter is not a function
+    at computeFirsts (webpack-internal:///(rsc)/./lib/compute.ts:17:35)
+    at transformPR (webpack-internal:///(rsc)/./lib/compute.ts:43:53)
+    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:69:89)
+    at Array.map (<anonymous>)
+    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:61:51)
+    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:41:24)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
+    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
+    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
+    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
+    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
+    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
+    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
+    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
+    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
+ GET /api/dashboard?debug=true 200 in 40ms
+ ✓ Compiled in 55ms (63 modules)
+=== Dashboard API called ===
+GitHub token available: true
+Config orgs: [ 'All-Hands-AI' ]
+Search params: { debug: 'true' }
+Building employees set...
+GraphQL failed for org All-Hands-AI, falling back to REST: Error: GraphQL error: Resource not accessible by integration
+    at graphql (webpack-internal:///(rsc)/./lib/github.ts:52:15)
+    at async getOrgMembersGraphQL (webpack-internal:///(rsc)/./lib/github.ts:80:24)
+    at async eval (webpack-internal:///(rsc)/./lib/employees.ts:43:31)
+    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
+    at async eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:44:34)
+    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:41:24)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
+    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
+    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
+    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
+    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
+    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
+    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
+    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
+    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
+Found 2 employees
+Target repos: []
+Repos to fetch: [ 'All-Hands-AI/OpenHands', 'All-Hands-AI/agent-sdk' ]
+Fetching PRs for All-Hands-AI/OpenHands...
+Found 106 PRs for All-Hands-AI/OpenHands
+Failed to fetch PRs for All-Hands-AI/OpenHands: TypeError: reviews.filter is not a function
+    at computeFirsts (webpack-internal:///(rsc)/./lib/compute.ts:17:35)
+    at transformPR (webpack-internal:///(rsc)/./lib/compute.ts:43:53)
+    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:71:89)
+    at Array.map (<anonymous>)
+    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:63:51)
+    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:41:24)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
+    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
+    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
+    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
+    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
+    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
+    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
+    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
+    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
+Fetching PRs for All-Hands-AI/agent-sdk...
+Found 56 PRs for All-Hands-AI/agent-sdk
+Failed to fetch PRs for All-Hands-AI/agent-sdk: TypeError: reviews.filter is not a function
+    at computeFirsts (webpack-internal:///(rsc)/./lib/compute.ts:17:35)
+    at transformPR (webpack-internal:///(rsc)/./lib/compute.ts:43:53)
+    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:71:89)
+    at Array.map (<anonymous>)
+    at eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:63:51)
+    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:41:24)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
+    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
+    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
+    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
+    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
+    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
+    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
+    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
+    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
+ GET /api/dashboard?debug=true 200 in 39ms
+[?25h

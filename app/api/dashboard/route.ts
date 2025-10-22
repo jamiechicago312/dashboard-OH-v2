@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-export const dynamic = 'force-dynamic';
 import { config, validateConfig } from '@/lib/config';
 import { cache } from '@/lib/cache';
 import { buildEmployeesSet, isCommunityPR } from '@/lib/employees';
@@ -8,11 +6,18 @@ import { getOpenPRsGraphQL } from '@/lib/github';
 import { transformPR, computeKpis, computeDashboardData } from '@/lib/compute';
 import { DashboardResponse, PR } from '@/lib/types';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
+  console.log('=== Dashboard API called ===');
   try {
-    validateConfig();
+    // Debug: Check if GitHub token is available
+    console.log('GitHub token available:', !!process.env.GITHUB_TOKEN);
+    console.log('Config orgs:', config.orgs);
+    // validateConfig(); // Temporarily disabled for debugging
     
     const { searchParams } = new URL(request.url);
+    console.log('Search params:', Object.fromEntries(searchParams.entries()));
     const debug = searchParams.get('debug') === 'true';
     const reposParam = searchParams.get('repos');
     const labelsParam = searchParams.get('labels');
@@ -37,9 +42,12 @@ export async function GET(request: NextRequest) {
       age: ageParam 
     })}`;
     
-    const result = await cache.withCache(cacheKey, config.cache.ttlSeconds, async () => {
+    // Temporarily bypass cache for debugging
+    const result = await (async () => {
       // Build employees set
+      console.log('Building employees set...');
       const employeesSet = await buildEmployeesSet();
+      console.log(`Found ${employeesSet.size} employees`);
       
       // Get all PRs from target repositories
       const allPrs: PR[] = [];
@@ -51,12 +59,17 @@ export async function GET(request: NextRequest) {
         'All-Hands-AI/agent-sdk',
       ];
       
+      console.log('Target repos:', targetRepos);
+      console.log('Repos to fetch:', reposToFetch);
+      
       for (const repoPath of reposToFetch) {
         const [owner, repo] = repoPath.split('/');
         if (!owner || !repo) continue;
         
         try {
+          console.log(`Fetching PRs for ${repoPath}...`);
           const rawPrs = await getOpenPRsGraphQL(owner, repo);
+          console.log(`Found ${rawPrs.length} PRs for ${repoPath}`);
           const transformedPrs = rawPrs.map(rawPr => {
             // Add repo info to raw PR for transformation
             rawPr.repository = { owner: { login: owner }, name: repo };
@@ -73,8 +86,8 @@ export async function GET(request: NextRequest) {
       // Apply filters
       let filteredPrs = allPrs;
       
-      // Filter to community PRs by default
-      filteredPrs = filteredPrs.filter(pr => isCommunityPR(pr.authorLogin, employeesSet));
+      // Don't filter to community PRs by default - show all PRs
+      // Community PR filtering is handled in the compute functions
       
       // Apply label filters if provided
       if (labelFilters.length > 0) {
@@ -110,13 +123,13 @@ export async function GET(request: NextRequest) {
         totalPrs: allPrs.length,
         employeeCount: employeesSet.size,
       };
-    });
+    })();
     
     const response = result;
     
     // Add debug info if requested
     if (debug) {
-      response.rateLimit = { remaining: 5000, resetAt: new Date().toISOString() }; // Placeholder
+      (response as any).rateLimit = { remaining: 5000, resetAt: new Date().toISOString() }; // Placeholder
       (response as any).debug = {
         totalPrs: result.totalPrs,
         employeeCount: result.employeeCount,
@@ -128,12 +141,14 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(response);
     
   } catch (error) {
-    console.error('Dashboard API error:', error);
+    console.error('=== Dashboard API error ===', error);
+    console.error('Error stack:', error instanceof Error ? error.stack : 'No stack');
     
     return NextResponse.json(
       { 
         error: 'Failed to fetch dashboard data',
         message: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : 'No stack',
       },
       { status: 500 }
     );

@@ -6,7 +6,7 @@ export function computeFirsts(pr: any, employeesSet: Set<string>): {
   firstHumanResponseAt?: string;
   firstReviewAt?: string;
 } {
-  const reviews = pr.reviews || [];
+  const reviews = pr.reviews?.nodes || [];
   
   // Sort reviews by submission time
   const sortedReviews = reviews

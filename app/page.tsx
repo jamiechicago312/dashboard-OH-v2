@@ -10,6 +10,7 @@ export default function Dashboard() {
   const [data, setData] = useState<DashboardData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [darkMode, setDarkMode] = useState(false)
   const [filters, setFilters] = useState<FilterState>({
     repositories: [],
     labels: [],
@@ -64,12 +65,12 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className={`min-h-screen ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
       {/* Header - Matching wireframe exactly */}
-      <header className="bg-white border-b border-gray-200">
+      <header className={`${darkMode ? 'bg-gray-800' : 'bg-white'} border-b ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
         <div className="max-w-7xl mx-auto px-5">
           <div className="flex justify-between items-center py-4">
-            <div className="text-2xl font-bold text-gray-900">
+            <div className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
               OpenHands PR Review Dashboard
             </div>
             <div className="flex items-center gap-4">
@@ -78,8 +79,11 @@ export default function Dashboard() {
                 onChange={(repos) => setFilters(prev => ({ ...prev, repositories: repos }))}
                 className="min-w-[200px]"
               />
-              <button className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 rounded border text-gray-700">
-                🌙 Dark
+              <button 
+                onClick={() => setDarkMode(!darkMode)}
+                className={`px-3 py-1 text-sm ${darkMode ? 'bg-gray-700 hover:bg-gray-600 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-700'} rounded border transition-colors`}
+              >
+                {darkMode ? '☀️ Light' : '🌙 Dark'}
               </button>
             </div>
           </div>
