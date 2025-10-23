@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenHands PR Review Dashboard - MVP Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 0;
+            margin-bottom: 24px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .repo-selector {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background: white;
+            min-width: 200px;
+        }
+
+        .theme-toggle {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+        }
+
+        /* KPI Cards Section */
+        .kpi-section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #0f172a;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .kpi-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .kpi-card h3 {
+            font-size: 14px;
+            font-weight: 500;
+            color: #64748b;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .kpi-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+
+        .kpi-subtitle {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        /* Accountability Cards */
+        .accountability-section {
+            margin-bottom: 32px;
+        }
+
+        .accountability-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .accountability-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .reviewer-list {
+            list-style: none;
+            margin-top: 12px;
+        }
+
+        .reviewer-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .reviewer-item:last-child {
+            border-bottom: none;
+        }
+
+        .reviewer-name {
+            font-weight: 500;
+        }
+
+        .reviewer-count {
+            background: #ef4444;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Fairness Indicator */
+        .fairness-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 32px;
+        }
+
+        .fairness-bars {
+            margin-top: 16px;
+        }
+
+        .fairness-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .fairness-label {
+            width: 100px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .fairness-bar {
+            flex: 1;
+            height: 20px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            margin: 0 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fairness-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #f59e0b, #ef4444);
+            border-radius: 10px;
+        }
+
+        .fairness-count {
+            font-size: 14px;
+            font-weight: 600;
+            min-width: 30px;
+        }
+
+        /* Filters Section */
+        .filters-section {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-label {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #374151;
+        }
+
+        .filter-input {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background: white;
+        }
+
+        /* Community PRs Table */
+        .table-section {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .table-header {
+            background: #f8fafc;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .table-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f8fafc;
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            color: #374151;
+            border-bottom: 1px solid #e2e8f0;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .pr-title {
+            font-weight: 500;
+            color: #1e40af;
+            text-decoration: none;
+            max-width: 300px;
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .pr-title:hover {
+            text-decoration: underline;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-community {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-overdue {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .badge-needs-response {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .age-indicator {
+            font-weight: 500;
+        }
+
+        .age-fresh { color: #10b981; }
+        .age-warning { color: #f59e0b; }
+        .age-critical { color: #ef4444; }
+
+        .reviewer-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .reviewer-tag {
+            background: #f3f4f6;
+            color: #374151;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .accountability-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .table-container {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 8px 12px;
+            }
+        }
+
+        /* Wireframe indicators */
+        .wireframe-note {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 6px;
+            padding: 12px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #92400e;
+        }
+    </style>
+</head>
+<body>
+    <div class="wireframe-note">
+        <strong>🎨 MVP Wireframe:</strong> This is a visual mockup of the OpenHands PR Review Dashboard MVP. All data shown is placeholder content to demonstrate layout and functionality.
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">OpenHands PR Review Dashboard</div>
+                <div class="header-controls">
+                    <select class="repo-selector">
+                        <option>All Repositories</option>
+                        <option>All-Hands-AI/OpenHands</option>
+                        <option>All-Hands-AI/agent-sdk</option>
+                    </select>
+                    <button class="theme-toggle">🌙 Dark</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- KPI Cards Section -->
+        <section class="kpi-section">
+            <h2 class="section-title">Key Performance Indicators</h2>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <h3>Community PRs Open</h3>
+                    <div class="kpi-value">23</div>
+                    <div class="kpi-subtitle">Non-employee authored</div>
+                </div>
+                <div class="kpi-card">
+                    <h3>% Community PRs</h3>
+                    <div class="kpi-value">42%</div>
+                    <div class="kpi-subtitle">Of all open PRs</div>
+                </div>
+                <div class="kpi-card">
+                    <h3>Median Time to First Response</h3>
+                    <div class="kpi-value">18h</div>
+                    <div class="kpi-subtitle">Target: ≤24h</div>
+                </div>
+                <div class="kpi-card">
+                    <h3>Assigned Reviewer Compliance</h3>
+                    <div class="kpi-value">78%</div>
+                    <div class="kpi-subtitle">PRs with assigned reviewers</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Accountability Section -->
+        <section class="accountability-section">
+            <h2 class="section-title">Review Accountability</h2>
+            <div class="accountability-grid">
+                <div class="accountability-card">
+                    <h3>Current Review Load</h3>
+                    <div class="kpi-value">43</div>
+                    <div class="kpi-subtitle">Total pending review requests</div>
+                </div>
+                <div class="accountability-card">
+                    <h3>Top Pending Reviewers</h3>
+                    <ul class="reviewer-list">
+                        <li class="reviewer-item">
+                            <span class="reviewer-name">amanape</span>
+                            <span class="reviewer-count">11</span>
+                        </li>
+                        <li class="reviewer-item">
+                            <span class="reviewer-name">xingyaoww</span>
+                            <span class="reviewer-count">8</span>
+                        </li>
+                        <li class="reviewer-item">
+                            <span class="reviewer-name">mamoodi</span>
+                            <span class="reviewer-count">8</span>
+                        </li>
+                        <li class="reviewer-item">
+                            <span class="reviewer-name">tofarr</span>
+                            <span class="reviewer-count">3</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="accountability-card">
+                    <h3>PRs Without Reviewers</h3>
+                    <div class="kpi-value">52</div>
+                    <div class="kpi-subtitle">Non-draft PRs needing assignment</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fairness Indicator -->
+        <section class="fairness-card">
+            <h3>Review Load Distribution</h3>
+            <div class="kpi-subtitle">Current assignment fairness across team members</div>
+            <div class="fairness-bars">
+                <div class="fairness-item">
+                    <div class="fairness-label">amanape</div>
+                    <div class="fairness-bar">
+                        <div class="fairness-fill" style="width: 85%;"></div>
+                    </div>
+                    <div class="fairness-count">11</div>
+                </div>
+                <div class="fairness-item">
+                    <div class="fairness-label">xingyaoww</div>
+                    <div class="fairness-bar">
+                        <div class="fairness-fill" style="width: 62%;"></div>
+                    </div>
+                    <div class="fairness-count">8</div>
+                </div>
+                <div class="fairness-item">
+                    <div class="fairness-label">mamoodi</div>
+                    <div class="fairness-bar">
+                        <div class="fairness-fill" style="width: 62%;"></div>
+                    </div>
+                    <div class="fairness-count">8</div>
+                </div>
+                <div class="fairness-item">
+                    <div class="fairness-label">tofarr</div>
+                    <div class="fairness-bar">
+                        <div class="fairness-fill" style="width: 23%;"></div>
+                    </div>
+                    <div class="fairness-count">3</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filters Section -->
+        <section class="filters-section">
+            <h3>Filters</h3>
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label class="filter-label">Repository</label>
+                    <select class="filter-input">
+                        <option>All Repositories</option>
+                        <option>All-Hands-AI/OpenHands</option>
+                        <option>All-Hands-AI/agent-sdk</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Age</label>
+                    <select class="filter-input">
+                        <option>All Ages</option>
+                        <option>0-24 hours</option>
+                        <option>24-48 hours</option>
+                        <option>48-96 hours</option>
+                        <option>>96 hours</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Labels</label>
+                    <input type="text" class="filter-input" placeholder="needs-review, bug, feature">
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Author</label>
+                    <input type="text" class="filter-input" placeholder="Filter by author">
+                </div>
+            </div>
+        </section>
+
+        <!-- Community PRs Table -->
+        <section class="table-section">
+            <div class="table-header">
+                <h3 class="table-title">Community Pull Requests (23 open)</h3>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Repository</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Age</th>
+                            <th>Assigned Reviewers</th>
+                            <th>Last Activity</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>OpenHands</td>
+                            <td><a href="#" class="pr-title">Fix edge case in planner module when handling complex workflows</a></td>
+                            <td>external-dev</td>
+                            <td class="age-critical">72h</td>
+                            <td>
+                                <div class="reviewer-tags">
+                                    <span class="reviewer-tag">amanape</span>
+                                </div>
+                            </td>
+                            <td>2h ago</td>
+                            <td>
+                                <span class="badge badge-community">Community</span>
+                                <span class="badge badge-overdue">Overdue</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>OpenHands</td>
+                            <td><a href="#" class="pr-title">Add support for new LLM provider integration</a></td>
+                            <td>contributor-123</td>
+                            <td class="age-warning">36h</td>
+                            <td>
+                                <div class="reviewer-tags">
+                                    <span class="reviewer-tag">xingyaoww</span>
+                                    <span class="reviewer-tag">mamoodi</span>
+                                </div>
+                            </td>
+                            <td>8h ago</td>
+                            <td>
+                                <span class="badge badge-community">Community</span>
+                                <span class="badge badge-overdue">Overdue</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>agent-sdk</td>
+                            <td><a href="#" class="pr-title">Improve error handling in SDK initialization</a></td>
+                            <td>open-source-fan</td>
+                            <td class="age-warning">28h</td>
+                            <td>
+                                <div class="reviewer-tags">
+                                    <span class="reviewer-tag">tofarr</span>
+                                </div>
+                            </td>
+                            <td>12h ago</td>
+                            <td>
+                                <span class="badge badge-community">Community</span>
+                                <span class="badge badge-overdue">Overdue</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>OpenHands</td>
+                            <td><a href="#" class="pr-title">Update documentation for new API endpoints</a></td>
+                            <td>docs-helper</td>
+                            <td class="age-fresh">16h</td>
+                            <td>
+                                <div class="reviewer-tags">
+                                    <span class="reviewer-tag">malhotra5</span>
+                                </div>
+                            </td>
+                            <td>4h ago</td>
+                            <td>
+                                <span class="badge badge-community">Community</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>OpenHands</td>
+                            <td><a href="#" class="pr-title">Fix memory leak in agent execution loop</a></td>
+                            <td>performance-guru</td>
+                            <td class="age-fresh">8h</td>
+                            <td>
+                                <div class="reviewer-tags">
+                                    <span class="reviewer-tag">amanape</span>
+                                </div>
+                            </td>
+                            <td>1h ago</td>
+                            <td>
+                                <span class="badge badge-community">Community</span>
+                                <span class="badge badge-needs-response">Needs Response</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>agent-sdk</td>
+                            <td><a href="#" class="pr-title">Add TypeScript definitions for new methods</a></td>
+                            <td>ts-enthusiast</td>
+                            <td class="age-fresh">4h</td>
+                            <td>
+                                <div class="reviewer-tags">
+                                    <span class="reviewer-tag">xingyaoww</span>
+                                </div>
+                            </td>
+                            <td>30m ago</td>
+                            <td>
+                                <span class="badge badge-community">Community</span>
+                                <span class="badge badge-needs-response">Needs Response</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <div class="wireframe-note" style="margin-top: 40px;">
+        <strong>📋 MVP Features Demonstrated:</strong>
+        <ul style="margin-top: 8px; margin-left: 20px;">
+            <li>KPI cards showing community PR metrics and SLA compliance</li>
+            <li>Accountability section with pending reviewer counts (matching pr_review_analysis.py output)</li>
+            <li>Review load distribution fairness indicator</li>
+            <li>Filterable community PRs table with sorting and status badges</li>
+            <li>Responsive design for mobile and desktop</li>
+            <li>Clean, professional styling matching modern dashboard patterns</li>
+        </ul>
+    </div>
+</body>
+</html>

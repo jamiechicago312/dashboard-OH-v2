@@ -1,0 +1,271 @@
+
+> openhands-pr-review-dashboard@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.33
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 1397ms
+ ○ Compiling / ...
+ ✓ Compiled / in 2.8s (469 modules)
+ GET / 200 in 3005ms
+ ✓ Compiled in 273ms (242 modules)
+ GET / 200 in 26ms
+ ✓ Compiled /api/dashboard in 274ms (264 modules)
+=== Dashboard API called ===
+GitHub token available: true
+Config orgs: [ 'All-Hands-AI' ]
+Search params: {}
+Building employees set...
+GraphQL failed for org All-Hands-AI, falling back to REST: Error: GraphQL error: Resource not accessible by integration
+    at graphql (webpack-internal:///(rsc)/./lib/github.ts:52:15)
+    at async getOrgMembersGraphQL (webpack-internal:///(rsc)/./lib/github.ts:80:24)
+    at async eval (webpack-internal:///(rsc)/./lib/employees.ts:43:31)
+    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
+    at async eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:44:34)
+    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:41:24)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
+    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
+    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
+    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
+    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
+    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
+    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
+    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
+    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
+Found 2 employees
+Target repos: []
+Repos to fetch: [ 'All-Hands-AI/OpenHands', 'All-Hands-AI/agent-sdk' ]
+Fetching PRs for All-Hands-AI/OpenHands...
+Found 106 PRs for All-Hands-AI/OpenHands
+Fetching PRs for All-Hands-AI/agent-sdk...
+Found 56 PRs for All-Hands-AI/agent-sdk
+ GET /api/dashboard? 200 in 8693ms
+=== Dashboard API called ===
+GitHub token available: true
+Config orgs: [ 'All-Hands-AI' ]
+Search params: {}
+Building employees set...
+Found 2 employees
+Target repos: []
+Repos to fetch: [ 'All-Hands-AI/OpenHands', 'All-Hands-AI/agent-sdk' ]
+Fetching PRs for All-Hands-AI/OpenHands...
+Found 106 PRs for All-Hands-AI/OpenHands
+Fetching PRs for All-Hands-AI/agent-sdk...
+Found 56 PRs for All-Hands-AI/agent-sdk
+ GET /api/dashboard? 200 in 13ms
+ ✓ Compiled /api/repositories in 173ms (288 modules)
+ GET /api/repositories 200 in 1133ms
+ GET /api/repositories 200 in 7ms
+ GET /api/repositories 200 in 6ms
+ GET /api/repositories 200 in 6ms
+ GET / 200 in 79ms
+=== Dashboard API called ===
+GitHub token available: true
+Config orgs: [ 'All-Hands-AI' ]
+Search params: {}
+Building employees set...
+GraphQL failed for org All-Hands-AI, falling back to REST: Error: GraphQL error: Resource not accessible by integration
+    at graphql (webpack-internal:///(rsc)/./lib/github.ts:52:15)
+    at async getOrgMembersGraphQL (webpack-internal:///(rsc)/./lib/github.ts:80:24)
+    at async eval (webpack-internal:///(rsc)/./lib/employees.ts:43:31)
+    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
+    at async eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:44:34)
+    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:41:24)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
+    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
+    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
+    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
+    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
+    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
+    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
+    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
+    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
+Found 2 employees
+Target repos: []
+Repos to fetch: [ 'All-Hands-AI/OpenHands', 'All-Hands-AI/agent-sdk' ]
+Fetching PRs for All-Hands-AI/OpenHands...
+Found 106 PRs for All-Hands-AI/OpenHands
+Fetching PRs for All-Hands-AI/agent-sdk...
+Found 56 PRs for All-Hands-AI/agent-sdk
+ GET /api/dashboard? 200 in 18ms
+=== Dashboard API called ===
+GitHub token available: true
+Config orgs: [ 'All-Hands-AI' ]
+Search params: {}
+Building employees set...
+Found 2 employees
+Target repos: []
+Repos to fetch: [ 'All-Hands-AI/OpenHands', 'All-Hands-AI/agent-sdk' ]
+Fetching PRs for All-Hands-AI/OpenHands...
+Found 106 PRs for All-Hands-AI/OpenHands
+Fetching PRs for All-Hands-AI/agent-sdk...
+Found 56 PRs for All-Hands-AI/agent-sdk
+ GET /api/dashboard? 200 in 12ms
+ GET /api/repositories 200 in 9ms
+ GET /api/repositories 200 in 8ms
+ GET /api/repositories 200 in 8ms
+ GET /api/repositories 200 in 12ms
+ ✓ Compiled in 521ms (469 modules)
+ ✓ Compiled /api/dashboard in 69ms (264 modules)
+=== Dashboard API called ===
+GitHub token available: true
+Config orgs: [ 'All-Hands-AI' ]
+Search params: {}
+Building employees set...
+GraphQL failed for org All-Hands-AI, falling back to REST: Error: GraphQL error: Resource not accessible by integration
+    at graphql (webpack-internal:///(rsc)/./lib/github.ts:52:15)
+    at async getOrgMembersGraphQL (webpack-internal:///(rsc)/./lib/github.ts:80:24)
+    at async eval (webpack-internal:///(rsc)/./lib/employees.ts:43:31)
+    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
+    at async eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:44:34)
+    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:41:24)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
+    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
+    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
+    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
+    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
+    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
+    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
+    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
+    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
+Found 2 employees
+Target repos: []
+Repos to fetch: [ 'All-Hands-AI/OpenHands', 'All-Hands-AI/agent-sdk' ]
+Fetching PRs for All-Hands-AI/OpenHands...
+Found 106 PRs for All-Hands-AI/OpenHands
+Fetching PRs for All-Hands-AI/agent-sdk...
+Found 56 PRs for All-Hands-AI/agent-sdk
+ GET /api/dashboard? 200 in 143ms
+=== Dashboard API called ===
+GitHub token available: true
+Config orgs: [ 'All-Hands-AI' ]
+Search params: {}
+Building employees set...
+Found 2 employees
+Target repos: []
+Repos to fetch: [ 'All-Hands-AI/OpenHands', 'All-Hands-AI/agent-sdk' ]
+Fetching PRs for All-Hands-AI/OpenHands...
+Found 106 PRs for All-Hands-AI/OpenHands
+Fetching PRs for All-Hands-AI/agent-sdk...
+Found 56 PRs for All-Hands-AI/agent-sdk
+ GET /api/dashboard? 200 in 14ms
+ ✓ Compiled /api/repositories in 65ms (288 modules)
+ GET /api/repositories 200 in 133ms
+ GET /api/repositories 200 in 8ms
+ GET /api/repositories 200 in 10ms
+ GET /api/repositories 200 in 8ms
+ ✓ Compiled in 424ms (530 modules)
+ ✓ Compiled in 454ms (530 modules)
+ ✓ Compiled in 332ms (469 modules)
+ ✓ Compiled in 201ms (469 modules)
+ ✓ Compiled in 301ms (242 modules)
+ ✓ Compiled in 152ms (242 modules)
+ ✓ Compiled in 215ms (242 modules)
+ ✓ Compiled in 371ms (469 modules)
+ ✓ Compiled in 374ms (469 modules)
+ ✓ Compiled /api/dashboard in 335ms (469 modules)
+ ✓ Compiled in 0ms (264 modules)
+=== Dashboard API called ===
+GitHub token available: true
+Config orgs: [ 'All-Hands-AI' ]
+Search params: {}
+Building employees set...
+GraphQL failed for org All-Hands-AI, falling back to REST: Error: GraphQL error: Resource not accessible by integration
+    at graphql (webpack-internal:///(rsc)/./lib/github.ts:52:15)
+    at async getOrgMembersGraphQL (webpack-internal:///(rsc)/./lib/github.ts:80:24)
+    at async eval (webpack-internal:///(rsc)/./lib/employees.ts:43:31)
+    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
+    at async eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:46:34)
+    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:43:24)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
+    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
+    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
+    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
+    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
+    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
+    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
+    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
+    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
+Found 2 employees
+Target repos: []
+Repos to fetch: [ 'All-Hands-AI/OpenHands', 'All-Hands-AI/agent-sdk' ]
+Fetching PRs for All-Hands-AI/OpenHands...
+Found 106 PRs for All-Hands-AI/OpenHands
+Fetching PRs for All-Hands-AI/agent-sdk...
+Found 56 PRs for All-Hands-AI/agent-sdk
+ GET /api/dashboard? 200 in 369ms
+=== Dashboard API called ===
+GitHub token available: true
+Config orgs: [ 'All-Hands-AI' ]
+Search params: {}
+Building employees set...
+Found 2 employees
+Target repos: []
+Repos to fetch: [ 'All-Hands-AI/OpenHands', 'All-Hands-AI/agent-sdk' ]
+Fetching PRs for All-Hands-AI/OpenHands...
+Found 106 PRs for All-Hands-AI/OpenHands
+Fetching PRs for All-Hands-AI/agent-sdk...
+Found 56 PRs for All-Hands-AI/agent-sdk
+ GET /api/dashboard? 200 in 15ms
+ ✓ Compiled /api/repositories in 81ms (288 modules)
+ GET /api/repositories 200 in 216ms
+ GET /api/repositories 200 in 13ms
+ GET /api/repositories 200 in 8ms
+ GET /api/repositories 200 in 8ms
+ ✓ Compiled in 537ms (469 modules)
+ ✓ Compiled in 133ms (242 modules)
+ ✓ Compiled in 505ms (469 modules)
+ ✓ Compiled in 278ms (469 modules)
+ ✓ Compiled in 218ms (469 modules)
+ ✓ Compiled in 307ms (469 modules)
+ ✓ Compiled in 390ms (469 modules)
+ ✓ Compiled in 123ms (242 modules)
+ ✓ Compiled in 99ms (242 modules)
+ ✓ Compiled in 109ms (242 modules)
+ ✓ Compiled in 469ms (469 modules)
+ ✓ Compiled in 269ms (469 modules)
+ ✓ Compiled in 302ms (469 modules)
+ ✓ Compiled in 344ms (469 modules)
+ ✓ Compiled in 374ms (469 modules)
+ ✓ Compiled in 171ms (242 modules)
+ ✓ Compiled in 93ms (242 modules)
+ ✓ Compiled in 110ms (242 modules)
