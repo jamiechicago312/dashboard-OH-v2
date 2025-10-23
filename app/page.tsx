@@ -77,11 +77,6 @@ export default function Dashboard() {
     fetchData()
   }, [])
 
-  const handleApplyFilters = () => {
-    setAppliedFilters(filters)
-    fetchData(filters)
-  }
-
   const handleClearFilters = () => {
     const clearedFilters = {
       repositories: [],
@@ -290,7 +285,12 @@ export default function Dashboard() {
                       : 'bg-white border-gray-300 text-gray-900'
                   }`}
                   value={filters.ageRange}
-                  onChange={(e) => setFilters(prev => ({ ...prev, ageRange: e.target.value }))}
+                  onChange={(e) => {
+                    const newFilters = { ...filters, ageRange: e.target.value }
+                    setFilters(newFilters)
+                    setAppliedFilters(newFilters)
+                    fetchData(newFilters)
+                  }}
                 >
                   <option value="all">All Ages</option>
                   <option value="0-24">0-24 hours</option>
@@ -313,7 +313,10 @@ export default function Dashboard() {
                   value={filters.labels.join(', ')}
                   onChange={(e) => {
                     const labels = e.target.value.split(',').map(l => l.trim()).filter(l => l)
-                    setFilters(prev => ({ ...prev, labels }))
+                    const newFilters = { ...filters, labels }
+                    setFilters(newFilters)
+                    setAppliedFilters(newFilters)
+                    fetchData(newFilters)
                   }}
                 />
               </div>
@@ -327,7 +330,12 @@ export default function Dashboard() {
                       : 'bg-white border-gray-300 text-gray-900'
                   }`}
                   value={filters.status || 'all'}
-                  onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value }))}
+                  onChange={(e) => {
+                    const newFilters = { ...filters, status: e.target.value }
+                    setFilters(newFilters)
+                    setAppliedFilters(newFilters)
+                    fetchData(newFilters)
+                  }}
                 >
                   <option value="all">All Status</option>
                   <option value="needs-review">Needs Review</option>
@@ -365,7 +373,12 @@ export default function Dashboard() {
                     type="checkbox"
                     id="noReviewers"
                     checked={filters.noReviewers || false}
-                    onChange={(e) => setFilters(prev => ({ ...prev, noReviewers: e.target.checked }))}
+                    onChange={(e) => {
+                      const newFilters = { ...filters, noReviewers: e.target.checked }
+                      setFilters(newFilters)
+                      setAppliedFilters(newFilters)
+                      fetchData(newFilters)
+                    }}
                     className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                   />
                   <label 
@@ -380,16 +393,6 @@ export default function Dashboard() {
             
             {/* Filter Action Buttons */}
             <div className="flex gap-3 pt-2">
-              <button
-                onClick={handleApplyFilters}
-                className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
-                  darkMode
-                    ? 'bg-blue-600 hover:bg-blue-700 text-white'
-                    : 'bg-blue-600 hover:bg-blue-700 text-white'
-                } focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
-              >
-                Apply Filters
-              </button>
               <button
                 onClick={handleClearFilters}
                 className={`px-4 py-2 text-sm font-medium rounded-md border transition-colors ${
