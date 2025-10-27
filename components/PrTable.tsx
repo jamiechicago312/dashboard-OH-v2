@@ -180,11 +180,9 @@ export default function PrTable({ prs, loading = false, darkMode = false }: PrTa
                 <td className="px-4 py-3 whitespace-nowrap">
                   <div className="flex items-center">
                     <div className={`text-sm ${darkMode ? 'text-white' : 'text-gray-900'}`}>{pr.authorLogin}</div>
-                    {!pr.isEmployeeAuthor && (
-                      <Badge variant="community" className="ml-2">
-                        Community
-                      </Badge>
-                    )}
+                    <Badge variant={pr.authorType} className="ml-2">
+                      {pr.authorType.charAt(0).toUpperCase() + pr.authorType.slice(1)}
+                    </Badge>
                   </div>
                 </td>
                 

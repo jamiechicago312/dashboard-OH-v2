@@ -58,10 +58,39 @@ export function isEmployee(login: string, employeesSet: Set<string>): boolean {
   return employeesSet.has(login);
 }
 
-export function isCommunityPR(authorLogin: string, employeesSet: Set<string>): boolean {
-  // Exclude bots and employees
-  const isBot = authorLogin.includes('[bot]') || authorLogin.endsWith('-bot');
-  return !isBot && !isEmployee(authorLogin, employeesSet);
+export function isCommunityPR(authorLogin: string, employeesSet: Set<string>, authorAssociation?: string): boolean {
+  // Exclude bots (including Dependabot - note: dependabot shows as "dependabot", not "dependabot[bot]")
+  const isBot = authorLogin.includes('[bot]') || authorLogin.endsWith('-bot') || authorLogin === 'dependabot';
+  
+  // Exclude employees
+  const isEmployeeUser = isEmployee(authorLogin, employeesSet);
+  
+  // Exclude repository maintainers/collaborators (these have write access and are not community)
+  // COLLABORATOR = has write access, MEMBER = org member, OWNER = repo owner
+  const hasWriteAccess = authorAssociation === 'COLLABORATOR' || authorAssociation === 'MEMBER' || authorAssociation === 'OWNER';
+  
+  // Community PRs are from external contributors without write access
+  // This includes: CONTRIBUTOR, FIRST_TIME_CONTRIBUTOR, FIRST_TIMER, NONE
+  return !isBot && !isEmployeeUser && !hasWriteAccess;
+}
+
+export type AuthorType = 'employee' | 'maintainer' | 'community' | 'bot';
+
+export function getAuthorType(authorLogin: string, employeesSet: Set<string>, authorAssociation?: string): AuthorType {
+  // Check for bots first (including Dependabot)
+  const isBot = authorLogin.includes('[bot]') || authorLogin.endsWith('-bot') || authorLogin === 'dependabot';
+  if (isBot) return 'bot';
+  
+  // Check for employees (org members)
+  const isEmployeeUser = isEmployee(authorLogin, employeesSet);
+  if (isEmployeeUser) return 'employee';
+  
+  // Check for maintainers (users with write access)
+  const hasWriteAccess = authorAssociation === 'COLLABORATOR' || authorAssociation === 'MEMBER' || authorAssociation === 'OWNER';
+  if (hasWriteAccess) return 'maintainer';
+  
+  // Everyone else is community
+  return 'community';
 }
 
 export async function getEmployeeStats(): Promise<{

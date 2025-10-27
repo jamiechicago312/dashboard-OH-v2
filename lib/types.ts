@@ -18,6 +18,7 @@ export type PR = {
   url: string;
   authorLogin: string;
   authorAssociation: string;
+  authorType: 'employee' | 'maintainer' | 'community' | 'bot';
   isEmployeeAuthor: boolean;
   isDraft: boolean;
   createdAt: string;
@@ -75,6 +76,7 @@ export type FilterState = {
   noReviewers?: boolean;
   limit?: string;
   draftStatus?: string;
+  authorType?: string;
 };
 
 export type Reviewer = {
