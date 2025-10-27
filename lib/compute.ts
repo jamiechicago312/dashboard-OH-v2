@@ -1,6 +1,6 @@
 import { PR, Review, KPIs, ReviewStatsResponse } from './types';
 import { config } from './config';
-import { isEmployee } from './employees';
+import { isEmployee, isCommunityPR } from './employees';
 
 export function computeFirsts(pr: any, employeesSet: Set<string>): {
   firstHumanResponseAt?: string;
@@ -92,8 +92,8 @@ export function transformPR(rawPR: any, employeesSet: Set<string>): PR {
   };
 }
 
-export function computeKpis(allPrs: PR[]): KPIs {
-  const communityPrs = allPrs.filter(pr => !pr.isEmployeeAuthor);
+export function computeKpis(allPrs: PR[], employeesSet: Set<string>): KPIs {
+  const communityPrs = allPrs.filter(pr => isCommunityPR(pr.authorLogin, employeesSet, pr.authorAssociation));
   const nonDraftPrs = allPrs.filter(pr => !pr.isDraft);
   
   // Calculate medians
@@ -142,8 +142,8 @@ export function computeKpis(allPrs: PR[]): KPIs {
   };
 }
 
-export function computeDashboardData(allPrs: PR[]): import('./types').DashboardData {
-  const communityPrs = allPrs.filter(pr => !pr.isEmployeeAuthor);
+export function computeDashboardData(allPrs: PR[], employeesSet: Set<string>): import('./types').DashboardData {
+  const communityPrs = allPrs.filter(pr => isCommunityPR(pr.authorLogin, employeesSet, pr.authorAssociation));
   const nonDraftPrs = allPrs.filter(pr => !pr.isDraft);
   
   // Calculate medians

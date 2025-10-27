@@ -169,7 +169,7 @@ export async function GET(request: NextRequest) {
       }
       
       // Compute dashboard data based on all PRs (not just filtered ones)
-      const dashboardData = computeDashboardData(allPrs);
+      const dashboardData = computeDashboardData(allPrs, employeesSet);
       
       // But return filtered PRs for the table
       return {
