@@ -74,6 +74,25 @@ export function isCommunityPR(authorLogin: string, employeesSet: Set<string>, au
   return !isBot && !isEmployeeUser && !hasWriteAccess;
 }
 
+export type AuthorType = 'employee' | 'maintainer' | 'community' | 'bot';
+
+export function getAuthorType(authorLogin: string, employeesSet: Set<string>, authorAssociation?: string): AuthorType {
+  // Check for bots first (including Dependabot)
+  const isBot = authorLogin.includes('[bot]') || authorLogin.endsWith('-bot') || authorLogin === 'dependabot';
+  if (isBot) return 'bot';
+  
+  // Check for employees (org members)
+  const isEmployeeUser = isEmployee(authorLogin, employeesSet);
+  if (isEmployeeUser) return 'employee';
+  
+  // Check for maintainers (users with write access)
+  const hasWriteAccess = authorAssociation === 'COLLABORATOR' || authorAssociation === 'MEMBER' || authorAssociation === 'OWNER';
+  if (hasWriteAccess) return 'maintainer';
+  
+  // Everyone else is community
+  return 'community';
+}
+
 export async function getEmployeeStats(): Promise<{
   totalEmployees: number;
   orgs: string[];

@@ -26,6 +26,7 @@ export async function GET(request: NextRequest) {
     const noReviewersParam = searchParams.get('noReviewers');
     const limitParam = searchParams.get('limit');
     const draftStatusParam = searchParams.get('draftStatus');
+    const authorTypeParam = searchParams.get('authorType');
     
     // Parse filters
     const targetRepos = reposParam 
@@ -47,7 +48,8 @@ export async function GET(request: NextRequest) {
       status: statusParam,
       noReviewers: noReviewersParam,
       limit: limitParam,
-      draftStatus: draftStatusParam
+      draftStatus: draftStatusParam,
+      authorType: authorTypeParam
     })}`;
     
     // Temporarily bypass cache for debugging
@@ -102,6 +104,11 @@ export async function GET(request: NextRequest) {
         filteredPrs = filteredPrs.filter(pr => 
           pr.labels.some(label => labelFilters.includes(label.toLowerCase()))
         );
+      }
+      
+      // Apply author type filter if provided
+      if (authorTypeParam && authorTypeParam !== 'all') {
+        filteredPrs = filteredPrs.filter(pr => pr.authorType === authorTypeParam);
       }
       
       // Apply age filter if provided

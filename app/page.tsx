@@ -18,7 +18,8 @@ export default function Dashboard() {
     status: 'all',
     noReviewers: false,
     limit: 'all',
-    draftStatus: 'all'
+    draftStatus: 'all',
+    authorType: 'all'
   })
   const [appliedFilters, setAppliedFilters] = useState<FilterState>({
     repositories: [],
@@ -27,7 +28,8 @@ export default function Dashboard() {
     status: 'all',
     noReviewers: false,
     limit: 'all',
-    draftStatus: 'all'
+    draftStatus: 'all',
+    authorType: 'all'
   })
 
   const fetchData = async (filtersToApply = appliedFilters) => {
@@ -57,6 +59,9 @@ export default function Dashboard() {
       if (filtersToApply.draftStatus && filtersToApply.draftStatus !== 'all') {
         params.append('draftStatus', filtersToApply.draftStatus)
       }
+      if (filtersToApply.authorType && filtersToApply.authorType !== 'all') {
+        params.append('authorType', filtersToApply.authorType)
+      }
 
       const response = await fetch(`/api/dashboard?${params}`)
       if (!response.ok) {
@@ -85,7 +90,8 @@ export default function Dashboard() {
       status: 'all',
       noReviewers: false,
       limit: 'all',
-      draftStatus: 'all'
+      draftStatus: 'all',
+      authorType: 'all'
     }
     setFilters(clearedFilters)
     setAppliedFilters(clearedFilters)
@@ -260,7 +266,7 @@ export default function Dashboard() {
         <section className="py-6">
           <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg p-5 shadow-sm`}>
             <h3 className={`text-sm font-semibold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Filters</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-4 mb-4">
               <div className="flex flex-col">
                 <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Repository</label>
                 <RepositorySelector
@@ -363,6 +369,30 @@ export default function Dashboard() {
                   <option value="all">All PRs</option>
                   <option value="drafts">Only Drafts</option>
                   <option value="final">No Drafts (Final)</option>
+                </select>
+              </div>
+              
+              <div className="flex flex-col">
+                <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Author Type</label>
+                <select 
+                  className={`px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    darkMode 
+                      ? 'bg-gray-700 border-gray-600 text-white' 
+                      : 'bg-white border-gray-300 text-gray-900'
+                  }`}
+                  value={filters.authorType || 'all'}
+                  onChange={(e) => {
+                    const newFilters = { ...filters, authorType: e.target.value }
+                    setFilters(newFilters)
+                    setAppliedFilters(newFilters)
+                    fetchData(newFilters)
+                  }}
+                >
+                  <option value="all">All Authors</option>
+                  <option value="community">Community</option>
+                  <option value="employee">Employee</option>
+                  <option value="maintainer">Maintainer</option>
+                  <option value="bot">Bot</option>
                 </select>
               </div>
               

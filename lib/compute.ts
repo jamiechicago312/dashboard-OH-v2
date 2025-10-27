@@ -1,6 +1,6 @@
 import { PR, Review, KPIs, ReviewStatsResponse } from './types';
 import { config } from './config';
-import { isEmployee, isCommunityPR } from './employees';
+import { isEmployee, isCommunityPR, getAuthorType } from './employees';
 
 export function computeFirsts(pr: any, employeesSet: Set<string>): {
   firstHumanResponseAt?: string;
@@ -72,14 +72,18 @@ export function transformPR(rawPR: any, employeesSet: Set<string>): PR {
     submittedAt: review.submittedAt,
   })) || [];
   
+  const authorLogin = rawPR.author?.login || 'unknown';
+  const authorAssociation = rawPR.authorAssociation;
+  
   return {
     repo: `${rawPR.repository?.owner?.login || 'unknown'}/${rawPR.repository?.name || 'unknown'}`,
     number: rawPR.number,
     title: rawPR.title,
     url: rawPR.url,
-    authorLogin: rawPR.author?.login || 'unknown',
-    authorAssociation: rawPR.authorAssociation,
-    isEmployeeAuthor: isEmployee(rawPR.author?.login || '', employeesSet),
+    authorLogin,
+    authorAssociation,
+    authorType: getAuthorType(authorLogin, employeesSet, authorAssociation),
+    isEmployeeAuthor: isEmployee(authorLogin, employeesSet),
     isDraft: rawPR.isDraft,
     createdAt: rawPR.createdAt,
     updatedAt: rawPR.updatedAt,
