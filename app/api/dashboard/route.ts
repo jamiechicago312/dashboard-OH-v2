@@ -112,12 +112,13 @@ export async function GET(request: NextRequest) {
       }
       
       // Apply age filter if provided
-      if (ageParam) {
+      if (ageParam && ageParam !== 'all') {
         const ageRanges = {
-          '0-24': [0, 24],
-          '24-48': [24, 48],
-          '48-96': [48, 96],
-          '96+': [96, Infinity],
+          '0-24': [0, 24],           // 0-24 hours
+          '2-days': [0, 48],         // Last 2 days (0-48 hours)
+          '3-days': [0, 72],         // Last 3 days (0-72 hours)
+          '7-days': [0, 168],        // Last 7 days (0-168 hours)
+          '30-days': [0, 720],       // Last 30 days (0-720 hours)
         };
         
         const range = ageRanges[ageParam as keyof typeof ageRanges];

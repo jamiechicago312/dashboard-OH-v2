@@ -2,24 +2,30 @@
 > openhands-pr-review-dashboard@0.1.0 dev
 > next dev
 
+ ⚠ Port 3000 is in use, trying 3001 instead.
   ▲ Next.js 14.2.33
-  - Local:        http://localhost:3000
+  - Local:        http://localhost:3001
 
  ✓ Starting...
- ✓ Ready in 1293ms
- ✓ Compiled /api/dashboard in 414ms (63 modules)
+ ✓ Ready in 1604ms
+ ○ Compiling / ...
+ ✓ Compiled / in 2.6s (471 modules)
+ GET / 200 in 2877ms
+ ✓ Compiled in 268ms (243 modules)
+ ○ Compiling /api/dashboard ...
+ ✓ Compiled /api/dashboard in 1731ms (265 modules)
 === Dashboard API called ===
 GitHub token available: true
 Config orgs: [ 'All-Hands-AI' ]
-Search params: { debug: 'true', limit: '10' }
+Search params: { age: '7-days' }
 Building employees set...
 GraphQL failed for org All-Hands-AI, falling back to REST: Error: GraphQL error: Resource not accessible by integration
     at graphql (webpack-internal:///(rsc)/./lib/github.ts:52:15)
     at async getOrgMembersGraphQL (webpack-internal:///(rsc)/./lib/github.ts:80:24)
-    at async eval (webpack-internal:///(rsc)/./lib/employees.ts:43:31)
+    at async eval (webpack-internal:///(rsc)/./lib/employees.ts:44:31)
     at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
-    at async eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:52:34)
-    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:49:24)
+    at async eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:54:34)
+    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:51:24)
     at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
     at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
     at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
@@ -42,8 +48,25 @@ Found 2 employees
 Target repos: []
 Repos to fetch: [ 'All-Hands-AI/OpenHands', 'All-Hands-AI/agent-sdk' ]
 Fetching PRs for All-Hands-AI/OpenHands...
-Found 110 PRs for All-Hands-AI/OpenHands
+Found 84 PRs for All-Hands-AI/OpenHands
 Fetching PRs for All-Hands-AI/agent-sdk...
-Found 57 PRs for All-Hands-AI/agent-sdk
- GET /api/dashboard?debug=true&limit=10 200 in 3697ms
- ✓ Compiled in 117ms (63 modules)
+Found 53 PRs for All-Hands-AI/agent-sdk
+ GET /api/dashboard?age=7-days 200 in 1840ms
+=== Dashboard API called ===
+GitHub token available: true
+Config orgs: [ 'All-Hands-AI' ]
+Search params: { age: '7-days' }
+Building employees set...
+Found 2 employees
+Target repos: []
+Repos to fetch: [ 'All-Hands-AI/OpenHands', 'All-Hands-AI/agent-sdk' ]
+Fetching PRs for All-Hands-AI/OpenHands...
+Found 84 PRs for All-Hands-AI/OpenHands
+Fetching PRs for All-Hands-AI/agent-sdk...
+Found 53 PRs for All-Hands-AI/agent-sdk
+ GET /api/dashboard?age=7-days 200 in 14ms
+ ✓ Compiled /api/repositories in 149ms (289 modules)
+ GET /api/repositories 200 in 205ms
+ GET /api/repositories 200 in 6ms
+ GET /api/repositories 200 in 6ms
+ GET /api/repositories 200 in 5ms
