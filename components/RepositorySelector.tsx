@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 interface Repository {
   id: number
@@ -23,10 +23,28 @@ export default function RepositorySelector({ value, onChange, className = '', da
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     fetchRepositories()
   }, [])
+
+  // Handle click outside to close dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false)
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isOpen])
 
   const fetchRepositories = async () => {
     try {
@@ -73,7 +91,7 @@ export default function RepositorySelector({ value, onChange, className = '', da
       ? value.filter(repo => repo !== repoFullName)
       : [...value, repoFullName]
     onChange(newValue)
-    setIsOpen(false) // Close dropdown after selection
+    // Don't close dropdown for multi-select - let user select multiple items
   }
 
   const getDisplayText = () => {
@@ -83,7 +101,7 @@ export default function RepositorySelector({ value, onChange, className = '', da
   }
 
   return (
-    <div className={`relative ${className}`}>
+    <div className={`relative ${className}`} ref={dropdownRef}>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}

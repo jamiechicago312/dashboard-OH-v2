@@ -3,7 +3,9 @@
 import { useState, useEffect } from 'react'
 import PrTable from '@/components/PrTable'
 import RepositorySelector from '@/components/RepositorySelector'
+import CustomDropdown from '@/components/CustomDropdown'
 import LoadingSpinner from '@/components/LoadingSpinner'
+import WhatsNew from '@/components/WhatsNew'
 import { DashboardData, FilterState } from '@/lib/types'
 
 export default function Dashboard() {
@@ -14,7 +16,7 @@ export default function Dashboard() {
   const [filters, setFilters] = useState<FilterState>({
     repositories: [],
     labels: [],
-    ageRange: 'all',
+    ageRange: '7-days', // Default to Last 7 days
     status: 'all',
     noReviewers: false,
     limit: 'all',
@@ -24,7 +26,7 @@ export default function Dashboard() {
   const [appliedFilters, setAppliedFilters] = useState<FilterState>({
     repositories: [],
     labels: [],
-    ageRange: 'all',
+    ageRange: '7-days', // Default to Last 7 days
     status: 'all',
     noReviewers: false,
     limit: 'all',
@@ -86,7 +88,7 @@ export default function Dashboard() {
     const clearedFilters = {
       repositories: [],
       labels: [],
-      ageRange: 'all',
+      ageRange: '7-days', // Keep Last 7 days as default
       status: 'all',
       noReviewers: false,
       limit: 'all',
@@ -116,8 +118,9 @@ export default function Dashboard() {
       <header className={`${darkMode ? 'bg-gray-800' : 'bg-white'} border-b ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
         <div className="max-w-7xl mx-auto px-5">
           <div className="flex justify-between items-center py-4">
-            <div className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+            <div className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'} flex items-center`}>
               OpenHands PR Review Dashboard
+              <WhatsNew darkMode={darkMode} />
             </div>
             <div className="flex items-center gap-4">
               <RepositorySelector
@@ -284,26 +287,25 @@ export default function Dashboard() {
               
               <div className="flex flex-col">
                 <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Age</label>
-                <select 
-                  className={`px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
-                    darkMode 
-                      ? 'bg-gray-700 border-gray-600 text-white' 
-                      : 'bg-white border-gray-300 text-gray-900'
-                  }`}
+                <CustomDropdown
+                  options={[
+                    { value: 'all', label: 'All Time' },
+                    { value: '0-24', label: '0-24 hours' },
+                    { value: '2-days', label: 'Last 2 days' },
+                    { value: '3-days', label: 'Last 3 days' },
+                    { value: '7-days', label: 'Last 7 days' },
+                    { value: '30-days', label: 'Last 30 days' }
+                  ]}
                   value={filters.ageRange}
-                  onChange={(e) => {
-                    const newFilters = { ...filters, ageRange: e.target.value }
+                  onChange={(value) => {
+                    const newFilters = { ...filters, ageRange: value as string }
                     setFilters(newFilters)
                     setAppliedFilters(newFilters)
                     fetchData(newFilters)
                   }}
-                >
-                  <option value="all">All Ages</option>
-                  <option value="0-24">0-24 hours</option>
-                  <option value="24-48">24-48 hours</option>
-                  <option value="48-96">48-96 hours</option>
-                  <option value="96+">96+ hours</option>
-                </select>
+                  placeholder="All Time"
+                  darkMode={darkMode}
+                />
               </div>
               
               <div className="flex flex-col">
@@ -329,71 +331,65 @@ export default function Dashboard() {
               
               <div className="flex flex-col">
                 <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Status</label>
-                <select 
-                  className={`px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
-                    darkMode 
-                      ? 'bg-gray-700 border-gray-600 text-white' 
-                      : 'bg-white border-gray-300 text-gray-900'
-                  }`}
+                <CustomDropdown
+                  options={[
+                    { value: 'all', label: 'All Status' },
+                    { value: 'needs-review', label: 'Needs Review' },
+                    { value: 'changes-requested', label: 'Changes Requested' },
+                    { value: 'approved', label: 'Approved' }
+                  ]}
                   value={filters.status || 'all'}
-                  onChange={(e) => {
-                    const newFilters = { ...filters, status: e.target.value }
+                  onChange={(value) => {
+                    const newFilters = { ...filters, status: value as string }
                     setFilters(newFilters)
                     setAppliedFilters(newFilters)
                     fetchData(newFilters)
                   }}
-                >
-                  <option value="all">All Status</option>
-                  <option value="needs-review">Needs Review</option>
-                  <option value="changes-requested">Changes Requested</option>
-                  <option value="approved">Approved</option>
-                </select>
+                  placeholder="All Status"
+                  darkMode={darkMode}
+                />
               </div>
               
               <div className="flex flex-col">
                 <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Draft Status</label>
-                <select 
-                  className={`px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
-                    darkMode 
-                      ? 'bg-gray-700 border-gray-600 text-white' 
-                      : 'bg-white border-gray-300 text-gray-900'
-                  }`}
+                <CustomDropdown
+                  options={[
+                    { value: 'all', label: 'All PRs' },
+                    { value: 'drafts', label: 'Only Drafts' },
+                    { value: 'final', label: 'No Drafts (Final)' }
+                  ]}
                   value={filters.draftStatus || 'all'}
-                  onChange={(e) => {
-                    const newFilters = { ...filters, draftStatus: e.target.value }
+                  onChange={(value) => {
+                    const newFilters = { ...filters, draftStatus: value as string }
                     setFilters(newFilters)
                     setAppliedFilters(newFilters)
                     fetchData(newFilters)
                   }}
-                >
-                  <option value="all">All PRs</option>
-                  <option value="drafts">Only Drafts</option>
-                  <option value="final">No Drafts (Final)</option>
-                </select>
+                  placeholder="All PRs"
+                  darkMode={darkMode}
+                />
               </div>
               
               <div className="flex flex-col">
                 <label className={`text-sm font-medium mb-1.5 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Author Type</label>
-                <select 
-                  className={`px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
-                    darkMode 
-                      ? 'bg-gray-700 border-gray-600 text-white' 
-                      : 'bg-white border-gray-300 text-gray-900'
-                  }`}
+                <CustomDropdown
+                  options={[
+                    { value: 'all', label: 'All Authors' },
+                    { value: 'community', label: 'Community' },
+                    { value: 'employee', label: 'Employee' },
+                    { value: 'maintainer', label: 'Maintainer' },
+                    { value: 'bot', label: 'Bot' }
+                  ]}
                   value={filters.authorType || 'all'}
-                  onChange={(e) => {
-                    const newFilters = { ...filters, authorType: e.target.value }
+                  onChange={(value) => {
+                    const newFilters = { ...filters, authorType: value as string }
                     setFilters(newFilters)
                     setAppliedFilters(newFilters)
                     fetchData(newFilters)
                   }}
-                >
-                  <option value="all">All Authors</option>
-                  <option value="community">Community</option>
-                  <option value="employee">Employee</option>
-                  <option value="maintainer">Maintainer</option>
-                  <option value="bot">Bot</option>
-                </select>
+                  placeholder="All Authors"
+                  darkMode={darkMode}
+                />
               </div>
               
               <div className="flex flex-col">
@@ -444,25 +440,24 @@ export default function Dashboard() {
               <h3 className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>Community Pull Requests</h3>
               <div className="flex items-center gap-2">
                 <label className={`text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Limit:</label>
-                <select 
-                  className={`px-3 py-1.5 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
-                    darkMode 
-                      ? 'bg-gray-600 border-gray-500 text-white' 
-                      : 'bg-white border-gray-300 text-gray-900'
-                  }`}
+                <CustomDropdown
+                  options={[
+                    { value: 'all', label: 'All PRs' },
+                    { value: '12', label: '12 PRs' },
+                    { value: '36', label: '36 PRs' },
+                    { value: '96', label: '96 PRs' }
+                  ]}
                   value={filters.limit || 'all'}
-                  onChange={(e) => {
-                    const newFilters = { ...filters, limit: e.target.value }
+                  onChange={(value) => {
+                    const newFilters = { ...filters, limit: value as string }
                     setFilters(newFilters)
                     setAppliedFilters(newFilters)
                     fetchData(newFilters)
                   }}
-                >
-                  <option value="all">All PRs</option>
-                  <option value="12">12 PRs</option>
-                  <option value="36">36 PRs</option>
-                  <option value="96">96 PRs</option>
-                </select>
+                  placeholder="All PRs"
+                  darkMode={darkMode}
+                  className="min-w-[120px]"
+                />
               </div>
             </div>
             <div className="overflow-x-auto">
