@@ -100,4 +100,5 @@ export type DashboardData = {
   prs: PR[];
   reviewers?: Reviewer[];
   lastUpdated?: string;
+  totalPrs?: number;
 };

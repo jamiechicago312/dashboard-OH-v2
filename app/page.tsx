@@ -461,7 +461,7 @@ export default function Dashboard() {
               </div>
             </div>
             <div className="overflow-x-auto">
-              <PrTable prs={data?.prs || []} darkMode={darkMode} />
+              <PrTable prs={data?.prs || []} darkMode={darkMode} totalPrs={data?.totalPrs} />
             </div>
           </div>
         </section>

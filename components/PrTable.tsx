@@ -6,12 +6,13 @@ interface PrTableProps {
   prs: PR[];
   loading?: boolean;
   darkMode?: boolean;
+  totalPrs?: number;
 }
 
 type SortField = 'title' | 'author' | 'age' | 'created';
 type SortDirection = 'asc' | 'desc';
 
-export default function PrTable({ prs, loading = false, darkMode = false }: PrTableProps) {
+export default function PrTable({ prs, loading = false, darkMode = false, totalPrs }: PrTableProps) {
   const [sortField, setSortField] = useState<SortField>('age');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
 
@@ -103,8 +104,21 @@ export default function PrTable({ prs, loading = false, darkMode = false }: PrTa
     });
   };
 
+  // Generate row count display text
+  const getRowCountText = () => {
+    const displayedCount = sortedPrs.length;
+    if (totalPrs !== undefined && totalPrs !== displayedCount) {
+      return `Showing ${displayedCount} of ${totalPrs} rows`;
+    }
+    return `${displayedCount} row${displayedCount !== 1 ? 's' : ''} total`;
+  };
+
   return (
     <div className="overflow-x-auto">
+      {/* Row count display */}
+      <div className={`px-4 py-2 text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'} border-b ${darkMode ? 'border-gray-600' : 'border-gray-200'}`}>
+        {getRowCountText()}
+      </div>
       <table className={`min-w-full divide-y ${darkMode ? 'divide-gray-600' : 'divide-gray-200'}`}>
         <thead className={`${darkMode ? 'bg-gray-700' : 'bg-gray-50'}`}>
           <tr>
