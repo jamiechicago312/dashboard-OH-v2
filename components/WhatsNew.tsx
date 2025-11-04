@@ -38,7 +38,7 @@ export default function WhatsNew({ darkMode }: WhatsNewProps) {
             </li>
             <li className="flex items-start">
               <span className={`mr-2 mt-0.5 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>•</span>
-              <span>Improved dropdown UX (click outside to close)</span>
+              <span>Added filtering by 7 days and 30 days + improved dropdown UX</span>
             </li>
             <li className="flex items-start">
               <span className={`mr-2 mt-0.5 ${darkMode ? 'text-purple-400' : 'text-purple-600'}`}>•</span>
