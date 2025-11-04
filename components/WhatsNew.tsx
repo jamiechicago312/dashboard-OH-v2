@@ -38,7 +38,7 @@ export default function WhatsNew({ darkMode }: WhatsNewProps) {
             </li>
             <li className="flex items-start">
               <span className={`mr-2 mt-0.5 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>•</span>
-              <span>Added filtering by 7 days and 30 days + improved dropdown UX</span>
+              <span>Improved dropdown UX (click outside to close)</span>
             </li>
             <li className="flex items-start">
               <span className={`mr-2 mt-0.5 ${darkMode ? 'text-purple-400' : 'text-purple-600'}`}>•</span>
@@ -46,7 +46,7 @@ export default function WhatsNew({ darkMode }: WhatsNewProps) {
             </li>
             <li className="flex items-start">
               <span className={`mr-2 mt-0.5 ${darkMode ? 'text-orange-400' : 'text-orange-600'}`}>•</span>
-              <span>Enhanced community PR tracking across all repos</span>
+              <span>Added filtering by 7 days and 30 days for better time-based views</span>
             </li>
           </ul>
         </div>
