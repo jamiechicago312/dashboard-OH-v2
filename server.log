@@ -2,26 +2,69 @@
 > openhands-pr-review-dashboard@0.1.0 dev
 > next dev
 
- ⚠ Port 3000 is in use, trying 3001 instead.
   ▲ Next.js 14.2.33
-  - Local:        http://localhost:3001
+  - Local:        http://localhost:12000
 
  ✓ Starting...
- ✓ Ready in 1604ms
+ ✓ Ready in 1274ms
  ○ Compiling / ...
- ✓ Compiled / in 2.6s (471 modules)
- GET / 200 in 2877ms
- ✓ Compiled in 268ms (243 modules)
- ○ Compiling /api/dashboard ...
- ✓ Compiled /api/dashboard in 1731ms (265 modules)
+ ✓ Compiled / in 2.8s (471 modules)
+ GET / 200 in 3015ms
+ ✓ Compiled in 181ms (243 modules)
+ GET / 200 in 26ms
+ ✓ Compiled /api/repositories in 326ms (280 modules)
+Fetching repositories from organizations: [ 'all-hands-ai', 'openhands' ]
+Fetching repositories for org: all-hands-ai
+Found 8 repositories for all-hands-ai
+Fetching repositories for org: openhands
+Found 23 repositories for openhands
+Total formatted repositories: 26
+ GET /api/repositories 200 in 1861ms
+ GET / 200 in 68ms
+ GET / 200 in 17ms
+Fetching repositories from organizations: [ 'all-hands-ai', 'openhands' ]
+Fetching repositories for org: all-hands-ai
+Found 8 repositories for all-hands-ai
+Fetching repositories for org: openhands
+Found 23 repositories for openhands
+Total formatted repositories: 26
+ GET /api/repositories 200 in 10ms
+ GET / 200 in 17ms
+ GET / 200 in 20ms
+ ✓ Compiled /api/dashboard in 91ms (289 modules)
 === Dashboard API called ===
 GitHub token available: true
-Config orgs: [ 'All-Hands-AI' ]
-Search params: { age: '7-days' }
+Config orgs: [ 'all-hands-ai', 'openhands' ]
+Search params: {}
 Building employees set...
-GraphQL failed for org All-Hands-AI, falling back to REST: Error: GraphQL error: Resource not accessible by integration
-    at graphql (webpack-internal:///(rsc)/./lib/github.ts:52:15)
-    at async getOrgMembersGraphQL (webpack-internal:///(rsc)/./lib/github.ts:80:24)
+GraphQL failed for org all-hands-ai, falling back to REST: Error: GraphQL error: Resource not accessible by integration
+    at graphql (webpack-internal:///(rsc)/./lib/github.ts:54:15)
+    at async getOrgMembersGraphQL (webpack-internal:///(rsc)/./lib/github.ts:82:24)
+    at async eval (webpack-internal:///(rsc)/./lib/employees.ts:44:31)
+    at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
+    at async eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:54:34)
+    at async GET (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:51:24)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
+    at async eT.execute (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
+    at async eT.handle (/workspace/project/dashboard-OH-v2/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
+    at async doRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1366:42)
+    at async cacheEntry.responseCache.get.routeKind (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1588:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1496:28)
+    at async DevServer.renderPageComponent (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1924:24)
+    at async DevServer.renderToResponseImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:1962:32)
+    at async DevServer.pipeImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/base-server.js:818:17)
+    at async /workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/workspace/project/dashboard-OH-v2/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:179:21)
+    at async handleRequest (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:359:24)
+    at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
+GraphQL failed for org openhands, falling back to REST: Error: GraphQL error: Resource not accessible by integration
+    at graphql (webpack-internal:///(rsc)/./lib/github.ts:54:15)
+    at async getOrgMembersGraphQL (webpack-internal:///(rsc)/./lib/github.ts:82:24)
     at async eval (webpack-internal:///(rsc)/./lib/employees.ts:44:31)
     at async InMemoryCache.withCache (webpack-internal:///(rsc)/./lib/cache.ts:27:22)
     at async eval (webpack-internal:///(rsc)/./app/api/dashboard/route.ts:54:34)
@@ -45,28 +88,328 @@ GraphQL failed for org All-Hands-AI, falling back to REST: Error: GraphQL error:
     at async requestHandlerImpl (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/router-server.js:383:13)
     at async Server.requestListener (/workspace/project/dashboard-OH-v2/node_modules/next/dist/server/lib/start-server.js:141:13)
 Found 2 employees
+No specific repos provided, fetching all repos from organizations: [ 'all-hands-ai', 'openhands' ]
+Fetching repositories for organization: all-hands-ai
+ GET / 200 in 68ms
+Found 3 active repositories for all-hands-ai
+Fetching repositories for organization: openhands
+Found 23 active repositories for openhands
+Dynamically discovered 26 repositories from organizations
 Target repos: []
-Repos to fetch: [ 'All-Hands-AI/OpenHands', 'All-Hands-AI/agent-sdk' ]
-Fetching PRs for All-Hands-AI/OpenHands...
-Found 84 PRs for All-Hands-AI/OpenHands
-Fetching PRs for All-Hands-AI/agent-sdk...
-Found 53 PRs for All-Hands-AI/agent-sdk
- GET /api/dashboard?age=7-days 200 in 1840ms
+Repos to fetch: [
+  'All-Hands-AI/OpenHands-Cloud',
+  'All-Hands-AI/SWE-bench',
+  'All-Hands-AI/swe-bench.github.io',
+  'OpenHands/software-agent-sdk',
+  'OpenHands/OpenHands',
+  'OpenHands/terraform-gcp-datadog-integration',
+  'OpenHands/liteLLM-proxy',
+  'OpenHands/BrowserGym',
+  'OpenHands/litellm',
+  'OpenHands/agent-analysis',
+  'OpenHands/openhands-chrome-extension',
+  'OpenHands/open-operator',
+  'OpenHands/rubric',
+  'OpenHands/openhands-agent-monitor',
+  'OpenHands/trajectory-visualizer',
+  'OpenHands/critic-rubrics',
+  'OpenHands/openhands-github-action',
+  'OpenHands/Vibe',
+  'OpenHands/OpenHands-Server',
+  'OpenHands/rbren-sdk-experiments',
+  'OpenHands/ToM-SWE',
+  'OpenHands/agentic-code-search-oss',
+  'OpenHands/benchmarks',
+  'OpenHands/docs',
+  'OpenHands/typescript-client',
+  'OpenHands/test-owner-change'
+]
+Fetching PRs for All-Hands-AI/OpenHands-Cloud...
+Found 14 PRs for All-Hands-AI/OpenHands-Cloud
+Fetching PRs for All-Hands-AI/SWE-bench...
+Found 2 PRs for All-Hands-AI/SWE-bench
+Fetching PRs for All-Hands-AI/swe-bench.github.io...
+Found 0 PRs for All-Hands-AI/swe-bench.github.io
+Fetching PRs for OpenHands/software-agent-sdk...
+ GET / 200 in 18ms
+Found 52 PRs for OpenHands/software-agent-sdk
+Fetching PRs for OpenHands/OpenHands...
+ GET / 200 in 18ms
+Found 85 PRs for OpenHands/OpenHands
+Fetching PRs for OpenHands/terraform-gcp-datadog-integration...
+Found 0 PRs for OpenHands/terraform-gcp-datadog-integration
+Fetching PRs for OpenHands/liteLLM-proxy...
+Found 0 PRs for OpenHands/liteLLM-proxy
+Fetching PRs for OpenHands/BrowserGym...
+Found 0 PRs for OpenHands/BrowserGym
+Fetching PRs for OpenHands/litellm...
+Found 0 PRs for OpenHands/litellm
+Fetching PRs for OpenHands/agent-analysis...
+ GET / 200 in 17ms
+Found 5 PRs for OpenHands/agent-analysis
+Fetching PRs for OpenHands/openhands-chrome-extension...
+Found 5 PRs for OpenHands/openhands-chrome-extension
+Fetching PRs for OpenHands/open-operator...
+Found 0 PRs for OpenHands/open-operator
+Fetching PRs for OpenHands/rubric...
+Found 0 PRs for OpenHands/rubric
+Fetching PRs for OpenHands/openhands-agent-monitor...
+Found 0 PRs for OpenHands/openhands-agent-monitor
+Fetching PRs for OpenHands/trajectory-visualizer...
+Found 1 PRs for OpenHands/trajectory-visualizer
+Fetching PRs for OpenHands/critic-rubrics...
+Found 0 PRs for OpenHands/critic-rubrics
+Fetching PRs for OpenHands/openhands-github-action...
+Found 1 PRs for OpenHands/openhands-github-action
+Fetching PRs for OpenHands/Vibe...
+ GET / 200 in 18ms
+Found 3 PRs for OpenHands/Vibe
+Fetching PRs for OpenHands/OpenHands-Server...
+ GET /api/dashboard 200 in 14544ms
+Found 0 PRs for OpenHands/OpenHands-Server
+Fetching PRs for OpenHands/rbren-sdk-experiments...
+Found 1 PRs for OpenHands/rbren-sdk-experiments
+Fetching PRs for OpenHands/ToM-SWE...
+Found 0 PRs for OpenHands/ToM-SWE
+Fetching PRs for OpenHands/agentic-code-search-oss...
+Found 2 PRs for OpenHands/agentic-code-search-oss
+Fetching PRs for OpenHands/benchmarks...
+Found 3 PRs for OpenHands/benchmarks
+Fetching PRs for OpenHands/docs...
+Found 8 PRs for OpenHands/docs
+Fetching PRs for OpenHands/typescript-client...
+ GET / 200 in 18ms
+Found 5 PRs for OpenHands/typescript-client
+Fetching PRs for OpenHands/test-owner-change...
+Found 0 PRs for OpenHands/test-owner-change
+ GET / 200 in 16ms
+ GET / 200 in 17ms
+ GET / 200 in 17ms
+ GET / 200 in 19ms
+ ⚠ Cross origin request detected from work-1-uvwmtkdldukmgkyl.prod-runtime.all-hands.dev to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
 === Dashboard API called ===
 GitHub token available: true
-Config orgs: [ 'All-Hands-AI' ]
+Config orgs: [ 'all-hands-ai', 'openhands' ]
 Search params: { age: '7-days' }
 Building employees set...
 Found 2 employees
+No specific repos provided, fetching all repos from organizations: [ 'all-hands-ai', 'openhands' ]
+Fetching repositories for organization: all-hands-ai
+Found 3 active repositories for all-hands-ai
+Fetching repositories for organization: openhands
+Found 23 active repositories for openhands
+Dynamically discovered 26 repositories from organizations
 Target repos: []
-Repos to fetch: [ 'All-Hands-AI/OpenHands', 'All-Hands-AI/agent-sdk' ]
-Fetching PRs for All-Hands-AI/OpenHands...
-Found 84 PRs for All-Hands-AI/OpenHands
-Fetching PRs for All-Hands-AI/agent-sdk...
-Found 53 PRs for All-Hands-AI/agent-sdk
- GET /api/dashboard?age=7-days 200 in 14ms
- ✓ Compiled /api/repositories in 149ms (289 modules)
- GET /api/repositories 200 in 205ms
- GET /api/repositories 200 in 6ms
- GET /api/repositories 200 in 6ms
- GET /api/repositories 200 in 5ms
+Repos to fetch: [
+  'All-Hands-AI/OpenHands-Cloud',
+  'All-Hands-AI/SWE-bench',
+  'All-Hands-AI/swe-bench.github.io',
+  'OpenHands/software-agent-sdk',
+  'OpenHands/OpenHands',
+  'OpenHands/terraform-gcp-datadog-integration',
+  'OpenHands/liteLLM-proxy',
+  'OpenHands/BrowserGym',
+  'OpenHands/litellm',
+  'OpenHands/agent-analysis',
+  'OpenHands/openhands-chrome-extension',
+  'OpenHands/open-operator',
+  'OpenHands/rubric',
+  'OpenHands/openhands-agent-monitor',
+  'OpenHands/trajectory-visualizer',
+  'OpenHands/critic-rubrics',
+  'OpenHands/openhands-github-action',
+  'OpenHands/Vibe',
+  'OpenHands/OpenHands-Server',
+  'OpenHands/rbren-sdk-experiments',
+  'OpenHands/ToM-SWE',
+  'OpenHands/agentic-code-search-oss',
+  'OpenHands/benchmarks',
+  'OpenHands/docs',
+  'OpenHands/typescript-client',
+  'OpenHands/test-owner-change'
+]
+Fetching PRs for All-Hands-AI/OpenHands-Cloud...
+Found 14 PRs for All-Hands-AI/OpenHands-Cloud
+Fetching PRs for All-Hands-AI/SWE-bench...
+Found 2 PRs for All-Hands-AI/SWE-bench
+Fetching PRs for All-Hands-AI/swe-bench.github.io...
+Found 0 PRs for All-Hands-AI/swe-bench.github.io
+Fetching PRs for OpenHands/software-agent-sdk...
+Found 52 PRs for OpenHands/software-agent-sdk
+Fetching PRs for OpenHands/OpenHands...
+Found 85 PRs for OpenHands/OpenHands
+Fetching PRs for OpenHands/terraform-gcp-datadog-integration...
+Found 0 PRs for OpenHands/terraform-gcp-datadog-integration
+Fetching PRs for OpenHands/liteLLM-proxy...
+Found 0 PRs for OpenHands/liteLLM-proxy
+Fetching PRs for OpenHands/BrowserGym...
+Found 0 PRs for OpenHands/BrowserGym
+Fetching PRs for OpenHands/litellm...
+Found 0 PRs for OpenHands/litellm
+Fetching PRs for OpenHands/agent-analysis...
+Found 5 PRs for OpenHands/agent-analysis
+Fetching PRs for OpenHands/openhands-chrome-extension...
+Found 5 PRs for OpenHands/openhands-chrome-extension
+Fetching PRs for OpenHands/open-operator...
+Found 0 PRs for OpenHands/open-operator
+Fetching PRs for OpenHands/rubric...
+Found 0 PRs for OpenHands/rubric
+Fetching PRs for OpenHands/openhands-agent-monitor...
+Found 0 PRs for OpenHands/openhands-agent-monitor
+Fetching PRs for OpenHands/trajectory-visualizer...
+Found 1 PRs for OpenHands/trajectory-visualizer
+Fetching PRs for OpenHands/critic-rubrics...
+Found 0 PRs for OpenHands/critic-rubrics
+Fetching PRs for OpenHands/openhands-github-action...
+Found 1 PRs for OpenHands/openhands-github-action
+Fetching PRs for OpenHands/Vibe...
+Found 3 PRs for OpenHands/Vibe
+Fetching PRs for OpenHands/OpenHands-Server...
+Found 0 PRs for OpenHands/OpenHands-Server
+Fetching PRs for OpenHands/rbren-sdk-experiments...
+Found 1 PRs for OpenHands/rbren-sdk-experiments
+Fetching PRs for OpenHands/ToM-SWE...
+Found 0 PRs for OpenHands/ToM-SWE
+Fetching PRs for OpenHands/agentic-code-search-oss...
+Found 2 PRs for OpenHands/agentic-code-search-oss
+Fetching PRs for OpenHands/benchmarks...
+Found 3 PRs for OpenHands/benchmarks
+Fetching PRs for OpenHands/docs...
+Found 8 PRs for OpenHands/docs
+Fetching PRs for OpenHands/typescript-client...
+Found 5 PRs for OpenHands/typescript-client
+Fetching PRs for OpenHands/test-owner-change...
+Found 0 PRs for OpenHands/test-owner-change
+ GET /api/dashboard?age=7-days 200 in 31ms
+=== Dashboard API called ===
+GitHub token available: true
+Config orgs: [ 'all-hands-ai', 'openhands' ]
+Search params: { age: '7-days' }
+Building employees set...
+Found 2 employees
+No specific repos provided, fetching all repos from organizations: [ 'all-hands-ai', 'openhands' ]
+Fetching repositories for organization: all-hands-ai
+Found 3 active repositories for all-hands-ai
+Fetching repositories for organization: openhands
+Found 23 active repositories for openhands
+Dynamically discovered 26 repositories from organizations
+Target repos: []
+Repos to fetch: [
+  'All-Hands-AI/OpenHands-Cloud',
+  'All-Hands-AI/SWE-bench',
+  'All-Hands-AI/swe-bench.github.io',
+  'OpenHands/software-agent-sdk',
+  'OpenHands/OpenHands',
+  'OpenHands/terraform-gcp-datadog-integration',
+  'OpenHands/liteLLM-proxy',
+  'OpenHands/BrowserGym',
+  'OpenHands/litellm',
+  'OpenHands/agent-analysis',
+  'OpenHands/openhands-chrome-extension',
+  'OpenHands/open-operator',
+  'OpenHands/rubric',
+  'OpenHands/openhands-agent-monitor',
+  'OpenHands/trajectory-visualizer',
+  'OpenHands/critic-rubrics',
+  'OpenHands/openhands-github-action',
+  'OpenHands/Vibe',
+  'OpenHands/OpenHands-Server',
+  'OpenHands/rbren-sdk-experiments',
+  'OpenHands/ToM-SWE',
+  'OpenHands/agentic-code-search-oss',
+  'OpenHands/benchmarks',
+  'OpenHands/docs',
+  'OpenHands/typescript-client',
+  'OpenHands/test-owner-change'
+]
+Fetching PRs for All-Hands-AI/OpenHands-Cloud...
+Found 14 PRs for All-Hands-AI/OpenHands-Cloud
+Fetching PRs for All-Hands-AI/SWE-bench...
+Found 2 PRs for All-Hands-AI/SWE-bench
+Fetching PRs for All-Hands-AI/swe-bench.github.io...
+Found 0 PRs for All-Hands-AI/swe-bench.github.io
+Fetching PRs for OpenHands/software-agent-sdk...
+Found 52 PRs for OpenHands/software-agent-sdk
+Fetching PRs for OpenHands/OpenHands...
+Found 85 PRs for OpenHands/OpenHands
+Fetching PRs for OpenHands/terraform-gcp-datadog-integration...
+Found 0 PRs for OpenHands/terraform-gcp-datadog-integration
+Fetching PRs for OpenHands/liteLLM-proxy...
+Found 0 PRs for OpenHands/liteLLM-proxy
+Fetching PRs for OpenHands/BrowserGym...
+Found 0 PRs for OpenHands/BrowserGym
+Fetching PRs for OpenHands/litellm...
+Found 0 PRs for OpenHands/litellm
+Fetching PRs for OpenHands/agent-analysis...
+Found 5 PRs for OpenHands/agent-analysis
+Fetching PRs for OpenHands/openhands-chrome-extension...
+Found 5 PRs for OpenHands/openhands-chrome-extension
+Fetching PRs for OpenHands/open-operator...
+Found 0 PRs for OpenHands/open-operator
+Fetching PRs for OpenHands/rubric...
+Found 0 PRs for OpenHands/rubric
+Fetching PRs for OpenHands/openhands-agent-monitor...
+Found 0 PRs for OpenHands/openhands-agent-monitor
+Fetching PRs for OpenHands/trajectory-visualizer...
+Found 1 PRs for OpenHands/trajectory-visualizer
+Fetching PRs for OpenHands/critic-rubrics...
+Found 0 PRs for OpenHands/critic-rubrics
+Fetching PRs for OpenHands/openhands-github-action...
+Found 1 PRs for OpenHands/openhands-github-action
+Fetching PRs for OpenHands/Vibe...
+Found 3 PRs for OpenHands/Vibe
+Fetching PRs for OpenHands/OpenHands-Server...
+Found 0 PRs for OpenHands/OpenHands-Server
+Fetching PRs for OpenHands/rbren-sdk-experiments...
+Found 1 PRs for OpenHands/rbren-sdk-experiments
+Fetching PRs for OpenHands/ToM-SWE...
+Found 0 PRs for OpenHands/ToM-SWE
+Fetching PRs for OpenHands/agentic-code-search-oss...
+Found 2 PRs for OpenHands/agentic-code-search-oss
+Fetching PRs for OpenHands/benchmarks...
+Found 3 PRs for OpenHands/benchmarks
+Fetching PRs for OpenHands/docs...
+Found 8 PRs for OpenHands/docs
+Fetching PRs for OpenHands/typescript-client...
+Found 5 PRs for OpenHands/typescript-client
+Fetching PRs for OpenHands/test-owner-change...
+Found 0 PRs for OpenHands/test-owner-change
+ GET /api/dashboard?age=7-days 200 in 28ms
+Fetching repositories from organizations: [ 'all-hands-ai', 'openhands' ]
+Fetching repositories for org: all-hands-ai
+Found 8 repositories for all-hands-ai
+Fetching repositories for org: openhands
+Found 23 repositories for openhands
+Total formatted repositories: 26
+ GET /api/repositories 200 in 21ms
+Fetching repositories from organizations: [ 'all-hands-ai', 'openhands' ]
+Fetching repositories for org: all-hands-ai
+Found 8 repositories for all-hands-ai
+Fetching repositories for org: openhands
+Found 23 repositories for openhands
+Total formatted repositories: 26
+ GET /api/repositories 200 in 13ms
+Fetching repositories from organizations: [ 'all-hands-ai', 'openhands' ]
+Fetching repositories for org: all-hands-ai
+Found 8 repositories for all-hands-ai
+Fetching repositories for org: openhands
+Found 23 repositories for openhands
+Total formatted repositories: 26
+ GET /api/repositories 200 in 10ms
+Fetching repositories from organizations: [ 'all-hands-ai', 'openhands' ]
+Fetching repositories for org: all-hands-ai
+Found 8 repositories for all-hands-ai
+Fetching repositories for org: openhands
+Found 23 repositories for openhands
+Total formatted repositories: 26
+ GET /api/repositories 200 in 8ms
+ GET / 200 in 19ms
+ GET / 200 in 15ms
+ GET / 200 in 16ms
+ GET / 200 in 17ms
+ GET / 200 in 18ms
+ GET / 200 in 16ms
+ GET / 200 in 19ms
+ GET / 200 in 20ms
+ GET / 200 in 17ms

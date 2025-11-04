@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { config, validateConfig } from '@/lib/config';
 import { cache } from '@/lib/cache';
 import { buildEmployeesSet, isCommunityPR } from '@/lib/employees';
-import { getOpenPRsGraphQL } from '@/lib/github';
+import { getOpenPRsGraphQL, getAllRepositoriesFromOrgs } from '@/lib/github';
 import { transformPR, computeKpis, computeDashboardData } from '@/lib/compute';
 import { DashboardResponse, PR } from '@/lib/types';
 
@@ -62,12 +62,28 @@ export async function GET(request: NextRequest) {
       // Get all PRs from target repositories
       const allPrs: PR[] = [];
       
-      // If no specific repos provided, we need to discover repos from orgs
-      // For MVP, we'll use a hardcoded list of common repos
-      const reposToFetch = targetRepos.length > 0 ? targetRepos : [
-        'All-Hands-AI/OpenHands',
-        'All-Hands-AI/agent-sdk',
-      ];
+      // If no specific repos provided, dynamically fetch from configured organizations
+      let reposToFetch = targetRepos;
+      
+      if (targetRepos.length === 0) {
+        console.log('No specific repos provided, fetching all repos from organizations:', config.orgs);
+        try {
+          const allOrgRepos = await getAllRepositoriesFromOrgs(config.orgs);
+          reposToFetch = allOrgRepos;
+          console.log(`Dynamically discovered ${allOrgRepos.length} repositories from organizations`);
+        } catch (error) {
+          console.error('Failed to fetch repositories dynamically, using fallback list:', error);
+          // Fallback to hardcoded list if dynamic fetching fails
+          reposToFetch = [
+            'all-hands-ai/OpenHands',
+            'all-hands-ai/agent-sdk',
+            'all-hands-ai/SWE-bench',
+            'all-hands-ai/OpenHands-Cloud',
+            'openhands/OpenHands',
+            'openhands/agent-sdk',
+          ];
+        }
+      }
       
       console.log('Target repos:', targetRepos);
       console.log('Repos to fetch:', reposToFetch);

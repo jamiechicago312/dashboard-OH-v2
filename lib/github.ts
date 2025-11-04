@@ -198,3 +198,47 @@ export async function getRateLimit(): Promise<GitHubRateLimit> {
     resetAt: new Date(data.rate.reset * 1000).toISOString(),
   };
 }
+
+export async function getOrgRepositories(org: string): Promise<any[]> {
+  const repositories: any[] = [];
+  let page = 1;
+  let hasMore = true;
+
+  while (hasMore) {
+    const response = await fetchGitHub(
+      `https://api.github.com/orgs/${org}/repos?type=public&sort=updated&per_page=100&page=${page}`
+    );
+    
+    const data = await response.json();
+    
+    if (data.length === 0) {
+      hasMore = false;
+    } else {
+      // Filter out archived and disabled repos
+      const activeRepos = data.filter((repo: any) => !repo.archived && !repo.disabled);
+      repositories.push(...activeRepos);
+      page++;
+    }
+  }
+
+  return repositories;
+}
+
+export async function getAllRepositoriesFromOrgs(orgs: string[]): Promise<string[]> {
+  const allRepos: string[] = [];
+  
+  for (const org of orgs) {
+    try {
+      console.log(`Fetching repositories for organization: ${org}`);
+      const repos = await getOrgRepositories(org);
+      const repoNames = repos.map(repo => repo.full_name);
+      allRepos.push(...repoNames);
+      console.log(`Found ${repoNames.length} active repositories for ${org}`);
+    } catch (error) {
+      console.error(`Failed to fetch repositories for org ${org}:`, error);
+      // Continue with other orgs
+    }
+  }
+  
+  return allRepos;
+}

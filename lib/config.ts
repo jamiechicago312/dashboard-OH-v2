@@ -2,7 +2,7 @@ export const config = {
   github: {
     token: process.env.GITHUB_TOKEN || '',
   },
-  orgs: (process.env.ORGS || 'All-Hands-AI').split(',').map(s => s.trim()),
+  orgs: (process.env.ORGS || 'all-hands-ai,openhands').split(',').map(s => s.trim()),
   repos: {
     include: process.env.REPOS_INCLUDE 
       ? process.env.REPOS_INCLUDE.split(',').map(s => s.trim())
