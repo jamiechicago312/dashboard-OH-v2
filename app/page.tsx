@@ -5,6 +5,7 @@ import PrTable from '@/components/PrTable'
 import RepositorySelector from '@/components/RepositorySelector'
 import CustomDropdown from '@/components/CustomDropdown'
 import LoadingSpinner from '@/components/LoadingSpinner'
+import WhatsNew from '@/components/WhatsNew'
 import { DashboardData, FilterState } from '@/lib/types'
 
 export default function Dashboard() {
@@ -117,8 +118,9 @@ export default function Dashboard() {
       <header className={`${darkMode ? 'bg-gray-800' : 'bg-white'} border-b ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
         <div className="max-w-7xl mx-auto px-5">
           <div className="flex justify-between items-center py-4">
-            <div className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+            <div className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'} flex items-center`}>
               OpenHands PR Review Dashboard
+              <WhatsNew darkMode={darkMode} />
             </div>
             <div className="flex items-center gap-4">
               <RepositorySelector
