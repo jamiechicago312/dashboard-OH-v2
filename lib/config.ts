@@ -12,8 +12,8 @@ export const config = {
       : [],
   },
   sla: {
-    firstResponseHours: parseInt(process.env.SLA_HOURS_FIRST_RESPONSE || '24'),
-    firstReviewHours: parseInt(process.env.SLA_HOURS_FIRST_REVIEW || '48'),
+    firstResponseHours: parseInt(process.env.SLA_HOURS_FIRST_RESPONSE || '72'),
+    firstReviewHours: parseInt(process.env.SLA_HOURS_FIRST_REVIEW || '144'),
   },
   cache: {
     ttlSeconds: parseInt(process.env.CACHE_TTL_SECONDS || '120'),
