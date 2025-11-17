@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import PrTable from '@/components/PrTable'
 import RepositorySelector from '@/components/RepositorySelector'
 import CustomDropdown from '@/components/CustomDropdown'
@@ -13,6 +13,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [darkMode, setDarkMode] = useState(false)
+  const refreshIntervalRef = useRef<NodeJS.Timeout | null>(null)
   const [filters, setFilters] = useState<FilterState>({
     repositories: [],
     labels: [],
@@ -80,9 +81,30 @@ export default function Dashboard() {
     }
   }
 
+  // Initial load
   useEffect(() => {
     fetchData()
   }, [])
+  
+  // Set up auto-refresh interval (separate from initial load)
+  useEffect(() => {
+    // Clear any existing interval
+    if (refreshIntervalRef.current) {
+      clearInterval(refreshIntervalRef.current)
+    }
+    
+    // Set up new interval that refreshes with current applied filters
+    refreshIntervalRef.current = setInterval(() => {
+      fetchData()
+    }, 120000) // 2 minutes
+    
+    // Cleanup interval on unmount or when appliedFilters change
+    return () => {
+      if (refreshIntervalRef.current) {
+        clearInterval(refreshIntervalRef.current)
+      }
+    }
+  }, [appliedFilters])
 
   const handleClearFilters = () => {
     const clearedFilters = {
@@ -134,6 +156,14 @@ export default function Dashboard() {
                 className="min-w-[200px]"
                 darkMode={darkMode}
               />
+              <button 
+                onClick={handleRefresh}
+                disabled={loading}
+                className={`px-3 py-1 text-sm ${darkMode ? 'bg-gray-700 hover:bg-gray-600 text-white disabled:bg-gray-800' : 'bg-gray-100 hover:bg-gray-200 text-gray-700 disabled:bg-gray-50'} rounded border transition-colors disabled:opacity-50 disabled:cursor-not-allowed`}
+                title="Refresh data"
+              >
+                {loading ? '⟳ Refreshing...' : '🔄 Refresh'}
+              </button>
               <button 
                 onClick={() => setDarkMode(!darkMode)}
                 className={`px-3 py-1 text-sm ${darkMode ? 'bg-gray-700 hover:bg-gray-600 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-700'} rounded border transition-colors`}

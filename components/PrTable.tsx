@@ -13,7 +13,7 @@ type SortField = 'title' | 'author' | 'age' | 'created';
 type SortDirection = 'asc' | 'desc';
 
 export default function PrTable({ prs, loading = false, darkMode = false, totalPrs }: PrTableProps) {
-  const [sortField, setSortField] = useState<SortField>('age');
+  const [sortField, setSortField] = useState<SortField>('created');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
 
   const handleSort = (field: SortField) => {
