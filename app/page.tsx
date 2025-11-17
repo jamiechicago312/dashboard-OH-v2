@@ -82,6 +82,14 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchData()
+    
+    // Set up automatic refresh every 2 minutes (120 seconds)
+    const refreshInterval = setInterval(() => {
+      fetchData()
+    }, 120000) // 120000ms = 2 minutes
+    
+    // Cleanup interval on component unmount
+    return () => clearInterval(refreshInterval)
   }, [])
 
   const handleClearFilters = () => {
@@ -134,6 +142,14 @@ export default function Dashboard() {
                 className="min-w-[200px]"
                 darkMode={darkMode}
               />
+              <button 
+                onClick={handleRefresh}
+                disabled={loading}
+                className={`px-3 py-1 text-sm ${darkMode ? 'bg-gray-700 hover:bg-gray-600 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-700'} rounded border transition-colors disabled:opacity-50 disabled:cursor-not-allowed`}
+                title="Refresh data"
+              >
+                {loading ? '⟳ Refreshing...' : '🔄 Refresh'}
+              </button>
               <button 
                 onClick={() => setDarkMode(!darkMode)}
                 className={`px-3 py-1 text-sm ${darkMode ? 'bg-gray-700 hover:bg-gray-600 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-700'} rounded border transition-colors`}
