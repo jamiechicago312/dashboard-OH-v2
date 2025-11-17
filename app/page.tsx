@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import PrTable from '@/components/PrTable'
 import RepositorySelector from '@/components/RepositorySelector'
 import CustomDropdown from '@/components/CustomDropdown'
@@ -14,6 +14,7 @@ export default function Dashboard() {
   const [error, setError] = useState<string | null>(null)
   const [darkMode, setDarkMode] = useState(false)
   const refreshIntervalRef = useRef<NodeJS.Timeout | null>(null)
+  
   const [filters, setFilters] = useState<FilterState>({
     repositories: [],
     labels: [],
@@ -35,35 +36,36 @@ export default function Dashboard() {
     authorType: 'all'
   })
 
-  const fetchData = async (filtersToApply = appliedFilters) => {
+  const fetchData = useCallback(async (filtersToApply?: FilterState) => {
+    const targetFilters = filtersToApply || appliedFilters
     try {
       setLoading(true)
       setError(null)
       
       const params = new URLSearchParams()
-      if (filtersToApply.repositories.length > 0) {
-        params.append('repos', filtersToApply.repositories.join(','))
+      if (targetFilters.repositories.length > 0) {
+        params.append('repos', targetFilters.repositories.join(','))
       }
-      if (filtersToApply.labels.length > 0) {
-        params.append('labels', filtersToApply.labels.join(','))
+      if (targetFilters.labels.length > 0) {
+        params.append('labels', targetFilters.labels.join(','))
       }
-      if (filtersToApply.ageRange !== 'all') {
-        params.append('age', filtersToApply.ageRange)
+      if (targetFilters.ageRange !== 'all') {
+        params.append('age', targetFilters.ageRange)
       }
-      if (filtersToApply.status && filtersToApply.status !== 'all') {
-        params.append('status', filtersToApply.status)
+      if (targetFilters.status && targetFilters.status !== 'all') {
+        params.append('status', targetFilters.status)
       }
-      if (filtersToApply.noReviewers) {
+      if (targetFilters.noReviewers) {
         params.append('noReviewers', 'true')
       }
-      if (filtersToApply.limit && filtersToApply.limit !== 'all') {
-        params.append('limit', filtersToApply.limit)
+      if (targetFilters.limit && targetFilters.limit !== 'all') {
+        params.append('limit', targetFilters.limit)
       }
-      if (filtersToApply.draftStatus && filtersToApply.draftStatus !== 'all') {
-        params.append('draftStatus', filtersToApply.draftStatus)
+      if (targetFilters.draftStatus && targetFilters.draftStatus !== 'all') {
+        params.append('draftStatus', targetFilters.draftStatus)
       }
-      if (filtersToApply.authorType && filtersToApply.authorType !== 'all') {
-        params.append('authorType', filtersToApply.authorType)
+      if (targetFilters.authorType && targetFilters.authorType !== 'all') {
+        params.append('authorType', targetFilters.authorType)
       }
 
       const response = await fetch(`/api/dashboard?${params}`)
@@ -79,32 +81,32 @@ export default function Dashboard() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [appliedFilters])
 
   // Initial load
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [fetchData])
   
-  // Set up auto-refresh interval (separate from initial load)
+  // Set up auto-refresh interval
   useEffect(() => {
     // Clear any existing interval
     if (refreshIntervalRef.current) {
       clearInterval(refreshIntervalRef.current)
     }
     
-    // Set up new interval that refreshes with current applied filters
+    // Set up new interval
     refreshIntervalRef.current = setInterval(() => {
       fetchData()
     }, 120000) // 2 minutes
     
-    // Cleanup interval on unmount or when appliedFilters change
+    // Cleanup on unmount
     return () => {
       if (refreshIntervalRef.current) {
         clearInterval(refreshIntervalRef.current)
       }
     }
-  }, [appliedFilters])
+  }, [fetchData])
 
   const handleClearFilters = () => {
     const clearedFilters = {
