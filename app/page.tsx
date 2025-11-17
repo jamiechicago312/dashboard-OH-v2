@@ -14,6 +14,7 @@ export default function Dashboard() {
   const [error, setError] = useState<string | null>(null)
   const [darkMode, setDarkMode] = useState(false)
   const refreshIntervalRef = useRef<NodeJS.Timeout | null>(null)
+  const isInitialMount = useRef(true)
   const [filters, setFilters] = useState<FilterState>({
     repositories: [],
     labels: [],
@@ -37,6 +38,7 @@ export default function Dashboard() {
 
   const fetchData = async (filtersToApply = appliedFilters) => {
     try {
+      console.log('[Dashboard] fetchData called with filters:', filtersToApply)
       setLoading(true)
       setError(null)
       
@@ -66,40 +68,49 @@ export default function Dashboard() {
         params.append('authorType', filtersToApply.authorType)
       }
 
-      const response = await fetch(`/api/dashboard?${params}`)
+      const url = `/api/dashboard?${params}`
+      console.log('[Dashboard] Fetching:', url)
+      const response = await fetch(url)
       if (!response.ok) {
-        throw new Error('Failed to fetch dashboard data')
+        throw new Error(`Failed to fetch dashboard data: ${response.status} ${response.statusText}`)
       }
       
       const result = await response.json()
+      console.log('[Dashboard] Received data - PRs count:', result?.prs?.length || 0)
       setData(result)
     } catch (err) {
-      console.error('Error fetching dashboard data:', err)
+      console.error('[Dashboard] Error fetching dashboard data:', err)
       setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {
       setLoading(false)
     }
   }
 
-  // Initial load
+  // Initial load and setup auto-refresh
   useEffect(() => {
+    console.log('[Dashboard] useEffect running - isInitialMount:', isInitialMount.current)
     fetchData()
-  }, [])
-  
-  // Set up auto-refresh interval (separate from initial load)
-  useEffect(() => {
+    
+    // Only set up auto-refresh after initial mount
+    if (isInitialMount.current) {
+      isInitialMount.current = false
+    }
+    
     // Clear any existing interval
     if (refreshIntervalRef.current) {
       clearInterval(refreshIntervalRef.current)
     }
     
     // Set up new interval that refreshes with current applied filters
+    console.log('[Dashboard] Setting up auto-refresh interval')
     refreshIntervalRef.current = setInterval(() => {
+      console.log('[Dashboard] Auto-refresh triggered')
       fetchData()
     }, 120000) // 2 minutes
     
     // Cleanup interval on unmount or when appliedFilters change
     return () => {
+      console.log('[Dashboard] Cleaning up interval')
       if (refreshIntervalRef.current) {
         clearInterval(refreshIntervalRef.current)
       }
