@@ -34,19 +34,19 @@ export default function WhatsNew({ darkMode }: WhatsNewProps) {
           <ul className="space-y-2 text-sm">
             <li className="flex items-start">
               <span className={`mr-2 mt-0.5 ${darkMode ? 'text-green-400' : 'text-green-600'}`}>•</span>
-              <span>Added support for both all-hands-ai & openhands organizations</span>
+              <span>Auto-refresh: Dashboard now refreshes data every 2 minutes</span>
             </li>
             <li className="flex items-start">
               <span className={`mr-2 mt-0.5 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>•</span>
-              <span>Improved dropdown UX (click outside to close)</span>
+              <span>Manual refresh: Click the 🔄 Refresh button to update data anytime</span>
             </li>
             <li className="flex items-start">
               <span className={`mr-2 mt-0.5 ${darkMode ? 'text-purple-400' : 'text-purple-600'}`}>•</span>
-              <span>Now showing 26+ repositories automatically</span>
+              <span>PRs now sorted by creation date (newest first) by default</span>
             </li>
             <li className="flex items-start">
               <span className={`mr-2 mt-0.5 ${darkMode ? 'text-orange-400' : 'text-orange-600'}`}>•</span>
-              <span>Added filtering by 7 days and 30 days for better time-based views</span>
+              <span>Support for 26+ repositories across all-hands-ai & openhands orgs</span>
             </li>
           </ul>
         </div>
